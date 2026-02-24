@@ -447,11 +447,36 @@ const SCENES = {
   the_cave: {
     id: "the_cave",
     art: "cave",
-    choices: [
-      { text: "Enter the cave", next: "ending_cave", sanityChange: -20, healthChange: -10 },
-      { text: "Turn back. Find another way out.", next: "ending_escape", sanityChange: -10, healthChange: -15 },
-      { text: "You came here to study bats. Study this.", next: "ending_cave", sanityChange: -30, healthChange: 0, addFlag: { chose_science: true } }
-    ]
+    getChoices: (health, sanity, inventory, flags) => {
+      const choices = [
+        { text: "Enter the cave", next: "cave_interior", sanityChange: -20, healthChange: -10 },
+        { text: "Turn back. Find another way out.", next: "ending_escape", sanityChange: -10, healthChange: -15 }
+      ];
+      const scienceFlags = [flags.measured_it, flags.took_sample, flags.read_future, flags.banded_it].filter(Boolean).length;
+      if (scienceFlags >= 2) {
+        choices.push({ text: "You came here to study bats. Study this.", next: "cave_interior", sanityChange: -30, healthChange: 0, addFlag: { chose_science: true } });
+      }
+      return choices;
+    }
+  },
+  cave_interior: {
+    id: "cave_interior",
+    art: "cave",
+    getChoices: (health, sanity, inventory, flags) => {
+      const choices = [
+        { text: "Turn back. You can still leave.", next: "ending_escape", sanityChange: -15, healthChange: -10 }
+      ];
+      const scienceFlags = [flags.measured_it, flags.took_sample, flags.chose_science].filter(Boolean).length;
+      if (scienceFlags >= 3) {
+        choices.push({ text: "Descend. Complete your study.", next: "ending_cave_science", sanityChange: -35, healthChange: -15 });
+      } else {
+        choices.push({ text: "Descend deeper.", next: "ending_cave", sanityChange: -25, healthChange: -15 });
+      }
+      if (flags.read_future || flags.saw_change) {
+        choices.push({ text: "Your datasheets told you what to do", next: "ending_documented", sanityChange: -30, healthChange: 0 });
+      }
+      return choices;
+    }
   },
   ending_escape: {
     id: "ending_escape",
