@@ -185,8 +185,32 @@ const SCENES = {
     id: "setup_nets",
     art: "nets",
     choices: [
-      { text: "Check the nets for captures", next: "first_capture", sanityChange: 0, healthChange: 0 },
+      { text: "Move on to setting up the second net", next: "second_net", sanityChange: 0, healthChange: 0 },
       { text: "Set up the acoustic monitor while you wait", next: "setup_acoustic", sanityChange: 0, healthChange: 0 }
+    ]
+  },
+  second_net: {
+    id: "second_net",
+    art: "nets",
+    choices: [
+      { text: "Examine the abandoned equipment closely", next: "bat_activity", sanityChange: -8, healthChange: 0, addFlag: { found_gear: true } },
+      { text: "Ignore it. Complete your net setup.", next: "bat_activity", sanityChange: 0, healthChange: 0 }
+    ]
+  },
+  bat_activity: {
+    id: "bat_activity",
+    art: "nets",
+    choices: [
+      { text: "Relax. This is normal. Check nets for captures.", next: "first_capture", sanityChange: 3, healthChange: 0 },
+      { text: "The call rate is too high. Check the detector.", next: "acoustic_anomaly", sanityChange: -5, healthChange: 0 }
+    ]
+  },
+  acoustic_anomaly: {
+    id: "acoustic_anomaly",
+    art: "nets",
+    choices: [
+      { text: "Record the anomalous pattern for analysis", next: "first_capture", sanityChange: -8, healthChange: 0, addFlag: { recorded_calls: true } },
+      { text: "Turn off the detector. Check the nets.", next: "first_capture", sanityChange: -3, healthChange: 0 }
     ]
   },
   setup_acoustic: {
