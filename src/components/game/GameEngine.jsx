@@ -272,7 +272,7 @@ const STORY_DATA = {
       "art_scene": "bat_capture",
       "text_variants": [
         "Twenty minutes pass. Your headlamp catches movement in net three — something fluttering, tangled. You approach. A big brown bat, Eptesicus fuscus, wrapped in the lower shelf. Routine. You reach for your gloves.",
-        "A soft chittering draws you to the second net. Your lamp illuminates a small body thrashing in the mesh — a tricolored bat, Perimyotis subflavus. Its tragus is distinctive, rounded. You've banded hundreds like it.",
+        "A soft chittering draws you to the second net. Your lamp illuminates a small body thrashing in the mesh — a tricolored bat, Perimyotis subflavus. Its tragus is distinctive, rounded. You've banded hundreds like it. Forearm 35mm, weight 6g, band size 2.4.",
         "The first net has a capture. You approach carefully and find a red bat — Lasiurus borealis — its fur brilliant even in lamplight. Perfectly routine. Perfectly normal. For now."
       ],
       "choices": [
@@ -529,10 +529,24 @@ const STORY_DATA = {
         },
         {
           "text": "Swing again. Don't stop.",
-          "next_node": "after_fight",
+          "next_node": "creature_retaliates",
           "sanity_change": -10,
           "health_change": -15,
           "adds_flag": "fought_twice"
+        }
+      ]
+    },
+    "creature_retaliates": {
+      "id": "creature_retaliates",
+      "art_scene": "creature",
+      "text_variants": [
+        "You swing again. The pole connects and this time the creature doesn't recoil — it wraps around the impact, absorbing the aluminum into itself like it's made of clay. The pole is gone. Your hands are empty. The creature unfolds from the net, its wingspan blotting out the trees behind it. It moves faster than anything that size should move. You don't have time to scream. Its mouth opens wider than physics allows and you see yourself reflected in concentric rings of teeth, each one carved with a band number you recognize. The last thing you understand is that you were always going to end up here. The survey was never yours.\n\n[ENDING: CONSUMED — You fought back. It was hungry.]"
+      ],
+      "choices": [
+        {
+          "text": "Wake up [Play Again]",
+          "next_node": "__restart__",
+          "action": "restart_game"
         }
       ]
     },
@@ -885,6 +899,21 @@ const STORY_DATA = {
           "health_change": 0,
           "requires_flag": "chose_science",
           "adds_flag": "wrote_ending"
+        }
+      ]
+    },
+    "creature_retaliates": {
+      "id": "creature_retaliates",
+      "type": "ending",
+      "art_scene": "creature",
+      "text_variants": [
+        "You swing again. The pole connects and this time the creature doesn't recoil — it wraps around the impact, absorbing the aluminum into itself like it's made of clay. The pole is gone. Your hands are empty. The creature unfolds from the net, its wingspan blotting out the trees behind it. It moves faster than anything that size should move. You don't have time to scream. Its mouth opens wider than physics allows and you see yourself reflected in concentric rings of teeth, each one carved with a band number you recognize. The last thing you understand is that you were always going to end up here. The survey was never yours.\n\n[ENDING: CONSUMED — You fought back. It was hungry.]"
+      ],
+      "choices": [
+        {
+          "text": "Wake up [Play Again]",
+          "next_node": "__restart__",
+          "action": "restart_game"
         }
       ]
     },
