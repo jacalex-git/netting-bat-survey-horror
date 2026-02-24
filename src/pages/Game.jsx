@@ -240,7 +240,14 @@ export default function Game() {
               </div>
               <button
                 onClick={() => {
-                  if (gameState.battery_level >= 10 && gameState.sanity < 100) {
+                  if (gameState.battery_level === 0 && gameState.inventory.includes("Spare Battery")) {
+                    const newState = {
+                      ...gameState,
+                      battery_level: 100,
+                      inventory: gameState.inventory.filter(i => i !== "Spare Battery")
+                    };
+                    setGameState(newState);
+                  } else if (gameState.battery_level >= 10 && gameState.sanity < 100) {
                     const newState = {
                       ...gameState,
                       sanity: Math.min(100, gameState.sanity + 15),
@@ -249,12 +256,15 @@ export default function Game() {
                     setGameState(newState);
                   }
                 }}
-                disabled={gameState.battery_level < 10 || gameState.sanity >= 100}
+                disabled={(gameState.battery_level === 0 && !gameState.inventory.includes("Spare Battery")) || 
+                         (gameState.battery_level > 0 && (gameState.battery_level < 10 || gameState.sanity >= 100))}
                 className="px-3 py-1 text-xs font-mono bg-amber-900/20 border border-amber-800/40 rounded
                   hover:bg-amber-800/30 disabled:opacity-30 disabled:cursor-not-allowed
                   transition-colors text-amber-600/80 hover:text-amber-500"
               >
-                Use Headlamp (+15 sanity)
+                {gameState.battery_level === 0 && gameState.inventory.includes("Spare Battery") 
+                  ? "Replace Battery" 
+                  : "Use Headlamp (+15 sanity)"}
               </button>
             </div>
           </div>

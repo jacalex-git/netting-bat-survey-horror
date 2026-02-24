@@ -7,6 +7,7 @@ const STORY_DATA = {
     "battery_level": 100,
     "starting_inventory": [
       "Headlamp",
+      "Spare Battery",
       "Field Datasheets",
       "Bat Handling Gloves",
       "Mist Net Poles (x4)",
@@ -138,7 +139,7 @@ const STORY_DATA = {
       "art_scene": "nets",
       "text_variants": [
         "Your pole sinks into the substrate and hits resistance — metal on metal. You dig around the base with your boot and unearth an aluminum mist net pole, identical to yours, already sunk into position. The paint is faded. Old. You check the site permit records on your datasheet. No survey has been conducted at Wetland Site 7 in eleven years. The pole is not eleven years old.",
-        "Net two's anchor point has already been prepared — a clean channel cut in the substrate, packed with gravel for drainage, exactly the way you were trained to do it. Exactly. Not approximately. Someone with your training, your methods, was here recently. Your headlamp finds a vinyl flagging strip tied to the tupelo above it. Your handwriting is on it. Today's date.",
+        "Net two's anchor points have already been prepared — the poles and stakes are already hammered into position, exactly where you would have placed them. Exactly. Not approximately. Someone with your training, your methods, was here recently. Your headlamp finds a vinyl flagging strip tied to the tupelo above it. Your handwriting is on it. Today's date.",
         "Tangled in the base of a buttonbush, your lamp catches something white. A datasheet. You pull it free. It's a bat survey form — your form, your agency's header, your species codes. The capture data is filled out in your handwriting. Thirty-two individuals. Species you'd expect. Measurements in your typical shorthand. The survey date is tonight. You have not filled out this form. You have not made these captures. Not yet."
       ],
       "choices": [
@@ -190,13 +191,15 @@ const STORY_DATA = {
           "text": "Check the spectrogram display more closely",
           "next_node": "acoustic_anomaly",
           "sanity_change": -3,
-          "health_change": 0
+          "health_change": 0,
+          "adds_flag": "detector_running"
         },
         {
           "text": "Leave it running and check the nets",
           "next_node": "bat_activity",
           "sanity_change": 0,
-          "health_change": 0
+          "health_change": 0,
+          "adds_flag": "detector_running"
         }
       ]
     },
@@ -204,7 +207,7 @@ const STORY_DATA = {
       "id": "acoustic_anomaly",
       "art_scene": "nets",
       "text_variants": [
-        "You study the spectrogram. The call signatures don't match anything in your reference library — not the frequency sweeps of Eptesicus, not the shallow curves of Lasiurus, not the characteristic hooks of Myotis. The patterns are wrong. Not unidentified-species wrong. Wrong in the way that a word repeated too many times stops meaning anything — familiar components assembled into something that has never existed. And they repeat. The same sequence, over and over. Like something is saying the same sentence, waiting for a response.",
+        "You study the spectrogram. The call signatures don't match anything in your reference library — not the downward sweeps of Eptesicus, not the low-frequency calls of Lasiurus, not the characteristic FM patterns of Myotis. The patterns are wrong. Not unidentified-species wrong. Wrong in the way that a word repeated too many times stops meaning anything — familiar components assembled into something that has never existed. And they repeat. The same sequence, over and over. Like something is saying the same sentence, waiting for a response.",
         "The spectrograms scroll across the display in a cascade. You scroll back through the recording history. The anomalous calls began exactly when your truck turned off the highway onto the access road. Whatever is making them knew you were coming before you arrived."
       ],
       "choices": [
@@ -315,7 +318,7 @@ const STORY_DATA = {
       "art_scene": "bat_capture",
       "text_variants": [
         "Net two has a capture — a little brown bat, Myotis lucifugus, tangled in the second shelf. You work it free with practiced fingers. But when you go to measure the forearm, the calipers won't close around it correctly. The arm is the right length. The arm is the wrong shape. Not broken — structured differently, with a joint that bends a direction forearms don't bend. You check the bat's band. It has one already. Aluminum, size 4. Your agency's code. The band number is in sequence with the band you just put on the previous capture. You haven't banded this one yet.",
-        "The capture in net two is a Myotis septentrionalis — a northern long-eared bat. Unremarkable. But the band already on its forearm stops you cold. You run the number. It comes back immediately on your handheld scanner: banded at this site, Survey 7, eleven years ago. The individual's recapture weight should be approximately 8 grams. This bat weighs 8 grams. Myotis septentrionalis lives seven years at most. You hold the bat for a long moment. The bat holds very still, as though it has been waiting for you to do the math.",
+        "The capture in net two is a Myotis septentrionalis — a northern long-eared bat. Unremarkable. But the band already on its forearm stops you cold. You run the number. It comes back immediately on your handheld scanner: banded at this site, Survey 7, twenty-three years ago. The individual's recapture weight should be approximately 8 grams. This bat weighs 8 grams. Myotis septentrionalis rarely lives beyond eighteen years. You hold the bat for a long moment. The bat holds very still, as though it has been waiting for you to do the math.",
         "The second capture is a species you don't immediately recognize — the fur color is wrong for everything in your regional guide, the tragus shape doesn't match. You photograph it. You run the measurements. Nothing matches. You've surveyed for fifteen years. You know every species in this range. This bat does not exist. It is in your hands. It echolocates at you once — a single pulse — and for one fraction of a second you see yourself from above, small and warm and glowing in the dark, surrounded by nets."
       ],
       "choices": [
@@ -597,7 +600,7 @@ const STORY_DATA = {
         "The mist arrives without weather to explain it. It clings to the water's surface like a living membrane. Inside, you see the silhouettes of things that fly without wings. They spiral upward in patterns that look like equations written in a language of motion."
       ],
       "flag_variant": {
-        "requires_flag": "recorded_calls",
+        "requires_flags": ["recorded_calls", "detector_running"],
         "text": "The mist rolls in — and your acoustic detector fires. Not recording. Playing back. The anomalous calls you recorded earlier now broadcast into the fog at full volume. The mist stops moving. It listens. Then it answers. The spectrogram display whites out completely and does not come back. But the mist parts, just slightly, just enough. Whatever is inside heard its name called. It's coming toward you."
       },
       "choices": [
@@ -977,8 +980,13 @@ export function getSceneText(sceneId, flags = {}) {
   if (!node) return "The darkness swallows everything.";
   
   // Check for flag variant first
-  if (node.flag_variant && flags[node.flag_variant.requires_flag]) {
-    return node.flag_variant.text;
+  if (node.flag_variant) {
+    // Support both single flag and multiple flags
+    const requiredFlags = node.flag_variant.requires_flags || [node.flag_variant.requires_flag];
+    const hasAllFlags = requiredFlags.every(flag => flags[flag]);
+    if (hasAllFlags) {
+      return node.flag_variant.text;
+    }
   }
   
   // Random text variant
