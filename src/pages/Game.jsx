@@ -133,11 +133,22 @@ export default function Game() {
                 <span className="text-xs font-mono text-gray-500">Headlamp Battery:</span>
                 <div className="w-32 h-2 bg-gray-900/80 border border-gray-800 rounded-sm overflow-hidden">
                   <div 
-                    className="h-full bg-gradient-to-r from-amber-700 to-amber-500 transition-all duration-300"
+                    className={`h-full transition-all duration-300 ${
+                      gameState.battery_level === 0 
+                        ? 'bg-red-900/60' 
+                        : 'bg-gradient-to-r from-amber-700 to-amber-500'
+                    }`}
                     style={{ width: `${gameState.battery_level}%` }}
                   />
                 </div>
-                <span className="text-xs font-mono text-amber-600/70">{gameState.battery_level}%</span>
+                <span className={`text-xs font-mono ${
+                  gameState.battery_level === 0 
+                    ? 'text-red-600/80 animate-pulse' 
+                    : 'text-amber-600/70'
+                }`}>
+                  {gameState.battery_level}%
+                  {gameState.battery_level === 0 && " - DARKNESS"}
+                </span>
               </div>
               <button
                 onClick={() => {

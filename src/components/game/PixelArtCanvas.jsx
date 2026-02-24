@@ -554,6 +554,55 @@ function drawEndingCave(ctx, w, h, scale, frame) {
   }
 }
 
+function drawEndingDarkness(ctx, w, h, scale, frame) {
+  // Almost pure black
+  drawRect(ctx, 0, 0, w, h, PALETTE.black, scale);
+  
+  // Barely visible shapes moving
+  for (let i = 0; i < 8; i++) {
+    const angle = (frame * 0.01 + i * 0.8);
+    const x = 64 + Math.cos(angle) * 30;
+    const y = h / 2 + Math.sin(angle) * 20;
+    
+    // Vague shape outline
+    if ((frame + i * 13) % 25 > 5) {
+      drawPixel(ctx, x, y, PALETTE.darkPurple, scale);
+      drawPixel(ctx, x + 1, y, PALETTE.darkPurple, scale);
+      drawPixel(ctx, x - 1, y + 1, PALETTE.darkPurple, scale);
+      drawPixel(ctx, x + 2, y + 1, PALETTE.darkPurple, scale);
+    }
+  }
+  
+  // Occasional glimpses of many eyes
+  if (frame % 60 < 3) {
+    for (let i = 0; i < 15; i++) {
+      const ex = 10 + (i * 8) % (w - 20);
+      const ey = 15 + (i * 11) % (h - 30);
+      drawPixel(ctx, ex, ey, PALETTE.red, scale);
+      drawPixel(ctx, ex + 3, ey, PALETTE.red, scale);
+    }
+  }
+  
+  // Figure silhouette barely visible, on ground
+  const figX = 64;
+  const figY = h - 25;
+  drawPixel(ctx, figX, figY, PALETTE.darkGray, scale);
+  drawPixel(ctx, figX - 1, figY, PALETTE.darkGray, scale);
+  drawPixel(ctx, figX + 1, figY, PALETTE.darkGray, scale);
+  drawPixel(ctx, figX, figY - 1, PALETTE.darkGray, scale);
+  
+  // Something reaching toward the figure
+  if (frame % 40 < 20) {
+    for (let i = 0; i < 10; i++) {
+      const tx = figX - 15 + i;
+      const ty = figY - 5 + Math.sin(i * 0.5) * 2;
+      if (Math.random() > 0.5) {
+        drawPixel(ctx, tx, ty, PALETTE.darkPurple, scale);
+      }
+    }
+  }
+}
+
 const SCENE_RENDERERS = {
   arrival: drawArrival,
   nets: drawNets,
@@ -565,7 +614,8 @@ const SCENE_RENDERERS = {
   cave: drawCave,
   ending_escape: drawEndingEscape,
   ending_absorbed: drawEndingAbsorbed,
-  ending_cave: drawEndingCave
+  ending_cave: drawEndingCave,
+  ending_darkness: drawEndingDarkness
 };
 
 export default function PixelArtCanvas({ scene }) {

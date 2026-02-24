@@ -77,6 +77,9 @@ const SCENE_VARIANTS = {
   ending_cave: [
     "You descend into the cave. The temperature drops. The walls pulse. At the bottom, you find a chamber filled with roost — millions of bodies hanging in perfect silence. In the center, something ancient opens one eye. It's been waiting since before mammals existed. It chose this form — wings, fur, echolocation — as camouflage. It has been counting your species the way you count its. You are Specimen #7,847,293,102. It bands you.\n\n[ENDING: CATALOGUED — You became data in something else's study.]",
     "The cave goes deeper than geology allows. You descend for what feels like hours. The walls transition from limestone to something organic. At the bottom, there is no monster. There is a mirror. In it, you see yourself, but the reflection is hanging upside down. It mouths words: 'The survey is complete.' Your headlamp dies. In the perfect dark, you finally hear what the bats have always been saying.\n\n[ENDING: THE FREQUENCY — You heard the truth. You can never unhear it.]"
+  ],
+  ending_darkness: [
+    "Your headlamp died hours ago. Or was it minutes? Time doesn't work the same in total darkness. You can't see your hand in front of your face. You can't see the trees. You can't see the ground. But you can hear them — thousands of wings in the canopy above. They speak in frequencies that bypass your ears entirely, resonating directly in your skull. They're teaching you their language. Noun: prey. Verb: hunt. Subject: you.\n\nYou don't remember sitting down, but you're on the ground now. The wetland water soaks through your clothes. It's warm. That's wrong. You reach out in the dark and touch something. It touches back. Too many fingers. They belonged to the last researcher who ran out of battery.\n\nYour eyes adjust to a light that isn't there. In the absolute dark, you begin to see. The forest is full of shapes that were always there — things that only exist in the absence of light. They've been waiting. Your headlamp kept them at bay. Now there's nothing between you and them.\n\nOne of them leans close. Its breath smells like century-old guano and rotted fruit. It whispers: 'Welcome to the real survey.'\n\n[ENDING: CONSUMED BY DARKNESS — The light was all that kept you human.]"
   ]
 };
 
@@ -295,8 +298,15 @@ const SCENES = {
     choices: [
       { text: "Begin again [Play Again]", next: "__restart__", sanityChange: 0, healthChange: 0 }
     ]
+  },
+  ending_darkness: {
+    id: "ending_darkness",
+    art: "ending_darkness",
+    choices: [
+      { text: "Wake up [Play Again]", next: "__restart__", sanityChange: 0, healthChange: 0 }
+    ]
   }
-};
+  };
 
 export function getSceneText(sceneId, flags = {}) {
   const scene = SCENES[sceneId];
@@ -308,8 +318,21 @@ export function getSceneText(sceneId, flags = {}) {
   
   const variants = SCENE_VARIANTS[sceneId];
   if (variants) {
-    const idx = Math.floor(Math.random() * variants.length);
-    return variants[idx];
+    let idx = Math.floor(Math.random() * variants.length);
+    let text = variants[idx];
+    
+    // Add darkness flavor text if in darkness
+    if (flags.in_darkness && !sceneId.startsWith('ending_')) {
+      const darknessPrefix = [
+        "In the absolute dark, ",
+        "Without your headlamp, ",
+        "The darkness is total. ",
+        "You can't see anything. "
+      ][Math.floor(Math.random() * 4)];
+      text = darknessPrefix + text.charAt(0).toLowerCase() + text.slice(1);
+    }
+    
+    return text;
   }
   
   return "The darkness presses closer.";
@@ -355,16 +378,27 @@ export function applyChoice(state, choice) {
   newState.sanity = Math.max(0, Math.min(100, state.sanity + (choice.sanityChange || 0)));
   newState.turnCount = state.turnCount + 1;
   
+  // Decrease battery by 10% each turn
+  newState.battery_level = Math.max(0, state.battery_level - 10);
+  
+  // In darkness (0% battery), lose sanity
+  if (newState.battery_level === 0) {
+    newState.sanity = Math.max(0, newState.sanity - 10);
+    newState.flags = { ...state.flags, in_darkness: true };
+  }
+  
   if (choice.removeItem) {
     newState.inventory = state.inventory.filter(i => i !== choice.removeItem);
   }
   if (choice.addFlag) {
-    newState.flags = { ...state.flags, ...choice.addFlag };
+    newState.flags = { ...newState.flags, ...choice.addFlag };
   }
   
   // Auto-endings based on stats
   if (newState.health <= 0) {
     newState.currentScene = "ending_absorbed";
+  } else if (newState.sanity <= 0 && newState.flags.in_darkness) {
+    newState.currentScene = "ending_darkness";
   } else if (newState.sanity <= 0) {
     newState.currentScene = "ending_absorbed";
   } else if (choice.next === "__restart__") {
