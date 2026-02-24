@@ -1,5 +1,5 @@
-import React, { useState, useCallback, useEffect } from "react";
-import { Backpack } from "lucide-react";
+import React, { useState, useCallback, useEffect, useRef } from "react";
+import { Backpack, Maximize, Minimize, Volume2, VolumeX } from "lucide-react";
 import PixelArtCanvas from "../components/game/PixelArtCanvas";
 import StatBars from "../components/game/StatBars";
 import InventorySidebar from "../components/game/InventorySidebar";
@@ -20,12 +20,20 @@ export default function Game() {
   const [currentText, setCurrentText] = useState("");
   const [inventoryOpen, setInventoryOpen] = useState(false);
   const [transitioning, setTransitioning] = useState(false);
+  const [isFullscreen, setIsFullscreen] = useState(false);
+  const [isMuted, setIsMuted] = useState(false);
+  const audioRef = useRef(null);
 
   const startGame = useCallback(() => {
     const initial = getInitialState();
     setGameState(initial);
     setCurrentText(getSceneText("arrival", {}));
     setGameStarted(true);
+    
+    // Start audio
+    if (audioRef.current) {
+      audioRef.current.play().catch(() => {});
+    }
   }, []);
 
   const handleChoice = useCallback((choice) => {
@@ -53,6 +61,31 @@ export default function Game() {
       setTransitioning(false);
     }, 500);
   }, [gameState, transitioning]);
+
+  // Fullscreen management
+  useEffect(() => {
+    const handleFullscreenChange = () => {
+      setIsFullscreen(!!document.fullscreenElement);
+    };
+    
+    document.addEventListener("fullscreenchange", handleFullscreenChange);
+    return () => document.removeEventListener("fullscreenchange", handleFullscreenChange);
+  }, []);
+
+  const toggleFullscreen = () => {
+    if (!document.fullscreenElement) {
+      document.documentElement.requestFullscreen().catch(() => {});
+    } else {
+      document.exitFullscreen().catch(() => {});
+    }
+  };
+
+  const toggleMute = () => {
+    if (audioRef.current) {
+      audioRef.current.muted = !isMuted;
+      setIsMuted(!isMuted);
+    }
+  };
 
   // Keyboard shortcuts
   useEffect(() => {
@@ -93,6 +126,14 @@ export default function Game() {
 
   return (
     <div className="min-h-screen bg-black text-gray-200 relative overflow-hidden">
+      {/* Audio */}
+      <audio 
+        ref={audioRef}
+        loop
+        muted={isMuted}
+        src="https://cdn.pixabay.com/audio/2022/05/27/audio_1808fbf07a.mp3"
+      />
+
       {/* Background texture */}
       <div className="fixed inset-0 opacity-[0.03]"
         style={{
@@ -113,12 +154,28 @@ export default function Game() {
                 Turn {gameState.turnCount}
               </span>
             </div>
-            <button
-              onClick={() => setInventoryOpen(!inventoryOpen)}
-              className="lg:hidden p-2 text-gray-500 hover:text-amber-600 transition-colors"
-            >
-              <Backpack className="w-5 h-5" />
-            </button>
+            <div className="flex items-center gap-2">
+              <button
+                onClick={toggleMute}
+                className="p-2 text-gray-500 hover:text-amber-600 transition-colors"
+                title={isMuted ? "Unmute" : "Mute"}
+              >
+                {isMuted ? <VolumeX className="w-5 h-5" /> : <Volume2 className="w-5 h-5" />}
+              </button>
+              <button
+                onClick={toggleFullscreen}
+                className="p-2 text-gray-500 hover:text-amber-600 transition-colors"
+                title={isFullscreen ? "Exit fullscreen" : "Enter fullscreen"}
+              >
+                {isFullscreen ? <Minimize className="w-5 h-5" /> : <Maximize className="w-5 h-5" />}
+              </button>
+              <button
+                onClick={() => setInventoryOpen(!inventoryOpen)}
+                className="lg:hidden p-2 text-gray-500 hover:text-amber-600 transition-colors"
+              >
+                <Backpack className="w-5 h-5" />
+              </button>
+            </div>
           </div>
 
           {/* Pixel art */}
