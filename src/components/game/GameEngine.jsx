@@ -240,8 +240,47 @@ const SCENES = {
       return base + " You open your hand. It launches into the dark. Standard. But as it vanishes, you swear its wingbeat rhythm sounded like Morse code.";
     },
     choices: [
-      { text: "Continue checking nets", next: "wrong_sound", sanityChange: -3, healthChange: 0 },
-      { text: "Take a break, drink some water", next: "wrong_sound", sanityChange: 2, healthChange: 5 }
+      { text: "Check the second net", next: "second_capture", sanityChange: 0, healthChange: 0 },
+      { text: "Take a break, drink some water", next: "water_bottle", sanityChange: 2, healthChange: 0, requiresItem: "Water Bottle" }
+    ]
+  },
+  second_capture: {
+    id: "second_capture",
+    art: "bat_capture",
+    choices: [
+      { text: "This can't be right. Measure it again.", next: "third_net_check", sanityChange: -10, healthChange: 0, addFlag: { saw_anomaly: true } },
+      { text: "Log the data and move on. Check net three.", next: "third_net_check", sanityChange: -5, healthChange: 0 }
+    ]
+  },
+  third_net_check: {
+    id: "third_net_check",
+    art: "dark_forest",
+    getChoices: (health, sanity, inventory, flags) => {
+      const choices = [
+        { text: "Try to understand what could do this", next: "wrong_sound", sanityChange: -8, healthChange: 0 }
+      ];
+      if (flags.noted_silence) {
+        choices.push({ text: "Listen. Something has changed.", next: "wrong_sound_frogs", sanityChange: -12, healthChange: 0 });
+      } else {
+        choices.push({ text: "Whatever did this might still be here", next: "wrong_sound", sanityChange: -10, healthChange: 0 });
+      }
+      return choices;
+    }
+  },
+  wrong_sound_frogs: {
+    id: "wrong_sound_frogs",
+    art: "dark_forest",
+    choices: [
+      { text: "RUN. NOW.", next: "wrong_shape_net", sanityChange: -15, healthChange: 0 },
+      { text: "Stand still. Don't make a sound.", next: "wrong_shape_net", sanityChange: -10, healthChange: 0 }
+    ]
+  },
+  water_bottle: {
+    id: "water_bottle",
+    art: "bat_capture",
+    choices: [
+      { text: "Spit it out. Drop the bottle.", next: "second_capture", sanityChange: -8, healthChange: 0, removeItem: "Water Bottle" },
+      { text: "Force yourself to swallow. You need hydration.", next: "second_capture", sanityChange: -12, healthChange: -5, addFlag: { drank_wrong: true } }
     ]
   },
   wrong_sound: {
