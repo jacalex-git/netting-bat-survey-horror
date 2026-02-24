@@ -467,20 +467,22 @@ const STORY_DATA = {
           "text": "Put on your spare glove — you always carry a spare",
           "next_node": "the_mist",
           "sanity_change": -5,
-          "health_change": -10
+          "health_change": -10,
+          "adds_flag": "infected"
         },
         {
           "text": "Run. Bare hands and all.",
           "next_node": "flee_to_treeline",
           "sanity_change": -10,
           "health_change": -5,
-          "adds_flag": "exposed_hands"
+          "adds_flag": "infected"
         },
         {
           "text": "Look at your hand more closely under the headlamp",
           "next_node": "check_hands",
           "sanity_change": -20,
-          "health_change": -5
+          "health_change": -5,
+          "adds_flag": "infected"
         }
       ]
     },
@@ -648,10 +650,19 @@ const STORY_DATA = {
         },
         {
           "text": "Stand your ground. Observe. Document.",
-          "next_node": "the_cave",
+          "next_node": "ending_absorbed",
           "sanity_change": -25,
           "health_change": -10,
-          "adds_flag": "stood_ground"
+          "adds_flag": "stood_ground",
+          "condition": "Only appears if infected"
+        },
+        {
+          "text": "Stand your ground. Observe. Document.",
+          "next_node": "find_cave",
+          "sanity_change": -25,
+          "health_change": -10,
+          "adds_flag": "stood_ground",
+          "condition": "Only appears if not infected"
         }
       ]
     },
@@ -672,7 +683,7 @@ const STORY_DATA = {
         },
         {
           "text": "Find the cave. Understand this.",
-          "next_node": "the_cave",
+          "next_node": "find_cave",
           "sanity_change": -15,
           "health_change": 0,
           "adds_flag": "read_future_data"
@@ -720,16 +731,24 @@ const STORY_DATA = {
         },
         {
           "text": "You need to understand this. Find the source.",
-          "next_node": "the_cave",
+          "next_node": "find_cave",
           "sanity_change": -15,
           "health_change": 0,
           "adds_flag": "saw_canopy"
         },
         {
           "text": "Turn off the light. You've seen enough.",
-          "next_node": "the_cave",
+          "next_node": "ending_absorbed",
           "sanity_change": -30,
-          "health_change": 0
+          "health_change": 0,
+          "condition": "Only appears if infected"
+        },
+        {
+          "text": "Turn off the light. You've seen enough.",
+          "next_node": "find_cave",
+          "sanity_change": -30,
+          "health_change": 0,
+          "condition": "Only appears if not infected"
         }
       ]
     },
@@ -751,10 +770,19 @@ const STORY_DATA = {
         },
         {
           "text": "Keep listening. Try to understand.",
-          "next_node": "the_cave",
+          "next_node": "ending_absorbed",
           "sanity_change": -25,
           "health_change": 0,
-          "adds_flag": "listened_radio"
+          "adds_flag": "listened_radio",
+          "condition": "Only appears if infected"
+        },
+        {
+          "text": "Keep listening. Try to understand.",
+          "next_node": "find_cave",
+          "sanity_change": -25,
+          "health_change": 0,
+          "adds_flag": "listened_radio",
+          "condition": "Only appears if not infected"
         },
         {
           "text": "Look at your hands.",
@@ -807,9 +835,17 @@ const STORY_DATA = {
       "choices": [
         {
           "text": "Keep running — find the truck",
+          "next_node": "ending_absorbed",
+          "sanity_change": -5,
+          "health_change": -10,
+          "condition": "Only appears if infected"
+        },
+        {
+          "text": "Keep running — find the truck",
           "next_node": "ending_escape",
           "sanity_change": -5,
-          "health_change": -10
+          "health_change": -10,
+          "condition": "Only appears if not infected"
         },
         {
           "text": "Stop. Sit down. You're so tired.",
@@ -820,15 +856,44 @@ const STORY_DATA = {
         },
         {
           "text": "You can't run anymore. Find shelter.",
-          "next_node": "the_cave",
+          "next_node": "ending_absorbed",
           "sanity_change": -10,
           "health_change": -5,
-          "condition": "Only appears if health <= 30"
+          "condition": "Only appears if health <= 30 and infected"
+        },
+        {
+          "text": "You can't run anymore. Find shelter.",
+          "next_node": "find_cave",
+          "sanity_change": -10,
+          "health_change": -5,
+          "condition": "Only appears if health <= 30 and not infected"
         },
         {
           "text": "Look for the cave entrance you saw on the topo map",
-          "next_node": "the_cave",
+          "next_node": "find_cave",
           "sanity_change": -10,
+          "health_change": 0
+        }
+      ]
+    },
+    "find_cave": {
+      "id": "find_cave",
+      "art_scene": "dark_forest",
+      "text_variants": [
+        "You push through the undergrowth, following the terrain downward. The ground becomes softer, wetter. Then you see it — a depression in the earth, barely visible in your headlamp's dying beam. You've found something. But you haven't reached it yet. Not quite."
+      ],
+      "choices": [
+        {
+          "text": "Approach the cave entrance",
+          "next_node": "the_cave",
+          "sanity_change": -5,
+          "health_change": 0,
+          "adds_flag": "found_cave"
+        },
+        {
+          "text": "Turn back while you still can",
+          "next_node": "flee_to_treeline",
+          "sanity_change": -5,
           "health_change": 0
         }
       ]
@@ -850,9 +915,17 @@ const STORY_DATA = {
         },
         {
           "text": "Turn back. Find another way out.",
+          "next_node": "ending_absorbed",
+          "sanity_change": -10,
+          "health_change": -15,
+          "condition": "Only appears if infected"
+        },
+        {
+          "text": "Turn back. Find another way out.",
           "next_node": "ending_escape",
           "sanity_change": -10,
-          "health_change": -15
+          "health_change": -15,
+          "condition": "Only appears if not infected"
         },
         {
           "text": "You came here to study bats. Study this.",
@@ -887,10 +960,17 @@ const STORY_DATA = {
         },
         {
           "text": "Turn back. Now. Before you can't.",
+          "next_node": "ending_absorbed",
+          "sanity_change": -10,
+          "health_change": -15,
+          "condition": "Only appears if sanity >= 20 and infected"
+        },
+        {
+          "text": "Turn back. Now. Before you can't.",
           "next_node": "ending_escape",
           "sanity_change": -10,
           "health_change": -15,
-          "condition": "Only appears if sanity >= 20"
+          "condition": "Only appears if sanity >= 20 and not infected"
         },
         {
           "text": "Finish the species account on the wall. Add the ending.",
@@ -1042,11 +1122,13 @@ export function getSceneChoices(sceneId, health, sanity, inventory, flags = {}) 
       return false;
     }
     
-    // Check condition (health/sanity)
+    // Check condition (health/sanity/infected)
     if (choice.condition) {
       if (choice.condition.includes('sanity <= 30') && sanity > 30) return false;
       if (choice.condition.includes('health <= 30') && health > 30) return false;
       if (choice.condition.includes('sanity >= 20') && sanity < 20) return false;
+      if (choice.condition.includes('infected') && !flags.infected) return false;
+      if (choice.condition.includes('not infected') && flags.infected) return false;
     }
     
     return true;
