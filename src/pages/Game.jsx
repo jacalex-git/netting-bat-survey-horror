@@ -18,7 +18,6 @@ export default function Game() {
   const [gameStarted, setGameStarted] = useState(false);
   const [gameState, setGameState] = useState(null);
   const [currentText, setCurrentText] = useState("");
-  const [storyLog, setStoryLog] = useState([]);
   const [inventoryOpen, setInventoryOpen] = useState(false);
   const [transitioning, setTransitioning] = useState(false);
 
@@ -26,7 +25,6 @@ export default function Game() {
     const initial = getInitialState();
     setGameState(initial);
     setCurrentText(getSceneText("arrival", {}));
-    setStoryLog([]);
     setGameStarted(true);
   }, []);
 
@@ -34,14 +32,19 @@ export default function Game() {
     if (transitioning || !gameState) return;
     setTransitioning(true);
 
-    // Add current scene to log
-    setStoryLog(prev => [...prev, {
-      text: currentText,
-      choice: choice.text
-    }]);
-
     // Apply choice to state
     const newState = applyChoice(gameState, choice);
+    
+    // Check if restarting
+    if (choice.next === "__restart__") {
+      setTimeout(() => {
+        setGameStarted(false);
+        setGameState(null);
+        setCurrentText("");
+        setTransitioning(false);
+      }, 500);
+      return;
+    }
     
     setTimeout(() => {
       setGameState(newState);
@@ -49,7 +52,7 @@ export default function Game() {
       setCurrentText(newText);
       setTransitioning(false);
     }, 500);
-  }, [gameState, currentText, transitioning]);
+  }, [gameState, transitioning]);
 
   // Keyboard shortcuts
   useEffect(() => {
@@ -122,15 +125,45 @@ export default function Game() {
             <PixelArtCanvas scene={artScene} />
           </div>
 
-          {/* Stat bars */}
-          <div className="mb-4">
+          {/* Stat bars and headlamp */}
+          <div className="mb-4 space-y-2">
             <StatBars health={gameState.health} sanity={gameState.sanity} />
+            <div className="flex items-center justify-between bg-black/40 border border-gray-800/40 rounded px-3 py-2">
+              <div className="flex items-center gap-2">
+                <span className="text-xs font-mono text-gray-500">Headlamp Battery:</span>
+                <div className="w-32 h-2 bg-gray-900/80 border border-gray-800 rounded-sm overflow-hidden">
+                  <div 
+                    className="h-full bg-gradient-to-r from-amber-700 to-amber-500 transition-all duration-300"
+                    style={{ width: `${gameState.battery_level}%` }}
+                  />
+                </div>
+                <span className="text-xs font-mono text-amber-600/70">{gameState.battery_level}%</span>
+              </div>
+              <button
+                onClick={() => {
+                  if (gameState.battery_level >= 10 && gameState.sanity < 100) {
+                    const newState = {
+                      ...gameState,
+                      sanity: Math.min(100, gameState.sanity + 15),
+                      battery_level: Math.max(0, gameState.battery_level - 10)
+                    };
+                    setGameState(newState);
+                  }
+                }}
+                disabled={gameState.battery_level < 10 || gameState.sanity >= 100}
+                className="px-3 py-1 text-xs font-mono bg-amber-900/20 border border-amber-800/40 rounded
+                  hover:bg-amber-800/30 disabled:opacity-30 disabled:cursor-not-allowed
+                  transition-colors text-amber-600/80 hover:text-amber-500"
+              >
+                Use Headlamp (+15 sanity)
+              </button>
+            </div>
           </div>
 
           {/* Story + Choices area */}
           <div className="flex-1 flex flex-col min-h-[300px] max-h-[400px] lg:max-h-[450px] 
             bg-black/30 border border-gray-800/30 rounded-lg p-4">
-            <StoryPanel storyLog={storyLog} currentText={currentText} />
+            <StoryPanel currentText={currentText} />
             <ChoiceButtons
               choices={choices}
               onChoice={handleChoice}

@@ -6,7 +6,6 @@ const ITEM_ICONS = {
   "Field Datasheets": FileText,
   "Bat Handling Gloves": Shield,
   "Mist Net Poles (x4)": Wrench,
-  "Harp Trap": Wrench,
   "Calipers": Ruler,
   "Banding Kit": Tag,
   "Water Bottle": Droplet,

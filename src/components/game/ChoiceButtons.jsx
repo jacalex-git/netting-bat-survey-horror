@@ -42,10 +42,10 @@ export default function ChoiceButtons({ choices, onChoice, disabled }) {
             <div className="absolute left-0 top-0 bottom-0 w-0.5 bg-amber-900/20 group-hover:bg-amber-700/40 transition-colors" />
             
             <div className="flex items-start gap-3">
-              <span className="text-amber-700/50 text-xs mt-0.5 font-mono group-hover:text-amber-600/80 transition-colors">
+              <span className="text-amber-700/50 text-sm mt-0.5 font-mono group-hover:text-amber-600/80 transition-colors">
                 [{String.fromCharCode(65 + i)}]
               </span>
-              <span className="text-gray-300 text-sm group-hover:text-gray-100 transition-colors leading-relaxed">
+              <span className="text-gray-300 text-base group-hover:text-gray-100 transition-colors leading-relaxed">
                 {choice.text}
               </span>
             </div>

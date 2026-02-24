@@ -4,7 +4,6 @@ const STARTING_INVENTORY = [
   "Field Datasheets",
   "Bat Handling Gloves",
   "Mist Net Poles (x4)",
-  "Harp Trap",
   "Calipers",
   "Banding Kit",
   "Water Bottle",
@@ -20,12 +19,12 @@ const SCENE_VARIANTS = {
   setup_nets: [
     "You begin furling out the first mist net between two tupelo trunks. The 12-meter polyester mesh unfolds like a black widow's web. Your practiced hands find the shelf strings in the dark. The net hangs perfectly — four shelves of nearly invisible death for anything with wings.",
     "The mist net poles slide into the soft substrate with satisfying thuds. You tension the guy lines and begin draping the nets. Thirty-denier polyester, nearly invisible even in daylight. In this darkness, the nets cease to exist entirely. You know they're there only by touch.",
-    "Net one goes up clean. Net two snags on a branch and you have to untangle it, fingers working the mesh by feel alone. The harp trap you position at the pond edge — its vertical monofilament lines catching the amber glow of your headlamp like strings on some infernal instrument."
+    "Net one goes up clean. Net two snags on a branch and you have to untangle it, fingers working the mesh by feel alone. You set up a third net near the pond edge, tensioning the lines carefully in the dark."
   ],
   first_capture: [
     "Twenty minutes pass. Your headlamp catches movement in net three — something fluttering, tangled. You approach. A big brown bat, Eptesicus fuscus, wrapped in the lower shelf. Routine. You reach for your gloves.",
     "A soft chittering draws you to the second net. Your lamp illuminates a small body thrashing in the mesh — a tricolored bat, Perimyotis subflavus. Its tragus is distinctive, rounded. You've banded hundreds like it.",
-    "The harp trap's collection bag rustles. Something inside. You unzip it carefully and extract a red bat — Lasiurus borealis — its fur brilliant even in lamplight. Perfectly routine. Perfectly normal. For now."
+    "The first net has a capture. You approach carefully and find a red bat — Lasiurus borealis — its fur brilliant even in lamplight. Perfectly routine. Perfectly normal. For now."
   ],
   wrong_sound: [
     "Then you hear it. Not echolocation — you know every frequency signature in these woods. This is lower. Sub-audible. You feel it in your molars before your ears register it. The water in the nearby pond begins to vibrate in concentric circles with no wind to explain them.",
@@ -35,7 +34,7 @@ const SCENE_VARIANTS = {
   wrong_shape_net: [
     "Net two has something in it. Something large. Too large for any bat species native to this continent. It hangs in the upper shelf, distending the mesh downward. Your headlamp illuminates a wingspan that shouldn't exist — three meters at least. The fur is wrong. It moves like oil.",
     "You approach net one and stop. The entire net is full. Not tangled with multiple captures — full of one thing. It fills all four shelves. Its body is the wrong geometry. Wings that fold in directions that hurt to look at. It turns what might be a face toward your light.",
-    "The shape in the harp trap's collection bag is too big. The bag bulges and writhes. Through the mesh fabric you see limbs — too many limbs — arranged in configurations your training in mammalian anatomy cannot reconcile."
+    "The third net ripples with movement. Something enormous is tangled in all four shelves at once. Your headlamp reveals limbs — too many limbs — arranged in configurations your training in mammalian anatomy cannot reconcile."
   ],
   investigate_shape: [
     "You step closer, calipers still in hand. Professional instinct overrides the screaming in your hindbrain. The creature's tragus isn't a tragus — it's something that unfolds as you watch, revealing structures beneath that look like they were designed by something that had only heard of ears described secondhand. Its echolocation clicks at you. You understand them.",
@@ -342,11 +341,11 @@ export function getInitialState() {
   return {
     health: 100,
     sanity: 100,
+    battery_level: 100,
     inventory: [...STARTING_INVENTORY],
     currentScene: "arrival",
     flags: {},
-    turnCount: 0,
-    storyLog: []
+    turnCount: 0
   };
 }
 
