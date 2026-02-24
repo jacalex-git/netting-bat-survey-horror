@@ -216,10 +216,9 @@ const SCENES = {
   setup_acoustic: {
     id: "setup_acoustic",
     art: "nets",
-    getText: () => "You mount the acoustic detector on its tripod. It records ultrasonic frequencies and converts them to spectrograms — visual fingerprints of each bat species. You switch it on. The spectrogram display immediately fills with calls. Dozens. All at once. But the patterns don't match any known species in your reference library. The calls aren't random — they form repeating sequences. Like language. Like something talking about you.",
     choices: [
-      { text: "Check the mist nets", next: "first_capture", sanityChange: -5, healthChange: 0, addFlag: { heard_language: true } },
-      { text: "Record the anomalous calls for later analysis", next: "first_capture", sanityChange: -8, healthChange: 0, addFlag: { recorded_calls: true } }
+      { text: "Wait and observe normal bat activity", next: "bat_activity", sanityChange: 2, healthChange: 0 },
+      { text: "Something feels wrong. Check the detector closely.", next: "acoustic_anomaly", sanityChange: -5, healthChange: 0 }
     ]
   },
   first_capture: {
