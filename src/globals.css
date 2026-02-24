@@ -1,0 +1,65 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --background: 0 0% 2%;
+    --foreground: 0 0% 80%;
+    --card: 0 0% 4%;
+    --card-foreground: 0 0% 80%;
+    --popover: 0 0% 4%;
+    --popover-foreground: 0 0% 80%;
+    --primary: 36 80% 40%;
+    --primary-foreground: 0 0% 95%;
+    --secondary: 270 30% 15%;
+    --secondary-foreground: 0 0% 80%;
+    --muted: 0 0% 10%;
+    --muted-foreground: 0 0% 50%;
+    --accent: 270 30% 20%;
+    --accent-foreground: 0 0% 80%;
+    --destructive: 0 60% 30%;
+    --destructive-foreground: 0 0% 95%;
+    --border: 0 0% 12%;
+    --input: 0 0% 12%;
+    --ring: 36 80% 40%;
+    --radius: 0.25rem;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+  body {
+    @apply bg-background text-foreground;
+    font-family: 'Georgia', 'Times New Roman', serif;
+  }
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+  width: 4px;
+}
+::-webkit-scrollbar-track {
+  background: #0a0a0f;
+}
+::-webkit-scrollbar-thumb {
+  background: #1a1a2a;
+  border-radius: 2px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #2a2a3a;
+}
+
+/* Flicker animation for horror effects */
+@keyframes textFlicker {
+  0%, 100% { opacity: 1; }
+  33% { opacity: 0.9; }
+  66% { opacity: 0.95; }
+  80% { opacity: 0.85; }
+}
+
+.text-flicker {
+  animation: textFlicker 3s infinite;
+}
