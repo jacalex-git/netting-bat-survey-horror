@@ -1,11 +1,12 @@
 import React, { useState, useCallback, useEffect, useRef } from "react";
-import { Backpack, Maximize, Minimize, Volume2, VolumeX } from "lucide-react";
+import { Backpack, Maximize, Minimize, Volume2, VolumeX, Trophy } from "lucide-react";
 import PixelArtCanvas from "../components/game/PixelArtCanvas";
 import StatBars from "../components/game/StatBars";
 import InventorySidebar from "../components/game/InventorySidebar";
 import StoryPanel from "../components/game/StoryPanel";
 import ChoiceButtons from "../components/game/ChoiceButtons";
 import TitleScreen from "../components/game/TitleScreen";
+import ScoreboardDisplay from "../components/game/ScoreboardDisplay";
 import {
   getInitialState,
   getSceneText,
@@ -22,6 +23,8 @@ export default function Game() {
   const [transitioning, setTransitioning] = useState(false);
   const [isFullscreen, setIsFullscreen] = useState(false);
   const [isMuted, setIsMuted] = useState(false);
+  const [showScoreboard, setShowScoreboard] = useState(false);
+  const [gameEnding, setGameEnding] = useState(null);
   const audioRef = useRef(null);
 
   const startGame = useCallback(() => {
@@ -49,18 +52,28 @@ export default function Game() {
         setGameStarted(false);
         setGameState(null);
         setCurrentText("");
+        setGameEnding(null);
         setTransitioning(false);
       }, 500);
       return;
     }
+    
+    // Check if reached an ending
+    const isEnding = newState.currentScene.startsWith("ending_");
     
     setTimeout(() => {
       setGameState(newState);
       const newText = getSceneText(newState.currentScene, newState.flags);
       setCurrentText(newText);
       setTransitioning(false);
+      
+      // Show scoreboard after ending
+      if (isEnding && !gameEnding) {
+        setGameEnding(newState.currentScene);
+        setTimeout(() => setShowScoreboard(true), 2000);
+      }
     }, 500);
-  }, [gameState, transitioning]);
+  }, [gameState, transitioning, gameEnding]);
 
   // Fullscreen management
   useEffect(() => {
@@ -155,6 +168,13 @@ export default function Game() {
               </span>
             </div>
             <div className="flex items-center gap-2">
+              <button
+                onClick={() => setShowScoreboard(true)}
+                className="p-2 text-gray-500 hover:text-amber-600 transition-colors"
+                title="Scoreboard"
+              >
+                <Trophy className="w-5 h-5" />
+              </button>
               <button
                 onClick={toggleMute}
                 className="p-2 text-gray-500 hover:text-amber-600 transition-colors"
@@ -264,6 +284,15 @@ export default function Game() {
           />
         </div>
       </div>
+
+      {/* Scoreboard */}
+      {showScoreboard && (
+        <ScoreboardDisplay
+          currentEnding={gameEnding}
+          currentTurns={gameState?.turnCount || 0}
+          onClose={() => setShowScoreboard(false)}
+        />
+      )}
     </div>
   );
 }
