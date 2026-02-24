@@ -274,21 +274,20 @@ export default function Game() {
           <p className="text-center text-[10px] font-mono text-gray-800 mt-4">
             Press [A] [B] [C] to choose · Inventory on the right · Press [D] for debug
           </p>
-        </div>
 
-        {/* Debug Panel */}
-        {debugMode && (
-          <div className="fixed top-4 right-4 bg-black/90 border-2 border-amber-700/50 rounded p-3 text-xs font-mono max-w-xs z-40">
-            <div className="text-amber-500 font-bold mb-2">DEBUG MODE</div>
-            <div className="space-y-1 text-amber-400/70">
-              <div><span className="text-amber-600">Node:</span> {gameState.currentScene}</div>
-              <div><span className="text-amber-600">Flags:</span> {Object.keys(gameState.flags).join(', ') || 'none'}</div>
-              <div><span className="text-amber-600">Inventory:</span></div>
-              <div className="text-[10px] ml-2">{gameState.inventory.join(', ')}</div>
+          {/* Debug Panel */}
+          {debugMode && (
+            <div className="fixed top-4 right-4 bg-black/90 border-2 border-amber-700/50 rounded p-3 text-xs font-mono max-w-xs z-40">
+              <div className="text-amber-500 font-bold mb-2">DEBUG MODE</div>
+              <div className="space-y-1 text-amber-400/70">
+                <div><span className="text-amber-600">Node:</span> {gameState.currentScene}</div>
+                <div><span className="text-amber-600">Flags:</span> {Object.keys(gameState.flags).join(', ') || 'none'}</div>
+                <div><span className="text-amber-600">Inventory:</span></div>
+                <div className="text-[10px] ml-2">{gameState.inventory.join(', ')}</div>
+              </div>
             </div>
-          </div>
-        )}
-      </div>
+          )}
+        </div>
 
         {/* Inventory sidebar - desktop always visible, mobile toggle */}
         <div className="hidden lg:block lg:w-56 lg:border-l lg:border-gray-900 lg:p-4">
