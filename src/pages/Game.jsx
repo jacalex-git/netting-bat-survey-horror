@@ -331,7 +331,18 @@ export default function Game() {
         <ScoreboardDisplay
           currentEnding={gameEnding}
           currentTurns={gameState?.turnCount || 0}
-          onClose={() => setShowScoreboard(false)}
+          onClose={() => {
+            if (gameEnding) {
+              // Restart game after closing scoreboard from ending
+              setGameStarted(false);
+              setGameState(null);
+              setCurrentText("");
+              setGameEnding(null);
+              setShowScoreboard(false);
+            } else {
+              setShowScoreboard(false);
+            }
+          }}
         />
       )}
     </div>

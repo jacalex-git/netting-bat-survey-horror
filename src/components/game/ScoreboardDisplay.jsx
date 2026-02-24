@@ -34,7 +34,8 @@ export default function ScoreboardDisplay({ currentEnding, currentTurns, onClose
     ending_absorbed: "ABSORBED",
     ending_cave: "CATALOGUED",
     ending_documented: "DOCUMENTED",
-    ending_darkness: "CONSUMED"
+    ending_darkness: "CONSUMED",
+    creature_retaliates: "CONSUMED"
   };
 
   const endingName = endingMap[currentEnding] || "UNKNOWN";
