@@ -143,14 +143,25 @@ export default function ScoreboardDisplay({ currentEnding, currentTurns, onClose
         </div>
 
         {/* Close button */}
-        <button
-          onClick={onClose}
-          className="w-full py-2 bg-gray-800 hover:bg-gray-700 text-amber-500 font-bold 
-            rounded border-2 border-gray-700 hover:border-amber-800 transition-all text-sm"
-          style={{ fontFamily: "'Press Start 2P', monospace" }}
-        >
-          CONTINUE
-        </button>
+        {currentEnding ? (
+          <button
+            onClick={onClose}
+            className="w-full py-2 bg-gray-800 hover:bg-gray-700 text-amber-500 font-bold 
+              rounded border-2 border-gray-700 hover:border-amber-800 transition-all text-sm"
+            style={{ fontFamily: "'Press Start 2P', monospace" }}
+          >
+            PLAY AGAIN
+          </button>
+        ) : (
+          <button
+            onClick={onClose}
+            className="w-full py-2 bg-gray-800 hover:bg-gray-700 text-amber-500 font-bold 
+              rounded border-2 border-gray-700 hover:border-amber-800 transition-all text-sm"
+            style={{ fontFamily: "'Press Start 2P', monospace" }}
+          >
+            CONTINUE
+          </button>
+        )}
 
         {/* Decorative scanlines */}
         <div 
