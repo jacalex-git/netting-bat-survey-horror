@@ -35,7 +35,8 @@ export default function ScoreboardDisplay({ currentEnding, currentTurns, onClose
     ending_cave: "CATALOGUED",
     ending_documented: "DOCUMENTED",
     ending_darkness: "CONSUMED",
-    creature_retaliates: "CONSUMED"
+    creature_retaliates: "CONSUMED",
+    ending_drowned: "DROWNED"
   };
 
   const endingName = endingMap[currentEnding] || "UNKNOWN";

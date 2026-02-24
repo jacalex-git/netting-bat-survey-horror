@@ -348,11 +348,16 @@ const STORY_DATA = {
     "third_net_check": {
       "id": "third_net_check",
       "art_scene": "dark_forest",
+      "adds_flag": "net_in_water",
       "text_variants": [
         "Net three is empty. But it's been disturbed. The lower two shelf strings are snapped — not tangled, not sagged, but cleanly broken under load. The breaks face outward, away from the water. Something large moved through this net from the inside out. Mist nets are designed to capture things flying into them. Whatever broke this net was on the inside, pushing out. You installed this net yourself. There was nothing inside it when you did.",
         "Net three is down. The poles are still upright but the mesh is gone — not tangled in the vegetation, not on the ground. Gone. Thirty denier polyester doesn't just disappear. You find one shelf string still attached to the pole, trailing off into the dark toward the pond. You follow it two meters. It goes into the water. Something under the surface has the rest of the net. The water is still. It shouldn't be still with a net being pulled through it.",
         "Net three has been moved. Not tangled, not damaged — repositioned. The poles have been pulled from the substrate and replanted four meters farther into the tree line, the net re-strung between different trees with the same tension and hang angle you use. Whoever moved it knows exactly how to set a mist net. The new position faces the direction you came from. It's aimed at the parking area. At your truck. At you."
       ],
+      "flag_variant": {
+        "requires_flag": "net_in_water",
+        "text": "Net three's trailing string disappears into the dark water of the pond. You can see the mesh tangled just below the surface, caught on something. The expensive polyester net — agency equipment you're responsible for — is right there. You could wade in and retrieve it. The water looks shallow."
+      },
       "choices": [
         {
           "text": "Collect your equipment and regroup at the truck",
@@ -365,6 +370,13 @@ const STORY_DATA = {
           "next_node": "wrong_sound",
           "sanity_change": -8,
           "health_change": 0
+        },
+        {
+          "text": "Wade in and retrieve the net from the water",
+          "next_node": "ending_drowned",
+          "sanity_change": 0,
+          "health_change": 0,
+          "requires_flag": "net_in_water"
         },
         {
           "text": "Check the future datasheet — does it mention net three?",
@@ -1079,6 +1091,21 @@ const STORY_DATA = {
           "action": "restart_game"
         }
       ]
+    },
+    "ending_drowned": {
+      "id": "ending_drowned",
+      "type": "ending",
+      "art_scene": "mist",
+      "text_variants": [
+        "You wade into the pond. The water is warmer than it should be. You reach for the tangled net — thirty denier polyester, agency property, your responsibility. Your fingers close on the mesh. Something closes on your ankle.\n\nYou have time to understand three things: First, the water is not three feet deep. It has no bottom. Second, the thing gripping your leg has been waiting in this exact spot since before you were born. Third, the net was bait.\n\nYou try to scream but water fills your mouth. The thing pulls you down. Your headlamp beam spirals upward through dark water, illuminating shapes that swim in formations that look like equations. Your last thought, as the light fades, is that you should have recorded this. The tissue sample alone would have been career-defining.\n\nTwenty feet down, in water that shouldn't exist beneath a wetland, you stop struggling. The thing that has you makes a sound — not echolocation, not speech, but something that translates directly: Thank you for coming. The survey is complete. You are the last data point.\n\n[ENDING: DROWNED — You retrieved the net. The net retrieved you.]"
+      ],
+      "choices": [
+        {
+          "text": "Wake up [Play Again]",
+          "next_node": "__restart__",
+          "action": "restart_game"
+        }
+      ]
     }
   }
 };
@@ -1098,8 +1125,11 @@ export function getSceneText(sceneId, flags = {}) {
     }
   }
   
-  // Random text variant
+  // Random text variant - but use variant 2 (index 1) if net_in_water flag is set for third_net_check
   if (node.text_variants && node.text_variants.length > 0) {
+    if (sceneId === 'third_net_check' && flags.net_in_water) {
+      return node.text_variants[1]; // Always show the "net in water" variant
+    }
     const idx = Math.floor(Math.random() * node.text_variants.length);
     return node.text_variants[idx];
   }
@@ -1179,7 +1209,13 @@ export function applyChoice(state, choice) {
     newState.inventory = state.inventory.filter(i => i !== choice.removes_item);
   }
   
-  // Add flags
+  // Add flags from current scene node
+  const currentNode = STORY_DATA.story_nodes[state.currentScene];
+  if (currentNode && currentNode.adds_flag) {
+    newState.flags = { ...newState.flags, [currentNode.adds_flag]: true };
+  }
+  
+  // Add flags from choice
   if (choice.adds_flag) {
     newState.flags = { ...newState.flags, [choice.adds_flag]: true };
   }
