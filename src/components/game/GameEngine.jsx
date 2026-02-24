@@ -360,23 +360,32 @@ const STORY_DATA = {
       },
       "choices": [
         {
+          "text": "Recover net from swamp",
+          "next_node": "ending_drowned",
+          "sanity_change": 0,
+          "health_change": 0,
+          "requires_flag": "net_in_water"
+        },
+        {
+          "text": "Leave the net in the swamp and check the other nets",
+          "next_node": "wrong_sound",
+          "sanity_change": -8,
+          "health_change": 0,
+          "requires_flag": "net_in_water"
+        },
+        {
           "text": "Collect your equipment and regroup at the truck",
           "next_node": "wrong_sound",
           "sanity_change": -5,
-          "health_change": 0
+          "health_change": 0,
+          "condition": "Only appears if not net_in_water"
         },
         {
           "text": "Keep checking the remaining nets",
           "next_node": "wrong_sound",
           "sanity_change": -8,
-          "health_change": 0
-        },
-        {
-          "text": "Wade in and retrieve the net from the water",
-          "next_node": "ending_drowned",
-          "sanity_change": 0,
           "health_change": 0,
-          "requires_flag": "net_in_water"
+          "condition": "Only appears if not net_in_water"
         },
         {
           "text": "Check the future datasheet — does it mention net three?",
@@ -1152,13 +1161,14 @@ export function getSceneChoices(sceneId, health, sanity, inventory, flags = {}) 
       return false;
     }
     
-    // Check condition (health/sanity/infected)
+    // Check condition (health/sanity/infected/net_in_water)
     if (choice.condition) {
       if (choice.condition.includes('sanity <= 30') && sanity > 30) return false;
       if (choice.condition.includes('health <= 30') && health > 30) return false;
       if (choice.condition.includes('sanity >= 20') && sanity < 20) return false;
       if (choice.condition.includes('infected') && !flags.infected) return false;
       if (choice.condition.includes('not infected') && flags.infected) return false;
+      if (choice.condition.includes('not net_in_water') && flags.net_in_water) return false;
     }
     
     return true;
