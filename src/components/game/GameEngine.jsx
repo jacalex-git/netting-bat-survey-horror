@@ -21,6 +21,56 @@ const SCENE_VARIANTS = {
     "The mist net poles slide into the soft substrate with satisfying thuds. You tension the guy lines and begin draping the nets. Thirty-denier polyester, nearly invisible even in daylight. In this darkness, the nets cease to exist entirely. You know they're there only by touch.",
     "Net one goes up clean. Net two snags on a branch and you have to untangle it, fingers working the mesh by feel alone. You set up a third net near the pond edge, tensioning the lines carefully in the dark."
   ],
+  second_net: [
+    "Moving to the second net site, your headlamp catches something in the undergrowth. Equipment. Field vest. Datasheets in a waterproof case. Someone else's gear. But the schedule showed no survey before yours. You check the datasheets: Site 7, same location, dated three weeks ago. The handwriting becomes illegible halfway through, devolving into repeated symbols that hurt to look at.",
+    "You position the poles for net two and nearly trip over something. A backpack. Field equipment scattered around it like someone left in a hurry — or was taken. The radio is still on, battery dead, the last transmission frozen on the display: DONT COME HERE.",
+    "The second net location has been used recently. Fresh pole holes in the soft earth. But your supervisor told you this site hasn't been surveyed in six months. Someone was here. Whoever it was left everything behind. Including their headlamp. It still has battery. Why would anyone leave their headlamp?"
+  ],
+  bat_activity: [
+    "Twenty minutes of perfect survey conditions. Echolocation calls fill the detector — big browns, reds, silvers. Normal species, normal frequencies. You relax into the routine. This is what you trained for. The detector chirps steadily. Forty-two calls per minute. Fifty. Sixty. That's... a lot of bat activity for this temperature.",
+    "Your acoustic monitor shows a beautiful spectrogram. Multiple species, all behaving exactly as expected. Eastern red bats commuting to foraging areas. Big browns checking the nets at distance. This is good data. This is why you became a bat biologist. The detector's counter climbs: 100 calls. 150. 200. That can't be right.",
+    "Everything is normal. Beautifully, perfectly normal. The bats are active, the nets are set, your equipment is functioning. You take a water break and check your datasheets. All routine observations. The only odd thing is the call rate — your detector is logging 300+ calls per minute now. That would require hundreds of bats in immediate proximity. Your headlamp shows empty sky."
+  ],
+  acoustic_anomaly: [
+    "You check the acoustic detector. The call rate has spiked to 500 per minute. Impossible concentration. You adjust the gain, thinking it's a malfunction. The calls keep coming. And they're all identical. The same frequency, the same duration, the same pattern. Like a recording being played back. But there are no speakers out here. Just trees. And wings.",
+    "The detector's spectrogram has stopped updating. The screen is full, every pixel occupied by calls. The buffer can't keep up. You've never seen bat activity like this. No one has. This is publication-worthy data. If it's real. You listen to the headphones. The calls have rhythm. Structure. Like they're saying something.",
+    "You lean close to the detector screen. The patterns in the spectrogram aren't random. They repeat. Same sequence every 15 seconds. Call-pause-call-pause-call. Like Morse code. Like language. You're a scientist. You don't believe in coincidences. But you also don't believe bats can count."
+  ],
+  second_capture: [
+    "Net two has a capture. A hoary bat — Lasiurus cinereus. Beautiful specimen. But it shouldn't be here. Hoarys don't occur in this watershed. You check the band. Already banded. Old aluminum, pre-1985 style. The date stamp reads 1974. This bat would be over 50 years old. The longevity record for the species is 8.",
+    "You extract the bat from net two. Northern long-eared — Myotis septentrionalis. Common species. Everything seems normal. Forearm measurement: 42mm. You write it down. Then you measure again to be sure. 38mm. Third measurement: 45mm. Your calipers are working fine. You check them against your thumb. Consistent. The bat's forearm is changing length.",
+    "A red bat in the second net, glowing rust-colored in your headlamp. Textbook example. You've banded dozens. This one looks wrong somehow. The proportions are off by millimeters. You measure it. All standard. But it has six toes on its left foot. Bats have five. You count again. Six. Each one with a tiny human fingernail."
+  ],
+  third_net_check: [
+    "Net three is torn. Not caught on anything — torn. Cleanly, from the center, the mesh pushed outward like something emerged from inside it. That's impossible. Things get caught in nets from outside. The force required to tear 30-denier polyester from within would mean... something was inside the net pocket. Living in the net.",
+    "You approach the third net. It's moving. The whole net ripples despite no wind. As you get closer you see why: the mesh is full of holes. Hundreds of them. Each one perfectly circular, burned through the polyester. Some are still smoking. No fire. No scorching. Just absence, like the material ceased to exist.",
+    "The third net is destroyed. Shredded. Something went through it — through all four shelves at once. The tears radiate from a central impact point. Whatever hit the net was traveling fast. And it was big. You find pieces of the mesh scattered 20 meters away. Some are embedded in tree trunks. The nets are only stressed to 8kg breaking strength."
+  ],
+  glove_failure: [
+    "Your handling glove tears during the extraction. Just splits along the seam. Now your bare hand is touching it. Bat handling protocol is clear: never make skin contact. Rabies. Histoplasmosis. Lyssavirus. You pull back but it's too late. The creature's fur is cold. Impossibly cold. The cold travels up your arm. In your veins.",
+    "The glove doesn't tear. It dissolves. You watch the leather break down at molecular speed where the creature touches it, reducing to ash. Your exposed hand makes contact. The skin doesn't burn. It changes. For just a moment, you can see through your hand. See the bones. See something moving between the bones.",
+    "When you grab it, the glove's seams fail. Your finger brushes its wing. Electric shock — no, not shock. Information. You see through its eyes: the canopy from below. The world in ultrasound, rendered in clicks and echoes. You see yourself through its echolocation. Your skeleton. Your skull. The shape of your thoughts."
+  ],
+  after_fight: [
+    "You're holding the bent pole. The aluminum is deformed in a way that requires hydraulic force. You did this with your arms. Adrenaline. Survival reflex. That's what you tell yourself. The creature is gone but you can still hear it, somewhere in the dark, circling. Waiting. The pole is warm. It shouldn't be warm.",
+    "The pole fell somewhere during the fight. You find it by the pond, half-submerged. The end that struck the creature isn't bent. It's twisted, like it was made of clay and something grabbed it and wrung it out. The metal has fingerprints in it. Not human fingerprints. Too many ridges. Too many fingers.",
+    "You lean against a tree, breathing hard. Your hands are shaking. The pole is at your feet. You don't remember dropping it. Where you hit the creature, the aluminum has corroded, green patina spreading like infection. That patina formation takes decades. You hit it 30 seconds ago."
+  ],
+  water_bottle: [
+    "You unclip your water bottle and drink. The water tastes wrong. Metallic. Copper. Like the air when you first arrived. But the bottle was sealed. You brought it from home. The taste intensifies. Your tongue goes numb. You look at the water. It's normal. Clear. When you hold it up to your headlamp, there's something floating in it. Something moving.",
+    "Dehydration is dangerous. You remember your training. You drink. The water slides down your throat cold and wrong. It tastes like cave air. Like guano. Like it's been sitting in darkness for a thousand years. You bought this bottle at a gas station six hours ago.",
+    "The water hits your stomach and you feel it spread through you. Not hydration. Something else. You can trace its path through your body. Your veins light up with cold. The metallic taste is in your sinuses now, your brain. You look at the bottle. The label has changed. The brand is written in a language with too many consonants."
+  ],
+  use_datasheets: [
+    "You pull out your datasheets to record the anomaly. Your handwriting has changed. Mid-sentence, the letters shift, become angular, geometric. You don't remember writing this. You flip back through previous entries. The change started hours ago, gradually, each page more alien than the last. The most recent entry isn't in any alphabet you know.",
+    "The datasheets are full. But you've only logged three captures. You flip through: pages and pages of data, species descriptions, measurements. None of it is yours. The handwriting looks like yours but the content is impossible. Specimen 4,782. Specimen 9,101. You've been here 90 minutes. The date on the top of each page changes. Some are dated next week.",
+    "You reach for your datasheet to log the mist observation. Your hand is shaking. You write: 'Anomalous fog formation, non-meteorological origin.' The words come out backward. You're writing right to left. But you're not. Your hand is moving left to right. The pencil is writing reality wrong."
+  ],
+  use_banding_kit: [
+    "You still have one band left in the kit — aluminum size 4. Standard protocol: band the specimen, release it, track recapture. You approach the creature in the net. Maybe if you treat it like a bat, it will act like a bat. You reach for its forearm. Your hand passes through it. Not intangible. The opposite. Too solid. Your hand doesn't belong in the same space.",
+    "The banding kit is open in your palm. Tiny aluminum rings, each stamped with a unique ID number. You look at them in the amber light. The numbers are moving. Rearranging. You blink. Band 2847-96420 reads 0000-00000. They all read zeros now. The aluminum is cold enough to stick to your skin.",
+    "You try to band it. Protocol is protocol. You fit the aluminum ring around its forearm and squeeze the applicator. The band doesn't close on the bat. The bat closes on the band. Absorbs it. You watch the aluminum disappear into its fur like water into sand. In the place where the band was, your reflection looks back at you from the creature's limb."
+  ],
   first_capture: [
     "Twenty minutes pass. Your headlamp catches movement in net three — something fluttering, tangled. You approach. A big brown bat, Eptesicus fuscus, wrapped in the lower shelf. Routine. You reach for your gloves.",
     "A soft chittering draws you to the second net. Your lamp illuminates a small body thrashing in the mesh — a tricolored bat, Perimyotis subflavus. Its tragus is distinctive, rounded. You've banded hundreds like it.",
