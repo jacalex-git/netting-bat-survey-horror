@@ -332,8 +332,16 @@ const SCENES = {
     art: "creature",
     getText: () => "You swing the aluminum pole like a baseball bat. It connects with something solid — then something not solid — then something that feels like hitting a mirror, your own impact force reflecting back through the pole into your arms. The shock numbs your hands. The pole is bent at an angle that suggests the thing you hit was harder than aluminum. But you've bought yourself time. It shrieks — a frequency that makes your fillings sing and your vision strobe.",
     choices: [
-      { text: "Run. Now. Toward the treeline.", next: "flee_to_treeline", sanityChange: -5, healthChange: 0 },
-      { text: "Swing again. Don't stop.", next: "the_mist", sanityChange: -10, healthChange: -15, addFlag: { fought_twice: true } }
+      { text: "Look at what you just hit", next: "after_fight", sanityChange: -10, healthChange: 0 },
+      { text: "Don't think. RUN.", next: "flee_to_treeline", sanityChange: -5, healthChange: 0 }
+    ]
+  },
+  after_fight: {
+    id: "after_fight",
+    art: "dark_forest",
+    choices: [
+      { text: "Run before it comes back", next: "flee_to_treeline", sanityChange: -8, healthChange: 0, addFlag: { saw_damage: true } },
+      { text: "You need to document this", next: "the_mist", sanityChange: -12, healthChange: 0, addFlag: { saw_damage: true } }
     ]
   },
   investigate_shape: {
