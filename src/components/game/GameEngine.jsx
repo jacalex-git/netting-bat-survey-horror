@@ -553,12 +553,12 @@ export function getSceneText(sceneId, flags = {}) {
   return "The darkness presses closer.";
 }
 
-export function getSceneChoices(sceneId, health, sanity, inventory) {
+export function getSceneChoices(sceneId, health, sanity, inventory, flags = {}) {
   const scene = SCENES[sceneId];
   if (!scene) return [];
   
   let choices = scene.getChoices 
-    ? scene.getChoices(health, sanity) 
+    ? scene.getChoices(health, sanity, inventory, flags) 
     : [...scene.choices];
   
   // Filter by required items
