@@ -347,11 +347,16 @@ const SCENES = {
   investigate_shape: {
     id: "investigate_shape",
     art: "creature",
-    choices: [
-      { text: "Drop the calipers and run", next: "flee_to_treeline", sanityChange: -15, healthChange: 0, removeItem: "Calipers" },
-      { text: "Keep measuring. Record everything.", next: "the_mist", sanityChange: -25, healthChange: -10, addFlag: { measured_it: true } },
-      { text: "Try to collect a tissue sample", next: "the_mist", sanityChange: -20, healthChange: -25, addFlag: { took_sample: true } }
-    ]
+    getChoices: (health, sanity, inventory, flags) => {
+      const choices = [
+        { text: "Drop the calipers and run", next: "flee_to_treeline", sanityChange: -15, healthChange: 0, removeItem: "Calipers", addFlag: { measured_it: true } },
+        { text: "Keep measuring. Record everything.", next: "the_mist", sanityChange: -25, healthChange: -10, addFlag: { measured_it: true } }
+      ];
+      if (inventory.includes("Banding Kit")) {
+        choices.push({ text: "Try to collect a tissue sample", next: "the_mist", sanityChange: -20, healthChange: -25, addFlag: { took_sample: true } });
+      }
+      return choices;
+    }
   },
   the_mist: {
     id: "the_mist",
