@@ -12,6 +12,7 @@ import {
   getSceneText,
   getSceneChoices,
   getSceneArt,
+  getSceneType,
   applyChoice
 } from "../components/game/GameEngine";
 
@@ -25,6 +26,7 @@ export default function Game() {
   const [isMuted, setIsMuted] = useState(false);
   const [showScoreboard, setShowScoreboard] = useState(false);
   const [gameEnding, setGameEnding] = useState(null);
+  const [debugMode, setDebugMode] = useState(false);
   const audioRef = useRef(null);
 
   const startGame = useCallback(() => {
@@ -68,7 +70,8 @@ export default function Game() {
       setTransitioning(false);
       
       // Show scoreboard after ending
-      if (isEnding && !gameEnding) {
+      const sceneType = getSceneType(newState.currentScene);
+      if (sceneType === 'ending' && !gameEnding) {
         setGameEnding(newState.currentScene);
         setTimeout(() => setShowScoreboard(true), 2000);
       }
@@ -108,10 +111,17 @@ export default function Game() {
       gameState.currentScene,
       gameState.health,
       gameState.sanity,
-      gameState.inventory
+      gameState.inventory,
+      gameState.flags
     );
 
     const handler = (e) => {
+      // Debug toggle
+      if (e.key === 'd' || e.key === 'D') {
+        setDebugMode(prev => !prev);
+        return;
+      }
+      
       const idx = e.key.charCodeAt(0) - 97; // a=0, b=1, etc
       if (idx >= 0 && idx < choices.length) {
         handleChoice(choices[idx]);
@@ -262,9 +272,23 @@ export default function Game() {
 
           {/* Bottom note */}
           <p className="text-center text-[10px] font-mono text-gray-800 mt-4">
-            Press [A] [B] [C] to choose · Inventory on the right
+            Press [A] [B] [C] to choose · Inventory on the right · Press [D] for debug
           </p>
         </div>
+
+        {/* Debug Panel */}
+        {debugMode && (
+          <div className="fixed top-4 right-4 bg-black/90 border-2 border-amber-700/50 rounded p-3 text-xs font-mono max-w-xs z-40">
+            <div className="text-amber-500 font-bold mb-2">DEBUG MODE</div>
+            <div className="space-y-1 text-amber-400/70">
+              <div><span className="text-amber-600">Node:</span> {gameState.currentScene}</div>
+              <div><span className="text-amber-600">Flags:</span> {Object.keys(gameState.flags).join(', ') || 'none'}</div>
+              <div><span className="text-amber-600">Inventory:</span></div>
+              <div className="text-[10px] ml-2">{gameState.inventory.join(', ')}</div>
+            </div>
+          </div>
+        )}
+      </div>
 
         {/* Inventory sidebar - desktop always visible, mobile toggle */}
         <div className="hidden lg:block lg:w-56 lg:border-l lg:border-gray-900 lg:p-4">
