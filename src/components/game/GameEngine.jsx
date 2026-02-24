@@ -391,11 +391,17 @@ const SCENES = {
   use_headlamp: {
     id: "use_headlamp",
     art: "mist",
-    choices: [
-      { text: "RUN. GET OUT.", next: "flee_to_treeline", sanityChange: -20, healthChange: -10 },
-      { text: "You need to understand this. Find the source.", next: "the_cave", sanityChange: -15, healthChange: 0, addFlag: { saw_canopy: true } },
-      { text: "Turn off the light. You've seen enough.", next: "the_cave", sanityChange: -30, healthChange: 0 }
-    ]
+    getChoices: (health, sanity, inventory, flags) => {
+      const choices = [
+        { text: "RUN. GET OUT.", next: "flee_to_treeline", sanityChange: -20, healthChange: -10 },
+        { text: "You need to understand this. Find the source.", next: "the_cave", sanityChange: -15, healthChange: 0, addFlag: { saw_canopy: true } },
+        { text: "Turn off the light. You've seen enough.", next: "the_cave", sanityChange: -30, healthChange: 0 }
+      ];
+      if (flags.recorded_calls) {
+        choices.push({ text: "Play back the recorded calls from your detector", next: "the_cave", sanityChange: -25, healthChange: 0, addFlag: { called_them: true } });
+      }
+      return choices;
+    }
   },
   use_radio: {
     id: "use_radio",
