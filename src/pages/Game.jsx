@@ -87,7 +87,8 @@ export default function Game() {
     gameState.currentScene,
     gameState.health,
     gameState.sanity,
-    gameState.inventory
+    gameState.inventory,
+    gameState.flags
   );
 
   return (
