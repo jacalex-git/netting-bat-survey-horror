@@ -304,9 +304,17 @@ const SCENES = {
     id: "wrong_shape_net",
     art: "creature",
     choices: [
-      { text: "Approach it with your calipers. You're a scientist.", next: "investigate_shape", sanityChange: -15, healthChange: -10, requiresItem: "Calipers" },
+      { text: "Approach it with your calipers. You're a scientist.", next: "glove_failure", sanityChange: -15, healthChange: -10, requiresItem: "Calipers" },
       { text: "Step back slowly. Don't take your eyes off it.", next: "the_mist", sanityChange: -10, healthChange: 0 },
       { text: "Turn off your headlamp. Maybe it hunts by light.", next: "darkness_choice", sanityChange: -20, healthChange: 0 }
+    ]
+  },
+  glove_failure: {
+    id: "glove_failure",
+    art: "creature",
+    choices: [
+      { text: "Pull back. Get away from it.", next: "the_mist", sanityChange: -15, healthChange: -10, addFlag: { touched_it: true } },
+      { text: "Keep holding it. Measure it anyway.", next: "investigate_shape", sanityChange: -20, healthChange: -15, addFlag: { touched_it: true } }
     ]
   },
   darkness_choice: {
