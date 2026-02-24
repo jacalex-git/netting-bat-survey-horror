@@ -499,6 +499,21 @@ const SCENES = {
       { text: "Begin again [Play Again]", next: "__restart__", sanityChange: 0, healthChange: 0 }
     ]
   },
+  ending_cave_science: {
+    id: "ending_cave_science",
+    art: "ending_cave",
+    getText: () => "You descend. At the bottom, the ancient thing waits. It opens one eye. You expect terror. Instead: recognition. It sees you as you saw it — with scientific curiosity. With the need to understand. It has been observing your species for millennia. You have been observing it for two hours. The methodologies are identical.\n\nIt doesn't speak. It shows you. Your calipers measure its forearm: ∞. Your tissue sample contains DNA with too many base pairs. Your datasheets fill themselves with observations you haven't made yet. You understand: science is a language. You've been speaking it. So has the thing.\n\nIt hands you a band — ancient aluminum, corroded green. The ID number matches yours. The date stamp is 300 years in the future. 'We will meet again,' it doesn't say but you hear. 'When your species is ready.' It means ready to be catalogued.\n\nYou climb out. You publish. You win awards. In every paper you write, in every lecture you give, you are translating. Not English to data. Its language to yours. You are a vector now. Science spreading science.\n\n[ENDING: THE PEER — Two researchers met in the dark. Both took notes.]",
+    choices: [
+      { text: "Continue your research [Play Again]", next: "__restart__", sanityChange: 0, healthChange: 0 }
+    ]
+  },
+  ending_documented: {
+    id: "ending_documented",
+    art: "ending_escape",
+    choices: [
+      { text: "Publish your findings [Play Again]", next: "__restart__", sanityChange: 0, healthChange: 0 }
+    ]
+  },
   ending_darkness: {
     id: "ending_darkness",
     art: "ending_darkness",
