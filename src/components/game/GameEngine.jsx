@@ -356,11 +356,36 @@ const SCENES = {
   the_mist: {
     id: "the_mist",
     art: "mist",
+    getChoices: (health, sanity, inventory, flags) => {
+      const choices = [
+        { text: "Run for the treeline — find the access road", next: "flee_to_treeline", sanityChange: -10, healthChange: -5 },
+        { text: "Use your headlamp at full power to see through it", next: "use_headlamp", sanityChange: -15, healthChange: 0, requiresItem: "Headlamp" },
+        { text: "Try the radio one more time", next: "use_radio", sanityChange: -20, healthChange: 0, requiresItem: "Two-Way Radio" }
+      ];
+      if (inventory.includes("Field Datasheets")) {
+        choices.push({ text: "Check your field notes", next: "use_datasheets", sanityChange: -15, healthChange: 0, requiresItem: "Field Datasheets" });
+      }
+      if (inventory.includes("Banding Kit")) {
+        choices.push({ text: "Try to band it with the kit", next: "use_banding_kit", sanityChange: -25, healthChange: 0, requiresItem: "Banding Kit" });
+      }
+      choices.push({ text: "Stand your ground. Observe. Document.", next: "the_cave", sanityChange: -25, healthChange: -10, addFlag: { stood_ground: true } });
+      return choices;
+    }
+  },
+  use_datasheets: {
+    id: "use_datasheets",
+    art: "mist",
     choices: [
-      { text: "Run for the treeline — find the access road", next: "flee_to_treeline", sanityChange: -10, healthChange: -5 },
-      { text: "Use your headlamp at full power to see through it", next: "use_headlamp", sanityChange: -15, healthChange: 0, requiresItem: "Headlamp" },
-      { text: "Try the radio one more time", next: "use_radio", sanityChange: -20, healthChange: 0, requiresItem: "Two-Way Radio" },
-      { text: "Stand your ground. Observe. Document.", next: "the_cave", sanityChange: -25, healthChange: -10, addFlag: { stood_ground: true } }
+      { text: "This isn't you. This isn't your handwriting.", next: "flee_to_treeline", sanityChange: -20, healthChange: 0, addFlag: { saw_change: true } },
+      { text: "Keep reading. Try to understand.", next: "the_cave", sanityChange: -30, healthChange: 0, addFlag: { read_future: true } }
+    ]
+  },
+  use_banding_kit: {
+    id: "use_banding_kit",
+    art: "mist",
+    choices: [
+      { text: "Drop the kit. This was a mistake.", next: "flee_to_treeline", sanityChange: -20, healthChange: 0, removeItem: "Banding Kit" },
+      { text: "Science demands completion.", next: "the_cave", sanityChange: -35, healthChange: 0, addFlag: { banded_it: true } }
     ]
   },
   use_headlamp: {
