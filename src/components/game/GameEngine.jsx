@@ -24,6 +24,7 @@ const STORY_DATA = {
     "headlamp_use": "Can manually use headlamp for +15 sanity at cost of 10% battery"
   },
   "story_nodes": {
+
     "arrival": {
       "id": "arrival",
       "art_scene": "arrival",
@@ -53,6 +54,7 @@ const STORY_DATA = {
         }
       ]
     },
+
     "arrival_check": {
       "id": "arrival_check",
       "art_scene": "arrival",
@@ -74,11 +76,12 @@ const STORY_DATA = {
         }
       ]
     },
+
     "arrival_listen": {
       "id": "arrival_listen",
       "art_scene": "arrival",
       "text_variants": [
-        "You stand still. The soundscape is... diminished. The spring peepers should be deafening at this time of year. Instead, sporadic calls. Tentative. Like the frogs are testing whether it's safe to make noise. A barred owl starts its call — 'who cooks for you' — but stops halfway through. As if something answered it that shouldn't have."
+        "You stand still. The soundscape is diminished. The spring peepers should be deafening at this time of year. Instead, sporadic calls. Tentative. Like the frogs are testing whether it's safe to make noise. A barred owl starts its call — 'who cooks for you' — but stops halfway through. As if something answered it that shouldn't have."
       ],
       "choices": [
         {
@@ -96,6 +99,7 @@ const STORY_DATA = {
         }
       ]
     },
+
     "arrival_radio": {
       "id": "arrival_radio",
       "art_scene": "arrival",
@@ -111,6 +115,7 @@ const STORY_DATA = {
         }
       ]
     },
+
     "setup_nets": {
       "id": "setup_nets",
       "art_scene": "nets",
@@ -134,6 +139,7 @@ const STORY_DATA = {
         }
       ]
     },
+
     "second_net": {
       "id": "second_net",
       "art_scene": "nets",
@@ -165,6 +171,7 @@ const STORY_DATA = {
         }
       ]
     },
+
     "second_net_radio": {
       "id": "second_net_radio",
       "art_scene": "nets",
@@ -180,6 +187,7 @@ const STORY_DATA = {
         }
       ]
     },
+
     "setup_acoustic": {
       "id": "setup_acoustic",
       "art_scene": "nets",
@@ -203,6 +211,7 @@ const STORY_DATA = {
         }
       ]
     },
+
     "acoustic_anomaly": {
       "id": "acoustic_anomaly",
       "art_scene": "nets",
@@ -212,7 +221,7 @@ const STORY_DATA = {
       ],
       "choices": [
         {
-          "text": "Record the anomalous calls for later analysis",
+          "text": "Record the anomalous calls for later analysis and check the nets",
           "next_node": "bat_activity",
           "sanity_change": -8,
           "health_change": 0,
@@ -226,13 +235,14 @@ const STORY_DATA = {
         }
       ]
     },
+
     "bat_activity": {
       "id": "bat_activity",
       "art_scene": "nets",
       "text_variants": [
-        "For twenty minutes: nothing. Then everything at once. Your headlamp catches the flicker of wings above the first net — one bat, two, a dozen, wheeling and diving in the gap between the trees. This is what you came for. The survey is working. The habitat is good. The bats are here. You feel the familiar professional satisfaction settle into your chest. You are a scientist doing science in a forest at night, and everything is fine.",
-        "A rush of activity over the pond surface — the bats are feeding, skimming the water, their echolocation clicks painting the air in frequencies you can't hear. You count at least eight individuals. Possibly more. The acoustic monitor's call rate indicator climbs steadily. This is a healthy roost. This is a productive site. You allow yourself, briefly, to feel good about this.",
-        "The night comes alive. Wings everywhere, the soft percussion of bodies banking through still air, the occasional thud of a capture in the nets — this is what the work looks like when it's working. You move between the nets with practiced efficiency. You are calm. You are competent. The wetland is performing exactly as expected. Enjoy this. It does not last."
+        "For twenty minutes: nothing. Then everything at once. Your headlamp catches the flicker of wings above the first net — one bat, two, a dozen, wheeling and diving in the gap between the trees. This is what you came for. The survey is working. The habitat is good. The bats are here.",
+        "A rush of activity over the pond surface — the bats are feeding, skimming the water, their echolocation clicks painting the air in frequencies you can't hear. You count at least eight individuals. Possibly more. The acoustic monitor's call rate indicator climbs steadily.",
+        "The night comes alive. Wings everywhere, the soft percussion of bodies banking through still air, the occasional thud of a capture in the nets. You move between the nets with practiced efficiency. You are calm. You are competent. Enjoy this. It does not last."
       ],
       "choices": [
         {
@@ -247,15 +257,23 @@ const STORY_DATA = {
           "sanity_change": 0,
           "health_change": 5,
           "requires_item": "Water Bottle"
+        },
+        {
+          "text": "Check the acoustic detector — the call rate seems unusually high",
+          "next_node": "acoustic_check_deep",
+          "sanity_change": -3,
+          "health_change": 0,
+          "requires_item": "Headlamp"
         }
       ]
     },
+
     "water_bottle_beat": {
       "id": "water_bottle_beat",
       "art_scene": "nets",
       "text_variants": [
-        "You unscrew the cap and drink. The water tastes wrong. Not bad — just wrong. Metallic. Like the air tasted when you first stepped out of the truck. You check the bottle: sealed this morning, same tap water you always use. You take another sip. There it is again. Copper and something underneath. You've tasted this before. Just now. When you stepped out of the truck. The water tastes exactly like the air. Like the site recognized you and got into everything you brought with you.",
-        "You drink. The water is cold and should be neutral and is neither. There is a taste to it — faint, mineral, geological. Like something deep underground has been slowly leaching up through the water table for a very long time, changing the chemistry of everything it touches. You think about the cave system marked on the topo map. You think about what dissolves in groundwater over centuries. You stop thinking about it and check the nets."
+        "You unscrew the cap and drink. The water tastes wrong. Not bad — just wrong. Metallic. Like the air tasted when you first stepped out of the truck. You check the bottle: sealed this morning, same tap water you always use. You take another sip. There it is again. Copper and something underneath. The water tastes exactly like the air. Like the site recognized you and got into everything you brought with you.",
+        "You drink. The water is cold and should be neutral and is neither. There is a taste to it — faint, mineral, geological. Like something deep underground has been slowly leaching up through the water table for a very long time. You think about the cave system marked on the topo map. You stop thinking about it and check the nets."
       ],
       "choices": [
         {
@@ -267,6 +285,93 @@ const STORY_DATA = {
         }
       ]
     },
+
+    "acoustic_check_deep": {
+      "id": "acoustic_check_deep",
+      "art_scene": "nets",
+      "text_variants": [
+        "You lean over the detector display. The call rate is wrong — not high for a productive site, wrong in structure. The sequences repeat. Not individual bats calling as they hunt, but something broadcasting the same phrase over and over, modulating just slightly each iteration, like it's waiting for an echo back. Like it's mapping something. You realize the calls aren't coming from above the nets. They're coming from a fixed point in the tree line. Something is standing still and transmitting.",
+        "The detector's directional indicator swings and locks — northeast, toward the deeper part of the wetland. The anomalous calls are point-source. Stationary. Whatever is making them isn't hunting. It isn't flying. It is rooted to one spot, broadcasting at you specifically, in a pattern that contains far too much structure to be biological noise."
+      ],
+      "choices": [
+        {
+          "text": "Put it down — get back to the nets",
+          "next_node": "first_capture",
+          "sanity_change": 0,
+          "health_change": 0
+        },
+        {
+          "text": "Follow the signal — it's coming from somewhere specific",
+          "next_node": "follow_signal",
+          "sanity_change": -8,
+          "health_change": 0,
+          "adds_flag": "following_signal"
+        }
+      ]
+    },
+
+    "follow_signal": {
+      "id": "follow_signal",
+      "art_scene": "dark_forest",
+      "text_variants": [
+        "You carry the detector like a compass, its directional indicator pulling you northeast through standing water and buttonbush. The call rate climbs with every meter. At thirty meters from the nets you stop. The calls are so dense on the display they've merged into a single white bar across the spectrogram. But you can't hear anything. The frequency is too high. It's inside your head, not outside it — a pressure behind your eyes that arrived so gradually you didn't notice it beginning.",
+        "The undergrowth thins into a small clearing you don't remember seeing on the site map. The detector indicator locks. You're standing at the source. There's nothing here. No bat, no roost, no structure. Just an empty clearing with the faintest smell of ozone and wet mineral, and a sub-audible pulse that you feel in the cartilage of your ears more than you hear it. The detector screen glitches. For half a second it displays a spectrogram of a human voice saying your name."
+      ],
+      "choices": [
+        {
+          "text": "Turn back — this isn't the survey",
+          "next_node": "first_capture",
+          "sanity_change": -5,
+          "health_change": 0
+        },
+        {
+          "text": "Keep following — the signal is getting stronger",
+          "next_node": "signal_source",
+          "sanity_change": -12,
+          "health_change": 0
+        }
+      ]
+    },
+
+    "signal_source": {
+      "id": "signal_source",
+      "art_scene": "dark_forest",
+      "text_variants": [
+        "You find it in a hollow between two limestone outcrops: nothing visible, but the detector is screaming. The display is a solid white rectangle. And then the pulses shift. They narrow. They focus. You feel the first one land on you like a finger pressed between your eyes — a single echolocation pulse, targeted, deliberate, reading the geometry of your skull. The ringing starts immediately. Not the dull tinnitus of loud noise. A tone. Clean and precise, like a tuning fork pressed against the bone behind your ear.",
+        "The ringing has a pitch now. Then a second pitch — a harmony — and you understand with horrible clarity that you are being scanned. The pulses are mapping you. Every sinus cavity, every hollow behind your cheekbones, every air pocket in your inner ear. The cartilage of your outer ear feels warm. Then hot. You raise your hand to it and feel it moving under your fingers, reshaping, orienting — rotating, like a dish antenna, toward the source."
+      ],
+      "choices": [
+        {
+          "text": "Run — get away from the source NOW",
+          "next_node": "signal_too_late",
+          "sanity_change": -15,
+          "health_change": -10
+        },
+        {
+          "text": "Hold still — maybe it stops if you don't move",
+          "next_node": "signal_too_late",
+          "sanity_change": -20,
+          "health_change": -5
+        }
+      ]
+    },
+
+    "signal_too_late": {
+      "id": "signal_too_late",
+      "art_scene": "dark_forest",
+      "text_variants": [
+        "It doesn't matter. The ringing has moved inward — past the outer ear, past the canal, into the architecture of your vestibular system. You take three steps and lose the horizon. The ground is somewhere but you can't find it with your feet. The pulses keep coming, methodical, thorough, and each one returns a slightly different echo as your anatomy changes to receive it better. You are being tuned. You are being improved. You drop the detector. You don't need it anymore. You can hear everything it could hear, and more — the shape of the trees in the dark, the depth of the water, the warm hollow of small mammals under the leaf litter. You open your mouth and a sound comes out that you have never made before. Something in the trees answers it immediately. It has been waiting for you to get the frequency right."
+      ],
+      "choices": [
+        {
+          "text": "Continue to ENDING: ECHOLOCATED",
+          "next_node": "ending_echolocated",
+          "sanity_change": -20,
+          "health_change": 0
+        }
+      ]
+    },
+
     "first_capture": {
       "id": "first_capture",
       "art_scene": "bat_capture",
@@ -290,14 +395,14 @@ const STORY_DATA = {
         }
       ]
     },
+
     "process_bat": {
       "id": "process_bat",
       "art_scene": "bat_capture",
       "text_variants": [
         "You extract the bat carefully, supporting its body. Forearm measurement: 42mm. Weight: 14g. Sex: female. Reproductive status: non-reproductive. You fit a band to its forearm — aluminum, size 4. Everything by the book. You open your hand. It launches into the dark. Standard. But as it vanishes, you swear its wingbeat rhythm sounded like Morse code.",
-        "You extract the bat carefully, supporting its body. Forearm measurement: 42mm. Weight: 14g. Sex: female. Reproductive status: non-reproductive. You fit a band to its forearm — aluminum, size 4. Everything by the book. As you release it, the bat doesn't fly away. It hangs from your glove and stares at you. Its eyes reflect your headlamp, but the reflection is the wrong color. Then it's gone."
+        "You extract the bat carefully, supporting its body. Forearm measurement: 42mm. Weight: 14g. Sex: female. Reproductive status: non-reproductive. You fit a band to its forearm — aluminum, size 4. As you release it, the bat doesn't fly away. It hangs from your glove and stares at you. Its eyes reflect your headlamp, but the reflection is the wrong color. Then it's gone."
       ],
-      "note": "Second variant only displays if player has 'noted_silence' flag",
       "choices": [
         {
           "text": "Check the second net",
@@ -309,16 +414,18 @@ const STORY_DATA = {
           "text": "Take a break, drink some water",
           "next_node": "second_capture",
           "sanity_change": 2,
-          "health_change": 5
+          "health_change": 5,
+          "requires_item": "Water Bottle"
         }
       ]
     },
+
     "second_capture": {
       "id": "second_capture",
       "art_scene": "bat_capture",
       "text_variants": [
         "Net two has a capture — a little brown bat, Myotis lucifugus, tangled in the second shelf. You work it free with practiced fingers. But when you go to measure the forearm, the calipers won't close around it correctly. The arm is the right length. The arm is the wrong shape. Not broken — structured differently, with a joint that bends a direction forearms don't bend. You check the bat's band. It has one already. Aluminum, size 4. Your agency's code. The band number is in sequence with the band you just put on the previous capture. You haven't banded this one yet.",
-        "The capture in net two is a Myotis septentrionalis — a northern long-eared bat. Unremarkable. But the band already on its forearm stops you cold. You run the number. It comes back immediately on your handheld scanner: banded at this site, Survey 7, twenty-three years ago. The individual's recapture weight should be approximately 8 grams. You hold the bat for a long moment. The bat holds very still, as though it has been waiting for you to do the math.",
+        "The capture in net two is a Myotis septentrionalis — a northern long-eared bat. Unremarkable. But the band already on its forearm stops you cold. You run the number. It comes back: banded at this site, Survey 7, twenty-three years ago. You hold the bat for a long moment. The bat holds very still, as though it has been waiting for you to do the math.",
         "The second capture is a species you don't immediately recognize — the fur color is wrong for everything in your regional guide, the tragus shape doesn't match. You photograph it. You run the measurements. Nothing matches. You've surveyed for fifteen years. You know every species in this range. This bat does not exist. It is in your hands. It echolocates at you once — a single pulse — and for one fraction of a second you see yourself from above, small and warm and glowing in the dark, surrounded by nets."
       ],
       "choices": [
@@ -345,29 +452,25 @@ const STORY_DATA = {
         }
       ]
     },
+
     "third_net_check": {
       "id": "third_net_check",
       "art_scene": "dark_forest",
-      "adds_flag": "net_in_water",
       "text_variants": [
         "Net three is empty. But it's been disturbed. The lower two shelf strings are snapped — not tangled, not sagged, but cleanly broken under load. The breaks face outward, away from the water. Something large moved through this net from the inside out. Mist nets are designed to capture things flying into them. Whatever broke this net was on the inside, pushing out. You installed this net yourself. There was nothing inside it when you did.",
         "Net three is down. The poles are still upright but the mesh is gone — not tangled in the vegetation, not on the ground. Gone. Thirty denier polyester doesn't just disappear. You find one shelf string still attached to the pole, trailing off into the dark toward the pond. You follow it two meters. It goes into the water. Something under the surface has the rest of the net. The water is still. It shouldn't be still with a net being pulled through it.",
-        "Net three has been moved. Not tangled, not damaged — repositioned. The poles have been pulled from the substrate and replanted four meters farther into the tree line, the net re-strung between different trees with the same tension and hang angle you use. Whoever moved it knows exactly how to set a mist net. The new position faces the direction you came from. It's aimed at the parking area. At your truck. At you."
+        "Net three has been moved. Not tangled, not damaged — repositioned. The poles have been pulled from the substrate and replanted four meters farther into the tree line, the net re-strung between different trees with the same tension and hang angle you use. The new position faces the direction you came from. It's aimed at the parking area. At your truck. At you."
       ],
-      "flag_variant": {
-        "requires_flag": "net_in_water",
-        "text": "Net three's trailing string disappears into the dark water of the pond. You can see the mesh tangled just below the surface, caught on something. The expensive polyester net — agency equipment you're responsible for — is right there. You could wade in and retrieve it. The water looks shallow."
-      },
       "choices": [
         {
-          "text": "Recover net from swamp",
+          "text": "Wade in and recover the net — it's agency equipment",
           "next_node": "ending_drowned",
           "sanity_change": 0,
           "health_change": 0,
           "requires_flag": "net_in_water"
         },
         {
-          "text": "Leave the net in the swamp and check the other nets",
+          "text": "Leave the net in the swamp and keep working",
           "next_node": "wrong_sound",
           "sanity_change": -8,
           "health_change": 0,
@@ -397,6 +500,7 @@ const STORY_DATA = {
         }
       ]
     },
+
     "wrong_sound": {
       "id": "wrong_sound",
       "art_scene": "dark_forest",
@@ -431,6 +535,7 @@ const STORY_DATA = {
         }
       ]
     },
+
     "use_radio_early": {
       "id": "use_radio_early",
       "art_scene": "dark_forest",
@@ -446,6 +551,7 @@ const STORY_DATA = {
         }
       ]
     },
+
     "wrong_shape_net": {
       "id": "wrong_shape_net",
       "art_scene": "creature",
@@ -460,7 +566,8 @@ const STORY_DATA = {
           "next_node": "investigate_shape",
           "sanity_change": -15,
           "health_change": -10,
-          "requires_item": "Calipers"
+          "requires_item": "Calipers",
+          "adds_flag": "measured_it"
         },
         {
           "text": "Step back slowly. Don't take your eyes off it.",
@@ -476,20 +583,21 @@ const STORY_DATA = {
         }
       ]
     },
+
     "glove_failure": {
       "id": "glove_failure",
       "art_scene": "creature",
       "text_variants": [
-        "You back away — but your glove catches on a snapped shelf string from the net and tears. A clean rip across the palm. Your skin is exposed. In bat survey protocol, a torn glove means end of survey, immediate rabies risk assessment, possible post-exposure prophylaxis. You know the protocol. But the thing in the net isn't any known rabies vector. It isn't any known species. It turns toward your exposed hand. It makes a sound at a frequency that seems designed specifically for the geometry of your skull. You feel it vibrate through the bones of your bare palm.",
-        "You step back and the creature shifts its weight in the net, one limb extending toward you further than the mesh should allow. The tip of something — a claw, a finger, a structure with no name — grazes the back of your glove. The latex splits open like it was never there. Your skin tingles where the air touches it. The tingling doesn't stop. It spreads. You look at your hand and see the faintest tracery of something beneath the skin — thread-thin, branching, moving toward your wrist."
+        "You back away — but your glove catches on a snapped shelf string and tears. A clean rip across the palm. Your skin is exposed. The thing in the net turns toward your bare hand. It makes a sound at a frequency that seems designed specifically for the geometry of your skull. You feel it vibrate through the bones of your bare palm.",
+        "You step back and the creature shifts its weight, one limb extending further than the mesh should allow. The tip of something — a claw, a finger, a structure with no name — grazes the back of your glove. The latex splits open. Your skin tingles where the air touches it. The tingling doesn't stop. It spreads. You look at your hand and see the faintest tracery of something beneath the skin — thread-thin, branching, moving toward your wrist."
       ],
       "choices": [
         {
-          "text": "Put on your spare glove — you always carry a spare",
+          "text": "Put on your spare glove immediately — protocol demands it",
           "next_node": "the_mist",
           "sanity_change": -5,
-          "health_change": -10,
-          "adds_flag": "infected"
+          "health_change": -5,
+          "removes_item": "Bat Handling Gloves"
         },
         {
           "text": "Run. Bare hands and all.",
@@ -507,6 +615,7 @@ const STORY_DATA = {
         }
       ]
     },
+
     "darkness_choice": {
       "id": "darkness_choice",
       "art_scene": "dark_forest",
@@ -537,6 +646,7 @@ const STORY_DATA = {
         }
       ]
     },
+
     "fight_back": {
       "id": "fight_back",
       "art_scene": "creature",
@@ -552,50 +662,37 @@ const STORY_DATA = {
         },
         {
           "text": "Swing again. Don't stop.",
-          "next_node": "creature_retaliates",
+          "next_node": "ending_consumed",
           "sanity_change": -10,
-          "health_change": -15,
-          "adds_flag": "fought_twice"
+          "health_change": -15
         }
       ]
     },
-    "creature_retaliates": {
-      "id": "creature_retaliates",
-      "art_scene": "creature",
-      "text_variants": [
-        "You swing again. The pole connects and this time the creature doesn't recoil — it wraps around the impact, absorbing the aluminum into itself like it's made of clay. The pole is gone. Your hands are empty. The creature unfolds from the net, its wingspan blotting out the trees behind it. It moves faster than anything that size should move. You don't have time to scream. Its mouth opens wider than physics allows and you see yourself reflected in concentric rings of teeth, each one carved with a band number you recognize. The last thing you understand is that you were always going to end up here. The survey was never yours.\n\n[ENDING: CONSUMED — You fought back. It was hungry.]"
-      ],
-      "choices": [
-        {
-          "text": "Wake up [Play Again]",
-          "next_node": "__restart__",
-          "action": "restart_game"
-        }
-      ]
-    },
+
     "after_fight": {
       "id": "after_fight",
       "art_scene": "dark_forest",
       "text_variants": [
-        "You put distance between yourself and the net. Ten meters. Twenty. You stop and look back. The net is empty — the creature is gone. In your hands, the aluminum pole is bent into a shape that has no structural explanation. You hit it once. The pole has five bends in it. You look at your hands, which are intact, which held the pole, which absorbed none of the force that created five bends in aircraft-grade aluminum. You don't know what to do with that information so you set it aside and keep moving.",
-        "You stop running and press your back against a tupelo trunk, breathing hard. Behind you, the net hangs slack and empty. The creature is gone. You look at the bent pole in your hands. The metal is warm — not ambient warm, but body-temperature warm, like it's been held in a fist for a long time. The bent section, where you hit it, has a texture now that the rest of the pole doesn't — fine and regular, like scales. Like skin. You drop the pole. You do not pick it up again.",
-        "Distance. Breath. You look at where you've been. The mist net between the tupelos is undamaged. The creature is gone. But both facts are somehow more frightening than the alternative. Gone where? Through the net without tearing it? You know exactly what thirty-denier polyester can and cannot pass. The list of things that can pass through it without damage is very short. It is not a list that contains anything with a three-meter wingspan."
+        "You put distance between yourself and the net. Ten meters. Twenty. You stop and look back. The net is empty — the creature is gone. In your hands, the aluminum pole is bent into a shape that has no structural explanation. You hit it once. The pole has five bends in it. You look at your hands, which are intact, which held the pole, which absorbed none of the force that created five bends in aircraft-grade aluminum.",
+        "You stop running and press your back against a tupelo trunk. Behind you, the net hangs slack and empty. The creature is gone. You look at the bent pole in your hands. The metal is warm — body-temperature warm, like it's been held in a fist for a long time. The bent section has a texture now that the rest of the pole doesn't — fine and regular, like scales. Like skin. You drop the pole. You do not pick it up again.",
+        "Distance. Breath. You look at where you've been. The mist net is undamaged. The creature is gone. But both facts are somehow more frightening than the alternative. Gone where? Through the net without tearing it? You know exactly what thirty-denier polyester can and cannot pass."
       ],
       "choices": [
         {
-          "text": "Move toward the mist — get out of the open",
+          "text": "Move toward the mist — you need cover",
           "next_node": "the_mist",
           "sanity_change": -8,
           "health_change": 0
         },
         {
-          "text": "Head for the treeline now while it's gone",
+          "text": "Head for the treeline while it's gone",
           "next_node": "flee_to_treeline",
           "sanity_change": -5,
           "health_change": 0
         }
       ]
     },
+
     "investigate_shape": {
       "id": "investigate_shape",
       "art_scene": "creature",
@@ -617,7 +714,7 @@ const STORY_DATA = {
           "next_node": "the_mist",
           "sanity_change": -25,
           "health_change": -10,
-          "adds_flag": "measured_it"
+          "adds_flag": "chose_science"
         },
         {
           "text": "Try to collect a tissue sample",
@@ -628,6 +725,7 @@ const STORY_DATA = {
         }
       ]
     },
+
     "the_mist": {
       "id": "the_mist",
       "art_scene": "mist",
@@ -662,7 +760,7 @@ const STORY_DATA = {
           "requires_item": "Two-Way Radio"
         },
         {
-          "text": "Check your datasheets — maybe the future version tells you what to do",
+          "text": "Check your datasheets — the future version might say what to do",
           "next_node": "use_datasheets",
           "sanity_change": -15,
           "health_change": 0,
@@ -687,13 +785,14 @@ const STORY_DATA = {
         }
       ]
     },
+
     "use_datasheets": {
       "id": "use_datasheets",
       "art_scene": "mist",
       "text_variants": [
-        "You pull out the future datasheet — the one in your handwriting that you haven't filled out yet. You scan the capture records. Thirty-two individuals. All routine. Then a final entry at the bottom, below the last species record, in handwriting that is yours but changed somehow — shakier, or more deliberate, you can't tell which: 'Do not enter the cave. The cave is not a cave. The band number on the last capture is yours.' You check your wrist. You are not wearing a band. You have never worn a band. There is a pale ring of skin on your left forearm, a pressure mark, like something was there recently and was removed.",
-        "You unfold the datasheet. The capture data you didn't collect yet is all there — measurements, weights, sex, reproductive status. At the bottom of the page, in increasingly small handwriting that spirals into the margin: 'It uses the nets because it learned from watching us. It has been watching since before the first survey. The banding records go back further than banding records should go. Check the oldest band number in the regional database. Check what species it was assigned to. It is not a species.' The handwriting ends mid-word and resumes as something you cannot read.",
-        "The datasheets contain everything — species, measurements, band numbers — filling pages you didn't write. But the last page is different. It's a species account. Formal, scientific. Author: your name. Journal: unknown. The abstract reads: 'We describe a new species of colonial chiropteran exhibiting recursive roosting behavior, echolocation-mediated cognition transfer, and indefinite individual persistence. Type specimen collected at Wetland Site 7. Holotype: the collecting author.' There is a specimen number. It matches the band sequence you've been using tonight."
+        "You pull out the future datasheet. You scan the capture records. Thirty-two individuals. All routine. Then a final entry at the bottom, in handwriting that is yours but changed — shakier, or more deliberate, you can't tell which: 'Do not enter the cave. The cave is not a cave. The band number on the last capture is yours.' You check your wrist. You are not wearing a band. There is a pale ring of skin on your left forearm, a pressure mark, like something was there recently and was removed.",
+        "You unfold the datasheet. At the bottom of the page, in increasingly small handwriting that spirals into the margin: 'It uses the nets because it learned from watching us. It has been watching since before the first survey. Check the oldest band number in the regional database. It is not a species.' The handwriting ends mid-word and resumes as something you cannot read.",
+        "The last page is a species account. Formal, scientific. Author: your name. Journal: unknown. The abstract reads: 'We describe a new species of colonial chiropteran exhibiting recursive roosting behavior, echolocation-mediated cognition transfer, and indefinite individual persistence. Holotype: the collecting author.' The specimen number matches the band sequence you've been using tonight."
       ],
       "choices": [
         {
@@ -711,36 +810,13 @@ const STORY_DATA = {
         }
       ]
     },
-    "use_banding_kit": {
-      "id": "use_banding_kit",
-      "art_scene": "creature",
-      "text_variants": [
-        "You reach into your vest and pull out the banding kit. Aluminum bands, size 4. Pliers. The protocol is automatic — you've done this ten thousand times. Your hands move before your brain approves it. You reach for the creature's forelimb. It extends toward you cooperatively. You close the band around the limb and crimp it. The band fits. You record the number on your datasheet. The creature looks at you. It already has a band on its other limb. Same size. Same agency code. Different number. You look up the other number in your handheld database. It was assigned to you.",
-        "You open the banding kit. The creature in the net goes still — completely still, like prey playing dead, like it knows this ritual and is participating. You fit the band. You record it. You look at its face as you release it from the net. It makes one echolocation call. Your acoustic detector translates it, impossibly, into a text readout: a band number. You check the number. It's the next band in your kit. The one you haven't used yet. It knows what you were going to do next."
-      ],
-      "choices": [
-        {
-          "text": "Record it and step back",
-          "next_node": "the_mist",
-          "sanity_change": -15,
-          "health_change": 0,
-          "adds_flag": "banded_creature"
-        },
-        {
-          "text": "Run. Leave the kit behind.",
-          "next_node": "flee_to_treeline",
-          "sanity_change": -10,
-          "health_change": 0,
-          "removes_item": "Banding Kit"
-        }
-      ]
-    },
+
     "use_headlamp": {
       "id": "use_headlamp",
       "art_scene": "mist",
       "text_variants": [
         "You crank the headlamp to maximum. The beam cuts through the mist and for one terrible moment, you see everything — the canopy above is not branches. It has never been branches. It is a membrane of interlinked wings stretching to the horizon. It breathes.",
-        "Full beam. The darkness doesn't retreat — it repositions. Your light reveals what was always there: the ground between the trees is covered in pellets. Not owl pellets. They contain tiny human bones. Tiny human skulls with bat-like tragus growths.",
+        "Full beam. The darkness doesn't retreat — it repositions. Your light reveals what was always there: the ground between the trees is covered in pellets. Not owl pellets. They contain tiny human bones. Tiny skulls with bat-like tragus growths.",
         "Your headlamp blazes. In the sudden brightness, every surface reveals itself to be covered in guano — but it's warm. Fresh. Falling from above in a gentle rain. You look up. The sky above the canopy is not sky. It is fur."
       ],
       "choices": [
@@ -773,13 +849,14 @@ const STORY_DATA = {
         }
       ]
     },
+
     "use_radio": {
       "id": "use_radio",
       "art_scene": "mist",
       "text_variants": [
         "You key the two-way radio. Static. Then, under the static, a voice — your voice — reading species measurements from a survey you haven't conducted yet. It lists species that don't exist. It describes morphologies that violate everything you know. It sounds happy.",
-        "The radio crackles to life before you press the transmit button. A colleague's voice — Sarah from the lab — but wrong. She's describing a capture in clinical detail: 'Specimen exhibits recursive skeletal structure. Every bone contains smaller bones. It's bones all the way down.' She laughs.",
-        "You try the radio. Channel 7, your team's frequency. Someone answers. They say your name. They say they've been waiting. They ask you to check your hands. You look at your hands. In the amber light, the skin looks thin. You can see something moving underneath."
+        "The radio crackles to life before you press the transmit button. A colleague's voice — but wrong. She's describing a capture in clinical detail: 'Specimen exhibits recursive skeletal structure. Every bone contains smaller bones. It's bones all the way down.' She laughs.",
+        "You try the radio. Someone answers. They say your name. They say they've been waiting. They ask you to check your hands. You look at your hands. In the amber light, the skin looks thin. You can see something moving underneath."
       ],
       "choices": [
         {
@@ -813,11 +890,12 @@ const STORY_DATA = {
         }
       ]
     },
+
     "check_hands": {
       "id": "check_hands",
       "art_scene": "mist",
       "text_variants": [
-        "You look. Under the skin of your left hand, something moves. Not veins — something with its own volition. It presses upward from beneath, forming ridges that look like... wing bones. Patagium. You watch the membrane begin to form between your fingers, translucent and threaded with new blood vessels. It doesn't hurt. That's the worst part. It feels like it was always supposed to be there."
+        "You look. Under the skin of your left hand, something moves. Not veins — something with its own volition. It presses upward from beneath, forming ridges that look like wing bones. Patagium. You watch the membrane begin to form between your fingers, translucent and threaded with new blood vessels. It doesn't hurt. That's the worst part. It feels like it was always supposed to be there."
       ],
       "choices": [
         {
@@ -837,22 +915,20 @@ const STORY_DATA = {
           "text": "Run for the truck. Drive to a hospital.",
           "next_node": "flee_to_treeline",
           "sanity_change": -15,
-          "health_change": -10
+          "health_change": -10,
+          "adds_flag": "infected"
         }
       ]
     },
+
     "flee_to_treeline": {
       "id": "flee_to_treeline",
       "art_scene": "flee",
       "text_variants": [
         "You run. Branches whip your face. Your headlamp beam bounces wildly, catching glimpses of things between the trees — hanging from branches like fruit, watching with too many eyes. The mist follows. It's faster than you.",
-        "Your boots churn through standing water as you sprint. Behind you, the sound intensifies — that wrong frequency — and you feel your thoughts begin to unspool. Your field datasheets blow from your vest like fleeing birds.",
+        "Your boots churn through standing water as you sprint. Behind you, the sound intensifies and you feel your thoughts begin to unspool. Your field datasheets blow from your vest like fleeing birds.",
         "You abandon your equipment and run. The forest closes around you. Every tree trunk you pass has something clinging to its bark, folded tight like roosting bats but shaped like collapsed origami of skin and bone."
       ],
-      "flag_variant": {
-        "requires_flag": "exposed_hands",
-        "text": "You run with your bare hands clenched into fists, knuckles pressed to your palms as if you can keep whatever started in them from spreading if you just hold tight enough. The tingling has reached your elbows. Your headlamp catches the trees as you pass — and in each one, something roosts that watches you go with your own eyes."
-      },
       "choices": [
         {
           "text": "Keep running — find the truck",
@@ -876,40 +952,26 @@ const STORY_DATA = {
           "condition": "Only appears if sanity <= 30"
         },
         {
-          "text": "You can't run anymore. Find shelter.",
-          "next_node": "ending_absorbed",
-          "sanity_change": -10,
-          "health_change": -5,
-          "condition": "Only appears if health <= 30 and infected"
-        },
-        {
-          "text": "You can't run anymore. Find shelter.",
-          "next_node": "find_cave",
-          "sanity_change": -10,
-          "health_change": -5,
-          "condition": "Only appears if health <= 30 and not infected"
-        },
-        {
-          "text": "Look for the cave entrance you saw on the topo map",
+          "text": "Look for the cave entrance — the topo map showed one nearby",
           "next_node": "find_cave",
           "sanity_change": -10,
           "health_change": 0
         }
       ]
     },
+
     "find_cave": {
       "id": "find_cave",
       "art_scene": "dark_forest",
       "text_variants": [
-        "You push through the undergrowth, following the terrain downward. The ground becomes softer, wetter. Then you see it — a depression in the earth, barely visible in your headlamp's dying beam. You've found something. But you haven't reached it yet. Not quite."
+        "You push through the undergrowth, following the terrain downward. The ground becomes softer, wetter. Then you see it — a depression in the earth, barely visible in your headlamp's dying beam. The air coming up from it is cold. Old cold. The kind that hasn't been warm since before anything alive was here to feel it."
       ],
       "choices": [
         {
           "text": "Approach the cave entrance",
           "next_node": "the_cave",
           "sanity_change": -5,
-          "health_change": 0,
-          "adds_flag": "found_cave"
+          "health_change": 0
         },
         {
           "text": "Turn back while you still can",
@@ -919,13 +981,14 @@ const STORY_DATA = {
         }
       ]
     },
+
     "the_cave": {
       "id": "the_cave",
       "art_scene": "cave",
       "text_variants": [
         "You find it — or it finds you. A sinkhole in the limestone, breathing cold air upward. The entrance is ringed with bones arranged in taxonomic order. Every species you've ever banded. Below, in the dark, something enormous shifts its weight and the ground trembles.",
         "The cave mouth opens before you where no cave existed on any geological survey. Its entrance is shaped like a cross-section of a bat's ear canal. From within, echolocation pulses emerge at frequencies that carry meaning: come in, come in, come in.",
-        "A fissure in the earth. You shine your lamp inside. The walls are covered in what looks like hibernating bats, packed shoulder to shoulder — but they're all identical. Same species. Same individual. Thousands of copies of the same bat, and it has your face."
+        "A fissure in the earth. You shine your lamp inside. The walls are covered in hibernating bats, packed shoulder to shoulder — but they're all identical. Same species. Same individual. Thousands of copies of the same bat, and it has your face."
       ],
       "choices": [
         {
@@ -954,44 +1017,39 @@ const STORY_DATA = {
           "sanity_change": -15,
           "health_change": 0,
           "adds_flag": "chose_science"
-        },
-        {
-          "text": "Try banding the creature at the entrance",
-          "next_node": "use_banding_kit",
-          "sanity_change": -20,
-          "health_change": 0,
-          "requires_item": "Banding Kit"
         }
       ]
     },
+
     "cave_descent": {
       "id": "cave_descent",
       "art_scene": "cave",
       "text_variants": [
-        "You descend. The limestone walls close around you, the temperature dropping with each meter. Your headlamp casts long shadows behind formations that look too regular — too bilateral, too symmetrical, as if the cave grew itself according to a body plan. Your footsteps echo wrong: the echo comes back before the sound leaves your mouth. The cave is anticipating you. At a narrow passage, you have to turn sideways to pass through. Your hand touches the wall. The rock is warm. It pulses once under your palm. A single slow pulse, like a heartbeat at rest.",
-        "The descent takes longer than the cave's exterior dimensions should allow. The walls transition — limestone to something darker, smoother, organic in texture. You realize you can no longer hear the wetland above you. You realize you cannot remember exactly when that stopped. At a widening in the passage, you find survey equipment. Not yours. Older. A canvas field bag, a glass-vial banding kit, a headlamp with a incandescent bulb. A datasheet in a format your agency discontinued in 1987. The capture records are filled out. The band numbers are from a series that was exhausted before you were born. The handwriting is yours.",
-        "Deeper. The cave is not going down anymore — it is going somewhere that isn't a direction you have a word for. The walls have writing on them. Not graffiti, not geological markings. Species accounts. Formal, scientific, dozens of them, carved into the rock face in the standardized format of peer-reviewed literature. Author on every one: your name. Publication dates spanning centuries. You read the most recent one. It describes tonight's survey. It is accurate in every detail up to this moment. It does not have an ending yet."
+        "You descend. The limestone walls close around you, the temperature dropping with each meter. Your headlamp casts long shadows behind formations that look too regular — too bilateral, too symmetrical, as if the cave grew itself according to a body plan. Your footsteps echo wrong: the echo comes back before the sound leaves your mouth. The cave is anticipating you. At a narrow passage, you turn sideways to pass through. Your hand touches the wall. The rock is warm. It pulses once under your palm. A single slow pulse, like a heartbeat at rest.",
+        "The descent takes longer than the cave's exterior dimensions should allow. The walls transition — limestone to something darker, smoother, organic in texture. You realize you can no longer hear the wetland above you. You cannot remember exactly when that stopped. At a widening in the passage, you find survey equipment. Not yours. Older. A canvas field bag, a glass-vial banding kit, a headlamp with an incandescent bulb. A datasheet in a format your agency discontinued in 1987. The capture records are filled out. The handwriting is yours.",
+        "Deeper. The cave is not going down anymore — it is going somewhere that isn't a direction you have a word for. The walls have writing on them. Species accounts. Formal, scientific, dozens of them, carved into the rock face. Author on every one: your name. Publication dates spanning centuries. You read the most recent one. It describes tonight's survey. It is accurate in every detail up to this moment. It does not have an ending yet."
       ],
       "choices": [
         {
           "text": "Continue deeper — you have to see what's at the bottom",
           "next_node": "ending_cave",
           "sanity_change": -15,
-          "health_change": -10
+          "health_change": -10,
+          "condition": "Only appears if not chose_science"
         },
         {
           "text": "Turn back. Now. Before you can't.",
-          "next_node": "ending_absorbed",
+          "next_node": "ending_cave_lost",
           "sanity_change": -10,
-          "health_change": -15,
-          "condition": "Only appears if sanity >= 20 and infected"
+          "health_change": -5,
+          "condition": "Only appears if not chose_science"
         },
         {
-          "text": "Turn back. Now. Before you can't.",
-          "next_node": "ending_escape",
-          "sanity_change": -10,
-          "health_change": -15,
-          "condition": "Only appears if sanity >= 20 and not infected"
+          "text": "Continue deeper — there is data here that doesn't exist anywhere else",
+          "next_node": "ending_cave",
+          "sanity_change": -15,
+          "health_change": -10,
+          "condition": "Only appears if chose_science"
         },
         {
           "text": "Finish the species account on the wall. Add the ending.",
@@ -1003,21 +1061,7 @@ const STORY_DATA = {
         }
       ]
     },
-    "creature_retaliates": {
-      "id": "creature_retaliates",
-      "type": "ending",
-      "art_scene": "creature",
-      "text_variants": [
-        "You swing again. The pole connects and this time the creature doesn't recoil — it wraps around the impact, absorbing the aluminum into itself like it's made of clay. The pole is gone. Your hands are empty. The creature unfolds from the net, its wingspan blotting out the trees behind it. It moves faster than anything that size should move. You don't have time to scream. Its mouth opens wider than physics allows and you see yourself reflected in concentric rings of teeth, each one carved with a band number you recognize. The last thing you understand is that you were always going to end up here. The survey was never yours.\n\n[ENDING: CONSUMED — You fought back. It was hungry.]"
-      ],
-      "choices": [
-        {
-          "text": "Wake up [Play Again]",
-          "next_node": "__restart__",
-          "action": "restart_game"
-        }
-      ]
-    },
+
     "ending_escape": {
       "id": "ending_escape",
       "type": "ending",
@@ -1025,7 +1069,7 @@ const STORY_DATA = {
       "text_variants": [
         "Dawn. You stumble onto the access road, covered in mud and blood that may not all be yours. Your equipment is gone. Your datasheets are full of writing you don't remember making — measurements of things that don't exist in any field guide. You will never enter a forest at night again. But in quiet moments, you still hear the frequency. And sometimes, when you close your eyes, you see wings.\n\n[ENDING: THE SURVIVOR — You escaped. Your body survived. The rest of you is still in the wetland.]",
         "You find the truck. The keys are where you left them. The engine starts. You drive. In the rearview mirror, the mist recedes. But the rearview mirror also shows you something sitting in the back seat — folded tight, patient, waiting. You don't look back again. You drive until sunrise.\n\n[ENDING: THE PASSENGER — You brought something back with you.]",
-        "You reach the road at first light. Your hands are shaking so badly you can barely get the key in the ignition. As you pull onto the highway, your phone gets signal for the first time all night. Twelve missed calls from base camp. The voicemails are all the same — your voice, reading capture data, calm and professional, all night long. The last message was left four minutes ago. You are on the highway. You did not call.\n\n[ENDING: THE DUPLICATE — Someone finished the survey for you.]"
+        "You reach the road at first light. Your hands are shaking so badly you can barely get the key in the ignition. As you pull onto the highway, your phone gets signal. Twelve missed calls from base camp. The voicemails are all the same — your voice, reading capture data, calm and professional, all night long. The last message was left four minutes ago. You are on the highway. You did not call.\n\n[ENDING: THE DUPLICATE — Someone finished the survey for you.]"
       ],
       "choices": [
         {
@@ -1035,6 +1079,7 @@ const STORY_DATA = {
         }
       ]
     },
+
     "ending_absorbed": {
       "id": "ending_absorbed",
       "type": "ending",
@@ -1052,14 +1097,15 @@ const STORY_DATA = {
         }
       ]
     },
+
     "ending_cave": {
       "id": "ending_cave",
       "type": "ending",
       "art_scene": "ending_cave",
       "text_variants": [
         "You descend into the cave. The temperature drops. The walls pulse. At the bottom, you find a chamber filled with roost — millions of bodies hanging in perfect silence. In the center, something ancient opens one eye. It's been waiting since before mammals existed. It chose this form — wings, fur, echolocation — as camouflage. It has been counting your species the way you count its. You are Specimen #7,847,293,102. It bands you.\n\n[ENDING: CATALOGUED — You became data in something else's study.]",
-        "The cave goes deeper than geology allows. You descend for what feels like hours. The walls transition from limestone to something organic. At the bottom, there is no monster. There is a mirror. In it, you see yourself, but the reflection is hanging upside down. It mouths words: 'The survey is complete.' Your headlamp dies. In the perfect dark, you finally hear what the bats have always been saying.\n\n[ENDING: THE FREQUENCY — You heard the truth. You can never unhear it.]",
-        "At the bottom of the cave, it is waiting. And it knows you. Not as prey — as a colleague. It has read every paper you've published. It has been the subject of none of them, and all of them. It gestures at the walls — your species accounts, centuries of them — and then at an empty section of wall. Blank stone. It offers you a tool for carving. You understand. There is one species left to describe. You have all the data you need. You begin to write.\n\n[ENDING: PEER REVIEW — The oldest mind on Earth asked you to co-author. You said yes. NOTE: This variant only appears if player has chose_science + measured_it + took_sample flags]"
+        "The cave goes deeper than geology allows. At the bottom, there is no monster. There is a mirror. In it, you see yourself, but the reflection is hanging upside down. It mouths words: 'The survey is complete.' Your headlamp dies. In the perfect dark, you finally hear what the bats have always been saying.\n\n[ENDING: THE FREQUENCY — You heard the truth. You can never unhear it.]",
+        "At the bottom of the cave, it is waiting. And it knows you. Not as prey — as a colleague. It has read every paper you've published. It gestures at the walls — your species accounts, centuries of them — and then at an empty section of wall. Blank stone. It offers you a tool for carving. You understand. There is one species left to describe. You have all the data you need. You begin to write.\n\n[ENDING: PEER REVIEW — The oldest mind on Earth asked you to co-author. You said yes.]"
       ],
       "choices": [
         {
@@ -1069,13 +1115,31 @@ const STORY_DATA = {
         }
       ]
     },
+
+    "ending_cave_lost": {
+      "id": "ending_cave_lost",
+      "type": "ending",
+      "art_scene": "ending_cave",
+      "text_variants": [
+        "You turn back. The passage behind you is where you left it — you're certain. You walk. You walk for longer than the descent took. The passage doesn't end. You try the other direction. You walk. You find a junction you don't remember passing. You choose left. You walk. You find the same junction. You choose right. You find the same junction. You stop and mark the wall with your calipers — a deep scratch at eye level — and walk again. You find the mark eleven minutes later, approached from the same direction you made it. The cave has no exits. It never did. It was never a cave. It was a throat that swallowed you whole, and now it's just waiting, with all the patience of limestone, for you to stop moving.\n\nYour headlamp battery dies somewhere in the eighth hour. In the dark, you navigate by echolocation. You don't remember learning how.\n\n[ENDING: THE MAZE — You tried to leave. The cave had other plans.]",
+        "You turn around. The entrance should be forty meters back, uphill, cold air coming from above. You walk forty meters. You walk eighty. The temperature doesn't change. The air doesn't move. Your headlamp illuminates passage after passage, all of them identical in their wrongness — the walls too smooth, the floor too flat, the formations too symmetrical. You've been marking junctions with flagging tape from your vest. You find your own flagging tape on a junction you are certain you have never visited. The tape is old. It has been here longer than tonight. You reach up and touch it. Your handwriting. The label reads: WRONG WAY. You wrote this. You don't know when. You don't know how many times you've been here before.\n\n[ENDING: THE MAZE — You've done this before. You'll do it again.]"
+      ],
+      "choices": [
+        {
+          "text": "Wake up [Play Again]",
+          "next_node": "__restart__",
+          "action": "restart_game"
+        }
+      ]
+    },
+
     "ending_documented": {
       "id": "ending_documented",
       "type": "ending",
       "art_scene": "ending_documented",
       "text_variants": [
-        "You carve the last line of the species account into the wall. The cave exhales. Something in the rock clicks — a lock releasing — and a passage opens that wasn't there before. Outside air. Dawn light, grey and cold, filtering down through a fissure. You climb out into a field half a mile from your truck. Your calipers are in your pocket. Your datasheets are complete — thirty-two captures, all documented, plus one final entry in handwriting that is almost yours: a full species description, photographs you don't remember taking, tissue sample data, range maps, behavioral notes, everything needed for formal taxonomic recognition. A publishable paper. A career-defining paper. A paper that will require you to explain where you collected your specimens, and how, and whether you'd be willing to return to the site. You will publish it. You already know you will. The frequency hums in the base of your skull, patient and satisfied, all the way home.\n\n[ENDING: DOCUMENTED — You escaped with the data. Something let you. It wants to be known.]",
-        "Dawn finds you on the access road, datasheets clutched to your chest. Everything is intact — every measurement, every observation, the acoustic recordings, even the tissue sample, still viable in its vial. You got out. You documented everything. Your hands are steady. Your mind is clear. You review your notes on the drive home and find them thorough, accurate, and written in a handwriting that is yours but better — more precise, more confident. The species description practically writes itself. Peer review will be brutal. The referees will demand you justify every claim. You will be able to. You will have evidence for all of it. You will spend the rest of your career answering questions about Wetland Site 7. You will never stop being right.\n\n[ENDING: THE PAPER — Science advances. Something in the dark advances with it.]"
+        "You carve the last line of the species account into the wall. The cave exhales. Something in the rock clicks — a lock releasing — and a passage opens that wasn't there before. Outside air. Dawn light, grey and cold, filtering down through a fissure. You climb out into a field half a mile from your truck. Your datasheets are complete — thirty-two captures, all documented, plus one final entry in handwriting that is almost yours: a full species description, photographs you don't remember taking, tissue sample data, range maps, behavioral notes, everything needed for formal taxonomic recognition. A publishable paper. A career-defining paper. A paper that will require you to explain where you collected your specimens, and how, and whether you'd be willing to return to the site. You will publish it. You already know you will. The frequency hums in the base of your skull, patient and satisfied, all the way home.\n\n[ENDING: DOCUMENTED — You escaped with the data. Something let you. It wants to be known.]",
+        "Dawn finds you on the access road, datasheets clutched to your chest. Everything is intact — every measurement, every observation, the acoustic recordings, even the tissue sample, still viable in its vial. You got out. Your hands are steady. Your mind is clear. The species description practically writes itself. Peer review will be brutal. The referees will demand you justify every claim. You will be able to. You will have evidence for all of it. You will spend the rest of your career answering questions about Wetland Site 7. You will never stop being right.\n\n[ENDING: THE PAPER — Science advances. Something in the dark advances with it.]"
       ],
       "choices": [
         {
@@ -1085,13 +1149,14 @@ const STORY_DATA = {
         }
       ]
     },
+
     "ending_darkness": {
       "id": "ending_darkness",
       "type": "ending",
       "art_scene": "ending_darkness",
       "trigger": "Battery reaches 0% and sanity reaches 0",
       "text_variants": [
-        "Your headlamp died hours ago. Or was it minutes? Time doesn't work the same in total darkness. You can't see your hand in front of your face. You can't see the trees. You can't see the ground. But you can hear them — thousands of wings in the canopy above. They speak in frequencies that bypass your ears entirely, resonating directly in your skull. They're teaching you their language. Noun: prey. Verb: hunt. Subject: you.\n\nYou don't remember sitting down, but you're on the ground now. The wetland water soaks through your clothes. It's warm. That's wrong. You reach out in the dark and touch something. It touches back. Too many fingers. They belonged to the last researcher who ran out of battery.\n\nYour eyes adjust to a light that isn't there. In the absolute dark, you begin to see. The forest is full of shapes that were always there — things that only exist in the absence of light. They've been waiting. Your headlamp kept them at bay. Now there's nothing between you and them.\n\nOne of them leans close. Its breath smells like century-old guano and rotted fruit. It whispers: 'Welcome to the real survey.'\n\n[ENDING: CONSUMED BY DARKNESS — The light was all that kept you human.]"
+        "Your headlamp died hours ago. Or was it minutes? Time doesn't work the same in total darkness. You can't see your hand in front of your face. But you can hear them — thousands of wings in the canopy above. They speak in frequencies that bypass your ears entirely, resonating directly in your skull. They're teaching you their language. Noun: prey. Verb: hunt. Subject: you.\n\nYou don't remember sitting down, but you're on the ground now. The wetland water soaks through your clothes. It's warm. That's wrong. You reach out in the dark and touch something. It touches back. Too many fingers. They belonged to the last researcher who ran out of battery.\n\nOne of them leans close. Its breath smells like century-old guano and rotted fruit. It whispers: 'Welcome to the real survey.'\n\n[ENDING: CONSUMED BY DARKNESS — The light was all that kept you human.]"
       ],
       "choices": [
         {
@@ -1101,12 +1166,45 @@ const STORY_DATA = {
         }
       ]
     },
+
     "ending_drowned": {
       "id": "ending_drowned",
       "type": "ending",
       "art_scene": "mist",
       "text_variants": [
-        "You wade into the pond. The water is warmer than it should be. You reach for the tangled net — thirty denier polyester, agency property, your responsibility. Your fingers close on the mesh. Something closes on your ankle.\n\nYou have time to understand three things: First, the water is not three feet deep. It has no bottom. Second, the thing gripping your leg has been waiting in this exact spot since before you were born. Third, the net was bait.\n\nYou try to scream but water fills your mouth. The thing pulls you down. Your headlamp beam spirals upward through dark water, illuminating shapes that swim in formations that look like equations. Your last thought, as the light fades, is that you should have recorded this. The tissue sample alone would have been career-defining.\n\nTwenty feet down, in water that shouldn't exist beneath a wetland, you stop struggling. The thing that has you makes a sound — not echolocation, not speech, but something that translates directly: Thank you for coming. The survey is complete. You are the last data point.\n\n[ENDING: DROWNED — You retrieved the net. The net retrieved you.]"
+        "You wade into the pond. The water is warmer than it should be. You reach for the tangled net — thirty denier polyester, agency property, your responsibility. Your fingers close on the mesh. Something closes on your ankle.\n\nYou have time to understand three things: First, the water is not three feet deep. It has no bottom. Second, the thing gripping your leg has been waiting in this exact spot since before you were born. Third, the net was bait.\n\nYou try to scream but water fills your mouth. The thing pulls you down. Your headlamp beam spirals upward through dark water, illuminating shapes that swim in formations that look like equations. Your last thought, as the light fades, is that you should have recorded this. The tissue sample alone would have been career-defining.\n\n[ENDING: DROWNED — You retrieved the net. The net retrieved you.]"
+      ],
+      "choices": [
+        {
+          "text": "Wake up [Play Again]",
+          "next_node": "__restart__",
+          "action": "restart_game"
+        }
+      ]
+    },
+
+    "ending_consumed": {
+      "id": "ending_consumed",
+      "type": "ending",
+      "art_scene": "creature",
+      "text_variants": [
+        "You swing again. The pole connects and this time the creature doesn't recoil — it wraps around the impact, absorbing the aluminum into itself like it's made of clay. The pole is gone. Your hands are empty. The creature unfolds from the net, its wingspan blotting out the trees behind it. It moves faster than anything that size should move. You don't have time to scream. Its mouth opens wider than physics allows and you see yourself reflected in concentric rings of teeth, each one carved with a band number you recognize. The last thing you understand is that you were always going to end up here. The survey was never yours.\n\n[ENDING: CONSUMED — You fought back. It was hungry.]"
+      ],
+      "choices": [
+        {
+          "text": "Wake up [Play Again]",
+          "next_node": "__restart__",
+          "action": "restart_game"
+        }
+      ]
+    },
+
+    "ending_echolocated": {
+      "id": "ending_echolocated",
+      "type": "ending",
+      "art_scene": "dark_forest",
+      "text_variants": [
+        "By the time you understand what's happening, your inner ear has been restructured. Not damaged — improved. The ringing resolved hours ago into something else entirely: perfect spatial awareness, rendered in sound. You can hear the shape of the darkness. The depth of the water. The warm hollow of small mammals sheltering under the leaf litter twenty meters away. You can hear your own heartbeat echo off the trees and read the forest in its return.\n\nYou dropped the detector somewhere back there. You don't need it. You dropped the headlamp too — the light was noise, cluttering the picture. You navigate perfectly without it. You don't need the truck either, or the road, or any of the things you came with.\n\nYou roost at dawn in the canopy, folded tight and small and patient, your new ears cupped toward the wetland below. You don't remember the word for what you used to be. You don't need to. You can hear everything, forever, and the world is made entirely of sound.\n\n[ENDING: ECHOLOCATED — You followed the frequency. It followed you back. Inside.]"
       ],
       "choices": [
         {
@@ -1116,61 +1214,63 @@ const STORY_DATA = {
         }
       ]
     }
+
   }
 };
 
-// Dynamic game engine - reads from STORY_DATA
+// =========================================================
+// GAME ENGINE — reads from STORY_DATA
+// =========================================================
+
 export function getSceneText(sceneId, flags = {}) {
   const node = STORY_DATA.story_nodes[sceneId];
   if (!node) return "The darkness swallows everything.";
-  
-  // Check for flag variant first
+
+  // Check for flag variant first (supports single flag or array of flags)
   if (node.flag_variant) {
-    // Support both single flag and multiple flags
     const requiredFlags = node.flag_variant.requires_flags || [node.flag_variant.requires_flag];
     const hasAllFlags = requiredFlags.every(flag => flags[flag]);
     if (hasAllFlags) {
       return node.flag_variant.text;
     }
   }
-  
-  // Random text variant - but use variant 2 (index 1) if net_in_water flag is set for third_net_check
+
   if (node.text_variants && node.text_variants.length > 0) {
-    if (sceneId === 'third_net_check' && flags.net_in_water) {
-      return node.text_variants[1]; // Always show the "net in water" variant
-    }
     const idx = Math.floor(Math.random() * node.text_variants.length);
     return node.text_variants[idx];
   }
-  
+
   return "The darkness presses closer.";
 }
 
 export function getSceneChoices(sceneId, health, sanity, inventory, flags = {}) {
   const node = STORY_DATA.story_nodes[sceneId];
   if (!node || !node.choices) return [];
-  
+
   return node.choices.filter(choice => {
-    // Check item requirements
+    // Item requirements
     if (choice.requires_item && !inventory.includes(choice.requires_item)) {
       return false;
     }
-    
-    // Check flag requirements
+
+    // Flag requirements
     if (choice.requires_flag && !flags[choice.requires_flag]) {
       return false;
     }
-    
-    // Check condition (health/sanity/infected/net_in_water)
+
+    // Condition string parsing
     if (choice.condition) {
-      if (choice.condition.includes('sanity <= 30') && sanity > 30) return false;
-      if (choice.condition.includes('health <= 30') && health > 30) return false;
-      if (choice.condition.includes('sanity >= 20') && sanity < 20) return false;
-      if (choice.condition.includes('infected') && !flags.infected) return false;
-      if (choice.condition.includes('not infected') && flags.infected) return false;
-      if (choice.condition.includes('not net_in_water') && flags.net_in_water) return false;
+      const c = choice.condition.toLowerCase();
+      if (c.includes("sanity <= 30") && sanity > 30) return false;
+      if (c.includes("health <= 30") && health > 30) return false;
+      if (c.includes("sanity >= 20") && sanity < 20) return false;
+      if (c.includes("not infected") && flags.infected) return false;
+      if (c.includes("infected") && !c.includes("not infected") && !flags.infected) return false;
+      if (c.includes("not chose_science") && flags.chose_science) return false;
+      if (c.includes("chose_science") && !c.includes("not chose_science") && !flags.chose_science) return false;
+      if (c.includes("not net_in_water") && flags.net_in_water) return false;
     }
-    
+
     return true;
   });
 }
@@ -1199,37 +1299,31 @@ export function getInitialState() {
 
 export function applyChoice(state, choice) {
   const newState = { ...state };
-  
+
   // Apply stat changes
   newState.health = Math.max(0, Math.min(100, state.health + (choice.health_change || 0)));
   newState.sanity = Math.max(0, Math.min(100, state.sanity + (choice.sanity_change || 0)));
   newState.turnCount = state.turnCount + 1;
-  
-  // Battery drain
+
+  // Battery drain per turn
   newState.battery_level = Math.max(0, state.battery_level - 10);
-  
+
   // Darkness penalty
   if (newState.battery_level === 0) {
     newState.sanity = Math.max(0, newState.sanity - 10);
     newState.flags = { ...state.flags, in_darkness: true };
   }
-  
+
   // Remove items
   if (choice.removes_item) {
     newState.inventory = state.inventory.filter(i => i !== choice.removes_item);
   }
-  
-  // Add flags from current scene node
-  const currentNode = STORY_DATA.story_nodes[state.currentScene];
-  if (currentNode && currentNode.adds_flag) {
-    newState.flags = { ...newState.flags, [currentNode.adds_flag]: true };
-  }
-  
+
   // Add flags from choice
   if (choice.adds_flag) {
     newState.flags = { ...newState.flags, [choice.adds_flag]: true };
   }
-  
+
   // Auto-endings based on stats
   if (newState.health <= 0) {
     newState.currentScene = "ending_absorbed";
@@ -1242,6 +1336,6 @@ export function applyChoice(state, choice) {
   } else {
     newState.currentScene = choice.next_node;
   }
-  
+
   return newState;
 }

@@ -33,10 +33,12 @@ export default function ScoreboardDisplay({ currentEnding, currentTurns, onClose
     ending_escape: "SURVIVOR",
     ending_absorbed: "ABSORBED",
     ending_cave: "CATALOGUED",
+    ending_cave_lost: "THE MAZE",
     ending_documented: "DOCUMENTED",
-    ending_darkness: "CONSUMED",
-    creature_retaliates: "CONSUMED",
-    ending_drowned: "DROWNED"
+    ending_darkness: "DARKNESS",
+    ending_drowned: "DROWNED",
+    ending_consumed: "CONSUMED",
+    ending_echolocated: "ECHOLOCATED"
   };
 
   const endingName = endingMap[currentEnding] || "UNKNOWN";
