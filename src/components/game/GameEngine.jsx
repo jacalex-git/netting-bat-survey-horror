@@ -214,7 +214,7 @@ const STORY_DATA = {
 
     "acoustic_anomaly": {
       "id": "acoustic_anomaly",
-      "art_scene": "acoustic",
+      "art_scene": "anomalous_acoustic",
       "text_variants": [
         "You study the spectrogram. The call signatures don't match anything in your reference library — not the downward sweeps of Eptesicus, not the bouncy curves of Lasiurus, not the sigmoidal FM sweeps of Myotis. The patterns are wrong. Not unidentified-species wrong. Wrong in the way that a word repeated too many times stops meaning anything — familiar components assembled into something that has never existed. And they repeat. The same sequence, over and over. Like something is saying the same sentence, waiting for a response.",
         "The spectrograms scroll across the display in a cascade. You scroll back through the recording history. The anomalous calls began exactly when your truck turned off the highway onto the access road. Whatever is making them knew you were coming before you arrived."
@@ -288,7 +288,7 @@ const STORY_DATA = {
 
     "acoustic_check_deep": {
       "id": "acoustic_check_deep",
-      "art_scene": "acoustic",
+      "art_scene": "anomalous_acoustic",
       "text_variants": [
         "You lean over the detector display. The call rate is wrong — not high for a productive site, wrong in structure. The sequences repeat. Not individual bats calling as they hunt, but something broadcasting the same phrase over and over, modulating just slightly each iteration, like it's waiting for an echo back. Like it's mapping something. You realize the calls aren't coming from above the nets. They're coming from a fixed point in the tree line. Something is standing still and transmitting.",
         "The detector's directional indicator swings and locks — northeast, toward the deeper part of the wetland. The anomalous calls are point-source. Stationary. Whatever is making them isn't hunting. It isn't flying. It is rooted to one spot, broadcasting at you specifically, in a pattern that contains far too much structure to be biological noise."

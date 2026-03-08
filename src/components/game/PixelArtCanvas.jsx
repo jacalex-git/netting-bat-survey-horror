@@ -284,6 +284,18 @@ function drawEndingDarknessBg(ctx, w, h, scale, rand) {
   drawPixel(ctx, figX, figY - 1, PALETTE.darkGray, scale);
 }
 
+function drawAcousticBg(ctx, w, h, scale, rand) {
+  drawRect(ctx, 0, 0, w, h, PALETTE.black, scale);
+  for (let x = 0; x < w; x++) {
+    drawPixel(ctx, x, 0, PALETTE.deepGreen, scale);
+    drawPixel(ctx, x, h - 1, PALETTE.deepGreen, scale);
+  }
+  for (let y = 0; y < h; y++) {
+    drawPixel(ctx, 0, y, PALETTE.deepGreen, scale);
+    drawPixel(ctx, w - 1, y, PALETTE.deepGreen, scale);
+  }
+}
+
 // ===================== FOREGROUND RENDERERS (animated, frame-driven) =====================
 
 function drawArrivalFg(ctx, w, h, scale, frame) {
@@ -318,31 +330,29 @@ function drawNetsFg(ctx, w, h, scale, frame) {
   }
 }
 
-function drawSpectrogramPanel(ctx, w, h, scale, frame) {
-  const pX = 63, pY = 32, pW = 54, pH = 28;
+function drawAcousticFg(ctx, w, h, scale, frame) {
+  const pX = 2, pY = 2, pW = w - 4, pH = h - 4;
 
-  // Panel background + border
-  drawRect(ctx, pX, pY, pW, pH, PALETTE.black, scale);
-  for (let x = pX; x < pX + pW; x++) {
-    drawPixel(ctx, x, pY,           PALETTE.gray, scale);
-    drawPixel(ctx, x, pY + pH - 1,  PALETTE.gray, scale);
-  }
-  for (let y = pY; y < pY + pH; y++) {
-    drawPixel(ctx, pX,          y, PALETTE.gray, scale);
-    drawPixel(ctx, pX + pW - 1, y, PALETTE.gray, scale);
-  }
+  // Dark green screen fill
+  drawRect(ctx, pX + 1, pY + 1, pW - 2, pH - 2, "#060f06", scale);
 
-  // Frequency grid lines (subtle)
-  for (let gy = pY + 7; gy < pY + pH - 2; gy += 7) {
-    for (let gx = pX + 1; gx < pX + pW - 1; gx += 3) {
-      drawPixel(ctx, gx, gy, PALETTE.darkGray, scale);
+  // Frequency grid lines
+  const freqLines = [14, 24, 36, 48, 58];
+  for (const gy of freqLines) {
+    for (let gx = pX + 8; gx < pX + pW - 1; gx += 4) {
+      drawPixel(ctx, gx, pY + gy, PALETTE.darkGray, scale);
     }
+  }
+  // Freq axis ticks on left
+  for (const gy of freqLines) {
+    drawPixel(ctx, pX + 4, pY + gy, PALETTE.sickGreen, scale);
+    drawPixel(ctx, pX + 5, pY + gy, PALETTE.sickGreen, scale);
   }
 
   function drawCall(points, color, shadow) {
-    for (let i = 0; i < points.length - 1; i++) {
+    for (let i = 0; i < points.length; i++) {
       const [x0, y0] = points[i];
-      if (x0 < pX + 1 || x0 >= pX + pW - 1) continue;
+      if (x0 < pX + 8 || x0 >= pX + pW - 1) continue;
       if (y0 >= pY + 1 && y0 < pY + pH - 1) {
         drawPixel(ctx, x0, y0, color, scale);
         if (shadow && y0 + 1 < pY + pH - 1) drawPixel(ctx, x0, y0 + 1, shadow, scale);
@@ -350,54 +360,170 @@ function drawSpectrogramPanel(ctx, w, h, scale, frame) {
     }
   }
 
-  const scrollSpeed = 0.4;
+  const scrollSpeed = 0.5;
 
-  // Lasiurus: bouncy downswoop with uptick
-  for (let c = 0; c < 4; c++) {
-    const ox = ((frame * scrollSpeed + c * 22) % (pW + 10));
+  // Lasiurus: bouncy downswoop — top half
+  for (let c = 0; c < 8; c++) {
+    const ox = ((frame * scrollSpeed + c * 15) % (pW + 12));
     const startX = pX + pW - 2 - Math.floor(ox);
     const callW = 9;
+    const baseY = pY + 6;
+    const rangeY = 22;
     const points = [];
     for (let t = 0; t < callW; t++) {
       const norm = t / (callW - 1);
       let freq;
       if (norm < 0.75) { freq = norm * norm * 1.1; }
       else { freq = 0.62 - (norm - 0.75) * 0.5; }
-      points.push([startX + t, pY + 3 + Math.floor(freq * (pH - 6))]);
+      points.push([startX + t, baseY + Math.floor(freq * rangeY)]);
     }
     drawCall(points, PALETTE.sickGreen, PALETTE.deepGreen);
   }
 
-  // Myotis: sigmoidal S-curve FM sweep
-  for (let c = 0; c < 3; c++) {
-    const ox = ((frame * scrollSpeed + c * 28 + 11) % (pW + 10));
+  // Myotis: sigmoidal S-curve — bottom half
+  for (let c = 0; c < 6; c++) {
+    const ox = ((frame * scrollSpeed + c * 20 + 8) % (pW + 12));
     const startX = pX + pW - 2 - Math.floor(ox);
     const callW = 12;
+    const baseY = pY + 36;
+    const rangeY = 25;
     const points = [];
     for (let t = 0; t < callW; t++) {
       const norm = t / (callW - 1);
       const sig = 1 / (1 + Math.exp(-10 * (norm - 0.5)));
-      points.push([startX + t, pY + 3 + Math.floor(sig * (pH - 6))]);
+      points.push([startX + t, baseY + Math.floor(sig * rangeY)]);
     }
     drawCall(points, PALETTE.mutedGreen, PALETTE.deepGreen);
   }
 
-  // Indicator dot
+  // Band separator
+  for (let gx = pX + 8; gx < pX + pW - 1; gx += 2) {
+    drawPixel(ctx, gx, pY + 33, PALETTE.gray, scale);
+  }
+
+  // LEDs
   drawPixel(ctx, pX + 2, pY + 2, PALETTE.amber, scale);
   drawPixel(ctx, pX + 4, pY + 2, PALETTE.amber, scale);
+  if ((frame % 30) < 15) drawPixel(ctx, pX + pW - 3, pY + 2, PALETTE.sickGreen, scale);
 }
 
-function drawAcousticFg(ctx, w, h, scale, frame) {
-  // Same nets mesh in background
-  for (let shelf = 0; shelf < 4; shelf++) {
-    const y = 35 + shelf * 8;
-    for (let x = 17; x < 54; x++) {
-      if (frame % 4 === 0 || Math.random() > 0.2) {
-        drawPixel(ctx, x, y + (Math.sin(x * 0.3 + frame * 0.1) > 0.5 ? 1 : 0), PALETTE.gray, scale);
+function drawAnomalousAcousticBg(ctx, w, h, scale, rand) {
+  drawRect(ctx, 0, 0, w, h, PALETTE.black, scale);
+}
+
+function drawAnomalousAcousticFg(ctx, w, h, scale, frame) {
+  const pX = 2, pY = 2, pW = w - 4, pH = h - 4;
+
+  // Dark red screen fill
+  drawRect(ctx, pX + 1, pY + 1, pW - 2, pH - 2, "#0f0505", scale);
+
+  const scrollSpeed = 2.5; // very fast
+
+  function drawCall(points, color, shadow) {
+    for (let i = 0; i < points.length; i++) {
+      const [x0, y0] = points[i];
+      if (x0 < pX + 8 || x0 >= pX + pW - 1) continue;
+      if (y0 >= pY + 1 && y0 < pY + pH - 1) {
+        drawPixel(ctx, x0, y0, color, scale);
+        if (shadow && y0 + 1 < pY + pH - 1) drawPixel(ctx, x0, y0 + 1, shadow, scale);
       }
     }
   }
-  drawSpectrogramPanel(ctx, w, h, scale, frame);
+
+  // Shape 1: "Ouroboros" — loops back on itself (impossible for real bats)
+  for (let c = 0; c < 6; c++) {
+    const ox = ((frame * scrollSpeed + c * 18) % (pW + 15));
+    const startX = pX + pW - 2 - Math.floor(ox);
+    const callW = 14;
+    const points = [];
+    for (let t = 0; t < callW; t++) {
+      const norm = t / (callW - 1);
+      const freq = Math.sin(norm * Math.PI * 1.5) * 0.7 + 0.15;
+      points.push([startX + t, pY + 5 + Math.floor(freq * (pH / 2 - 8))]);
+    }
+    drawCall(points, PALETTE.sickGreen, PALETTE.deepGreen);
+  }
+
+  // Shape 2: Crossing X — two simultaneous traces that form an X
+  for (let c = 0; c < 5; c++) {
+    const ox = ((frame * scrollSpeed + c * 22 + 6) % (pW + 15));
+    const startX = pX + pW - 2 - Math.floor(ox);
+    const callW = 10;
+    const baseY = Math.floor(pH / 2) + pY;
+    const rangeY = Math.floor(pH / 2) - 8;
+    for (let t = 0; t < callW; t++) {
+      const norm = t / (callW - 1);
+      const x = startX + t;
+      const y1 = Math.floor(baseY + norm * rangeY);
+      const y2 = Math.floor(baseY + rangeY - norm * rangeY);
+      if (x >= pX + 8 && x < pX + pW - 1) {
+        if (y1 >= pY + 1 && y1 < pY + pH - 1) drawPixel(ctx, x, y1, PALETTE.amber, scale);
+        if (y2 >= pY + 1 && y2 < pY + pH - 1) drawPixel(ctx, x, y2, PALETTE.dimAmber, scale);
+      }
+    }
+  }
+
+  // Shape 3: Stutter spikes — rapid identical vertical pulses (same phrase repeated)
+  for (let c = 0; c < 10; c++) {
+    const ox = ((frame * scrollSpeed + c * 11 + 3) % (pW + 15));
+    const startX = pX + pW - 2 - Math.floor(ox);
+    const spikeH = 18;
+    const midY = pY + Math.floor(pH * 0.38);
+    for (let sy = 0; sy < spikeH; sy++) {
+      const y = midY - Math.floor(spikeH / 2) + sy;
+      if (y >= pY + 1 && y < pY + pH - 1 && startX >= pX + 8 && startX < pX + pW - 1) {
+        drawPixel(ctx, startX, y, (sy === 0 || sy === spikeH - 1) ? PALETTE.red : PALETTE.darkRed, scale);
+      }
+    }
+  }
+
+  // Shape 4: Recursive oscillation — sigmoidal with impossible high-freq jitter
+  for (let c = 0; c < 4; c++) {
+    const ox = ((frame * scrollSpeed + c * 28 + 14) % (pW + 15));
+    const startX = pX + pW - 2 - Math.floor(ox);
+    const callW = 16;
+    const points = [];
+    for (let t = 0; t < callW; t++) {
+      const norm = t / (callW - 1);
+      const sig = 1 / (1 + Math.exp(-10 * (norm - 0.5)));
+      const jitter = Math.sin(norm * 28) * 3;
+      points.push([startX + t, pY + 5 + Math.floor(sig * (pH - 12) + jitter)]);
+    }
+    drawCall(points, PALETTE.mutedGreen, null);
+  }
+
+  // Glitch: horizontal scan-line bursts
+  if (frame % 47 < 3) {
+    const gy = pY + 4 + ((frame * 7) % (pH - 8));
+    for (let gx = pX + 1; gx < pX + pW - 1; gx++) {
+      drawPixel(ctx, gx, gy, PALETTE.sickGreen, scale);
+    }
+  }
+
+  // Static noise scatter
+  for (let i = 0; i < 20; i++) {
+    const nx = pX + 8 + (frame * 13 + i * 37) % (pW - 9);
+    const ny = pY + 1 + (frame * 7 + i * 19) % (pH - 2);
+    drawPixel(ctx, nx, ny, PALETTE.darkRed, scale);
+  }
+
+  // Pulsing border
+  const borderPulse = (frame % 20) < 2 ? PALETTE.red : PALETTE.darkRed;
+  for (let x = 0; x < w; x++) {
+    drawPixel(ctx, x, 0, borderPulse, scale);
+    drawPixel(ctx, x, h - 1, borderPulse, scale);
+  }
+  for (let y = 0; y < h; y++) {
+    drawPixel(ctx, 0, y, borderPulse, scale);
+    drawPixel(ctx, w - 1, y, borderPulse, scale);
+  }
+
+  // Triple LED blinking fast
+  if ((frame % 8) < 4) {
+    drawPixel(ctx, pX + 2, pY + 2, PALETTE.red, scale);
+    drawPixel(ctx, pX + 4, pY + 2, PALETTE.red, scale);
+    drawPixel(ctx, pX + 6, pY + 2, PALETTE.red, scale);
+  }
 }
 
 function drawBatCaptureFg(ctx, w, h, scale, frame) {
@@ -659,7 +785,8 @@ function drawEndingDarknessFg(ctx, w, h, scale, frame) {
 const BG_RENDERERS = {
   arrival: drawArrivalBg,
   nets: drawNetsBg,
-  acoustic: drawNetsBg,
+  acoustic: drawAcousticBg,
+  anomalous_acoustic: drawAnomalousAcousticBg,
   bat_capture: drawBatCaptureBg,
   dark_forest: drawDarkForestBg,
   creature: drawCreatureBg,
@@ -676,6 +803,7 @@ const FG_RENDERERS = {
   arrival: drawArrivalFg,
   nets: drawNetsFg,
   acoustic: drawAcousticFg,
+  anomalous_acoustic: drawAnomalousAcousticFg,
   bat_capture: drawBatCaptureFg,
   dark_forest: drawDarkForestFg,
   creature: drawCreatureFg,
