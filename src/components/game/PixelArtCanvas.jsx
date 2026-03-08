@@ -362,12 +362,6 @@ function drawBatCaptureFg(ctx, w, h, scale, frame) {
     drawPixel(ctx, bx + 7, by - 3, PALETTE.amber, scale);
   }
 
-  // Headlamp beam from top-left corner (subtle)
-  for (let d = 1; d < 20; d++) {
-    if (Math.random() < 0.15) {
-      drawPixel(ctx, d, d * 2, PALETTE.dimAmber, scale);
-    }
-  }
 }
 
 function drawDarkForestFg(ctx, w, h, scale, frame) {
