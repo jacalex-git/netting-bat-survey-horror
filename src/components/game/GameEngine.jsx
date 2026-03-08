@@ -150,7 +150,7 @@ const STORY_DATA = {
       ],
       "choices": [
         {
-          "text": "Pocket it and keep working",
+          "text": "Document the anomaly in your datasheet and keep moving — the acoustic monitor needs setting up",
           "next_node": "setup_acoustic",
           "sanity_change": -8,
           "health_change": 0,
@@ -400,8 +400,8 @@ const STORY_DATA = {
       "id": "process_bat",
       "art_scene": "bat_capture",
       "text_variants": [
-        "You extract the bat carefully, supporting its body. Forearm measurement: 42mm. Weight: 14g. Sex: female. Reproductive status: non-reproductive. You fit a band to its forearm — aluminum, size 4. Everything by the book. You open your hand. It launches into the dark. Standard. But as it vanishes, you swear its wingbeat rhythm sounded like Morse code.",
-        "You extract the bat carefully, supporting its body. Forearm measurement: 42mm. Weight: 14g. Sex: female. Reproductive status: non-reproductive. You fit a band to its forearm — aluminum, size 4. As you release it, the bat doesn't fly away. It hangs from your glove and stares at you. Its eyes reflect your headlamp, but the reflection is the wrong color. Then it's gone."
+        "You extract the bat carefully, supporting its body. Forearm measurement: 42mm. Weight: 14g. Sex: female. Reproductive status: non-reproductive. You fit a band to its forearm — aluminum, 2.4mm. Everything by the book. You open your hand. It launches into the dark. Standard. But as it vanishes, you swear its wingbeat rhythm sounded like Morse code.",
+        "You extract the bat carefully, supporting its body. Forearm measurement: 42mm. Weight: 14g. Sex: female. Reproductive status: non-reproductive. You fit a band to its forearm — aluminum, 2.4mm. As you release it, the bat doesn't fly away. It hangs from your glove and stares at you. Its eyes reflect your headlamp, but the reflection is the wrong color. Then it's gone."
       ],
       "choices": [
         {
