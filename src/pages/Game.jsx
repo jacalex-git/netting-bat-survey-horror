@@ -202,10 +202,10 @@ export default function Game() {
           {/* Stat bars and headlamp */}
           <div className="mb-4 space-y-2">
             <StatBars health={gameState.health} sanity={gameState.sanity} />
-            <div className="flex items-center justify-between bg-black/40 border border-gray-800/40 rounded px-3 py-2">
-              <div className="flex items-center gap-2">
+            <div className="flex flex-col gap-2 bg-black/40 border border-gray-800/40 rounded px-3 py-2">
+              <div className="flex items-center gap-2 flex-wrap">
                 <span className="text-xs font-mono text-gray-500">Headlamp Battery:</span>
-                <div className="w-32 h-2 bg-gray-900/80 border border-gray-800 rounded-sm overflow-hidden">
+                <div className="w-24 sm:w-32 h-2 bg-gray-900/80 border border-gray-800 rounded-sm overflow-hidden">
                   <div 
                     className={`h-full transition-all duration-300 ${
                       gameState.battery_level === 0 
@@ -224,7 +224,7 @@ export default function Game() {
                   {gameState.battery_level === 0 && " - DARKNESS"}
                 </span>
               </div>
-              <div className="flex gap-2">
+              <div className="flex gap-2 flex-wrap">
                 <button
                   onClick={() => {
                     if (gameState.battery_level >= 10 && gameState.sanity < 100) {
@@ -264,7 +264,7 @@ export default function Game() {
           </div>
 
           {/* Story + Choices area */}
-          <div className="flex-1 flex flex-col min-h-[300px] max-h-[400px] lg:max-h-[450px] 
+          <div className="flex-1 flex flex-col min-h-[220px] max-h-[340px] sm:max-h-[400px] lg:max-h-[450px] 
             bg-black/30 border border-gray-800/30 rounded-lg p-4">
             <StoryPanel currentText={currentText} />
             {gameEnding && !showScoreboard ? (
