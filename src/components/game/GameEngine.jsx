@@ -216,7 +216,7 @@ const STORY_DATA = {
       "id": "acoustic_anomaly",
       "art_scene": "nets",
       "text_variants": [
-        "You study the spectrogram. The call signatures don't match anything in your reference library — not the downward sweeps of Eptesicus, not the low-frequency calls of Lasiurus, not the characteristic FM patterns of Myotis. The patterns are wrong. Not unidentified-species wrong. Wrong in the way that a word repeated too many times stops meaning anything — familiar components assembled into something that has never existed. And they repeat. The same sequence, over and over. Like something is saying the same sentence, waiting for a response.",
+        "You study the spectrogram. The call signatures don't match anything in your reference library — not the downward sweeps of Eptesicus, not the bouncy curves of Lasiurus, not the sigmoidal FM sweeps of Myotis. The patterns are wrong. Not unidentified-species wrong. Wrong in the way that a word repeated too many times stops meaning anything — familiar components assembled into something that has never existed. And they repeat. The same sequence, over and over. Like something is saying the same sentence, waiting for a response.",
         "The spectrograms scroll across the display in a cascade. You scroll back through the recording history. The anomalous calls began exactly when your truck turned off the highway onto the access road. Whatever is making them knew you were coming before you arrived."
       ],
       "choices": [
