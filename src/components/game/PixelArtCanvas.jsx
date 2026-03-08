@@ -675,6 +675,7 @@ const BG_RENDERERS = {
 const FG_RENDERERS = {
   arrival: drawArrivalFg,
   nets: drawNetsFg,
+  acoustic: drawAcousticFg,
   bat_capture: drawBatCaptureFg,
   dark_forest: drawDarkForestFg,
   creature: drawCreatureFg,
