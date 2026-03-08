@@ -50,7 +50,7 @@ export default function StoryPanel({ currentText }) {
           transition={{ duration: 0.5 }}
           className="max-w-3xl"
         >
-          <p className="text-gray-200 text-base leading-relaxed font-serif">
+          <p className="text-gray-200 text-lg leading-relaxed font-serif">
             <FlickerText text={currentText} />
           </p>
         </motion.div>
