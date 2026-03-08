@@ -1170,7 +1170,7 @@ const STORY_DATA = {
     "ending_drowned": {
       "id": "ending_drowned",
       "type": "ending",
-      "art_scene": "mist",
+      "art_scene": "drowning",
       "text_variants": [
         "You wade into the pond. The water is warmer than it should be. You reach for the tangled net — thirty denier polyester, agency property, your responsibility. Your fingers close on the mesh. Something closes on your ankle.\n\nYou have time to understand three things: First, the water is not three feet deep. It has no bottom. Second, the thing gripping your leg has been waiting in this exact spot since before you were born. Third, the net was bait.\n\nYou try to scream but water fills your mouth. The thing pulls you down. Your headlamp beam spirals upward through dark water, illuminating shapes that swim in formations that look like equations. Your last thought, as the light fades, is that you should have recorded this. The tissue sample alone would have been career-defining.\n\n[ENDING: DROWNED — You retrieved the net. The net retrieved you.]"
       ],

@@ -780,6 +780,137 @@ function drawEndingDarknessFg(ctx, w, h, scale, frame) {
   }
 }
 
+function drawDrowningBg(ctx, w, h, scale, rand) {
+  // Dark swamp water fills the scene
+  drawRect(ctx, 0, 0, w, h, PALETTE.black, scale);
+
+  // Water surface — murky dark teal/green bands
+  for (let y = 0; y < h; y++) {
+    const depth = y / h;
+    for (let x = 0; x < w; x++) {
+      const r = rand();
+      if (depth < 0.55) {
+        // Above water: dark sky/treeline
+        if (y < 18) {
+          if (r > 0.6) drawPixel(ctx, x, y, PALETTE.darkPurple, scale);
+        } else if (y < 28) {
+          const treeX = (x % 12);
+          if (treeX < 4 && r > 0.2) drawPixel(ctx, x, y, PALETTE.darkPurple, scale);
+          else if (r > 0.7) drawPixel(ctx, x, y, PALETTE.deepGreen, scale);
+        } else {
+          // Transition to water surface
+          if (r > 0.75) drawPixel(ctx, x, y, PALETTE.water, scale);
+        }
+      } else {
+        // Underwater: dark murk
+        const c = r > 0.6 ? PALETTE.water : r > 0.3 ? PALETTE.deepGreen : PALETTE.black;
+        drawPixel(ctx, x, y, c, scale);
+      }
+    }
+  }
+
+  // Water surface line
+  const surfaceY = Math.floor(h * 0.52);
+  for (let x = 0; x < w; x++) {
+    drawPixel(ctx, x, surfaceY, PALETTE.water, scale);
+    if (rand() > 0.5) drawPixel(ctx, x, surfaceY - 1, PALETTE.fogGray, scale);
+  }
+
+  // Submerged vegetation blobs
+  for (let i = 0; i < 6; i++) {
+    const vx = 5 + i * 22;
+    const vy = surfaceY + 8 + Math.floor(rand() * 15);
+    for (let dy = 0; dy < 8; dy++) {
+      for (let dx = -3; dx < 3; dx++) {
+        if (rand() > 0.4) drawPixel(ctx, vx + dx, vy + dy, PALETTE.deepGreen, scale);
+      }
+    }
+  }
+}
+
+function drawDrowningFg(ctx, w, h, scale, frame) {
+  const surfaceY = Math.floor(h * 0.52);
+  const cx = Math.floor(w / 2);
+
+  // Animated ripples from the sinking point
+  for (let i = 0; i < 4; i++) {
+    const r = ((frame * 0.4 + i * 9) % 36);
+    const alpha = 1 - r / 36;
+    if (alpha < 0.15) continue;
+    for (let a = 0; a < Math.PI * 2; a += 0.25) {
+      const rx = cx + Math.cos(a) * r;
+      const ry = surfaceY - 1 + Math.sin(a) * r * 0.25;
+      if (ry >= surfaceY - 3 && ry <= surfaceY + 2) {
+        drawPixel(ctx, rx, ry, PALETTE.fogGray, scale);
+      }
+    }
+  }
+
+  // Sinking hand — rises then sinks on a slow cycle
+  const sinkCycle = Math.sin(frame * 0.025); // -1 .. 1
+  // Map: 1 = hand fully up, -1 = hand almost gone under
+  const handTop = surfaceY - 10 - Math.floor(sinkCycle * 8);
+
+  // Wrist — disappears into water
+  const wristTop = handTop + 14;
+  for (let wy = wristTop; wy < surfaceY + 4; wy++) {
+    drawRect(ctx, cx - 4, wy, 8, 1, PALETTE.darkAmber, scale);
+    drawRect(ctx, cx - 3, wy, 6, 1, PALETTE.dimAmber, scale);
+  }
+
+  // YELLOW GLOVE — palm
+  const gloveColor = "#b8a000";
+  const gloveHighlight = "#d4ba00";
+  const gloveShadow = "#7a6a00";
+
+  drawRect(ctx, cx - 10, handTop + 4, 20, 12, gloveShadow, scale);
+  drawRect(ctx, cx - 9,  handTop + 5, 18, 10, gloveColor,  scale);
+  drawRect(ctx, cx - 8,  handTop + 5,  8,  4, gloveHighlight, scale);
+
+  // Fingers (reaching upward, slightly spread)
+  // Index
+  drawRect(ctx, cx - 8, handTop - 6, 4, 11, gloveShadow,    scale);
+  drawRect(ctx, cx - 7, handTop - 5, 3,  9, gloveColor,     scale);
+  drawPixel(ctx, cx - 7, handTop - 6, gloveHighlight, scale);
+  // Middle (tallest)
+  drawRect(ctx, cx - 3, handTop - 9, 5, 14, gloveShadow,    scale);
+  drawRect(ctx, cx - 2, handTop - 8, 3, 12, gloveColor,     scale);
+  drawPixel(ctx, cx - 2, handTop - 9, gloveHighlight, scale);
+  // Ring
+  drawRect(ctx, cx + 3, handTop - 7, 4, 12, gloveShadow,    scale);
+  drawRect(ctx, cx + 4, handTop - 6, 3, 10, gloveColor,     scale);
+  drawPixel(ctx, cx + 4, handTop - 7, gloveHighlight, scale);
+  // Pinky
+  drawRect(ctx, cx + 8, handTop - 4, 3,  9, gloveShadow,    scale);
+  drawRect(ctx, cx + 9, handTop - 3, 2,  7, gloveColor,     scale);
+  // Thumb (left side)
+  drawRect(ctx, cx - 16, handTop + 5, 8, 6, gloveShadow,    scale);
+  drawRect(ctx, cx - 15, handTop + 6, 6, 4, gloveColor,     scale);
+
+  // Glove cuff detail line
+  for (let x = cx - 9; x < cx + 9; x++) {
+    drawPixel(ctx, x, handTop + 14, gloveShadow, scale);
+  }
+
+  // Water surface occlusion — draw water over the wrist so it looks submerged
+  for (let x = 0; x < w; x++) {
+    const waveOffset = Math.sin(x * 0.18 + frame * 0.08) * 1.5;
+    const sy = Math.floor(surfaceY + waveOffset);
+    drawPixel(ctx, x, sy,     PALETTE.water,   scale);
+    drawPixel(ctx, x, sy + 1, PALETTE.water,   scale);
+    if (Math.random() > 0.6) drawPixel(ctx, x, sy - 1, PALETTE.fogGray, scale);
+  }
+
+  // Bubbles rising from under surface
+  for (let i = 0; i < 6; i++) {
+    const bx = cx - 12 + i * 5;
+    const by = surfaceY - 1 - ((frame * 0.3 + i * 8) % 20);
+    if (by > handTop) {
+      drawPixel(ctx, bx, by, PALETTE.fogGray, scale);
+    }
+  }
+}
+
 // ===================== RENDERER MAPS =====================
 
 const BG_RENDERERS = {
@@ -791,6 +922,7 @@ const BG_RENDERERS = {
   dark_forest: drawDarkForestBg,
   creature: drawCreatureBg,
   mist: drawMistBg,
+  drowning: drawDrowningBg,
   flee: drawFleeBg,
   cave: drawCaveBg,
   ending_escape: drawEndingEscapeBg,
@@ -808,6 +940,7 @@ const FG_RENDERERS = {
   dark_forest: drawDarkForestFg,
   creature: drawCreatureFg,
   mist: drawMistFg,
+  drowning: drawDrowningFg,
   flee: drawFleeFg,
   cave: drawCaveFg,
   ending_escape: drawEndingEscapeFg,
