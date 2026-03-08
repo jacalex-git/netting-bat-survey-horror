@@ -190,7 +190,7 @@ const STORY_DATA = {
 
     "setup_acoustic": {
       "id": "setup_acoustic",
-      "art_scene": "nets",
+      "art_scene": "acoustic",
       "text_variants": [
         "You mount the acoustic detector on its tripod. It records ultrasonic frequencies and converts them to spectrograms — visual fingerprints of each bat species. You switch it on. The display populates immediately: multiple calls, overlapping, dense. High activity for this early in the survey window. You note it as a good sign. It is not a good sign."
       ],
