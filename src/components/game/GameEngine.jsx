@@ -1236,6 +1236,15 @@ export function getSceneText(sceneId, flags = {}) {
   }
 
   if (node.text_variants && node.text_variants.length > 0) {
+    // third_net_check: show pond variant (index 1) only if net_in_water flag is set,
+    // otherwise randomly pick from non-pond variants (0 and 2)
+    if (sceneId === 'third_net_check') {
+      if (flags.net_in_water) {
+        return node.text_variants[1];
+      } else {
+        return node.text_variants[Math.random() < 0.5 ? 0 : 2];
+      }
+    }
     const idx = Math.floor(Math.random() * node.text_variants.length);
     return node.text_variants[idx];
   }
@@ -1269,6 +1278,7 @@ export function getSceneChoices(sceneId, health, sanity, inventory, flags = {}) 
       if (c.includes("not chose_science") && flags.chose_science) return false;
       if (c.includes("chose_science") && !c.includes("not chose_science") && !flags.chose_science) return false;
       if (c.includes("not net_in_water") && flags.net_in_water) return false;
+      if (c.includes("net_in_water") && !c.includes("not net_in_water") && !flags.net_in_water) return false;
     }
 
     return true;
@@ -1322,6 +1332,14 @@ export function applyChoice(state, choice) {
   // Add flags from choice
   if (choice.adds_flag) {
     newState.flags = { ...newState.flags, [choice.adds_flag]: true };
+  }
+
+  // Pre-set net_in_water flag (1/3 chance) when heading to third_net_check
+  // so the pond text variant and choices are shown correctly on arrival
+  if (choice.next_node === "third_net_check" && !newState.flags.net_in_water) {
+    if (Math.random() < 1 / 3) {
+      newState.flags = { ...newState.flags, net_in_water: true };
+    }
   }
 
   // Auto-endings based on stats
