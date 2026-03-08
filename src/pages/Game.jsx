@@ -152,7 +152,7 @@ export default function Game() {
 
       <div className="relative z-10 flex flex-col lg:flex-row min-h-screen">
         {/* Main game area */}
-        <div className="flex-1 flex flex-col max-w-4xl mx-auto w-full p-4 lg:p-6">
+        <div className="flex-1 flex flex-col max-w-4xl mx-auto w-full p-4 lg:p-6 overflow-y-auto">
           {/* Header */}
           <div className="flex items-center justify-between mb-4">
             <div className="flex items-center gap-3">
@@ -264,8 +264,7 @@ export default function Game() {
           </div>
 
           {/* Story + Choices area */}
-          <div className="flex-1 flex flex-col min-h-[220px] max-h-[340px] sm:max-h-[400px] lg:max-h-[450px] 
-            bg-black/30 border border-gray-800/30 rounded-lg p-4">
+          <div className="flex flex-col bg-black/30 border border-gray-800/30 rounded-lg p-4">
             <StoryPanel currentText={currentText} />
             {gameEnding && !showScoreboard ? (
               <div className="mt-4 flex justify-center">
