@@ -157,7 +157,7 @@ const STORY_DATA = {
           "adds_flag": "found_future_data"
         },
         {
-          "text": "Leave it. Don't touch it. Set up the net and move on.",
+          "text": "Leave it where it is. Finish the net and get to the acoustic monitor.",
           "next_node": "setup_acoustic",
           "sanity_change": -5,
           "health_change": 0
@@ -319,7 +319,7 @@ const STORY_DATA = {
       ],
       "choices": [
         {
-          "text": "Turn back — this isn't the survey",
+          "text": "Turn back and get to the nets — something may have been caught while you were gone",
           "next_node": "first_capture",
           "sanity_change": -5,
           "health_change": 0
@@ -443,7 +443,7 @@ const STORY_DATA = {
           "health_change": 0
         },
         {
-          "text": "Use the banding kit to take a tissue sample",
+          "text": "Take a tissue sample carefully, then release the bat and move on to net three",
           "next_node": "third_net_check",
           "sanity_change": -10,
           "health_change": -5,
@@ -593,7 +593,7 @@ const STORY_DATA = {
       ],
       "choices": [
         {
-          "text": "Put on your spare glove immediately — protocol demands it",
+          "text": "Snap on your spare glove and back away from the net — the mist is already rolling off the pond",
           "next_node": "the_mist",
           "sanity_change": -5,
           "health_change": -5,
@@ -624,13 +624,13 @@ const STORY_DATA = {
       ],
       "choices": [
         {
-          "text": "Turn the headlamp back on — NOW",
+          "text": "Turn the headlamp back on and run — but the mist is already rolling in off the water",
           "next_node": "the_mist",
           "sanity_change": -10,
           "health_change": -15
         },
         {
-          "text": "Stay still. Don't breathe. Don't think.",
+          "text": "Stay completely still until it loses you — then the mist arrives and changes everything",
           "next_node": "the_mist",
           "sanity_change": -15,
           "health_change": -5,
@@ -679,7 +679,7 @@ const STORY_DATA = {
       ],
       "choices": [
         {
-          "text": "Move toward the mist — you need cover",
+          "text": "Move into the mist — staying in the open with it loose is worse",
           "next_node": "the_mist",
           "sanity_change": -8,
           "health_change": 0
@@ -710,14 +710,14 @@ const STORY_DATA = {
           "removes_item": "Calipers"
         },
         {
-          "text": "Keep measuring. Record everything.",
+          "text": "Keep measuring — record everything you can before the mist closes in",
           "next_node": "the_mist",
           "sanity_change": -25,
           "health_change": -10,
           "adds_flag": "chose_science"
         },
         {
-          "text": "Try to collect a tissue sample",
+          "text": "Pocket a tissue sample and back away from the net — the mist is already moving in from the pond",
           "next_node": "the_mist",
           "sanity_change": -20,
           "health_change": -25,
@@ -776,7 +776,7 @@ const STORY_DATA = {
           "condition": "Only appears if infected"
         },
         {
-          "text": "Stand your ground. Observe. Document.",
+          "text": "Whatever is generating this came from underground. Push through the mist and find the source.",
           "next_node": "find_cave",
           "sanity_change": -25,
           "health_change": -10,
@@ -841,7 +841,7 @@ const STORY_DATA = {
           "condition": "Only appears if infected"
         },
         {
-          "text": "Turn off the light. You've seen enough.",
+          "text": "Kill the light. Whatever is causing this is coming from underground — find it.",
           "next_node": "find_cave",
           "sanity_change": -30,
           "health_change": 0,
@@ -875,7 +875,7 @@ const STORY_DATA = {
           "condition": "Only appears if infected"
         },
         {
-          "text": "Keep listening. Try to understand.",
+          "text": "The frequency is coming from underground. Follow it to the source.",
           "next_node": "find_cave",
           "sanity_change": -25,
           "health_change": 0,
