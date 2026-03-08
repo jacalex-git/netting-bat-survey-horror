@@ -94,12 +94,7 @@ export default function Game() {
     }
   };
 
-  const toggleMute = () => {
-    if (audioRef.current) {
-      audioRef.current.muted = !isMuted;
-      setIsMuted(!isMuted);
-    }
-  };
+  const toggleMute = () => setIsMuted(m => !m);
 
   // Keyboard shortcuts
   useEffect(() => {
