@@ -78,21 +78,33 @@ export default function Game() {
     }, 500);
   }, [gameState, transitioning, gameEnding]);
 
-  // Fullscreen management
+  // Fullscreen management — real API where supported, fake fixed-overlay fallback for iOS/mobile
+  const gameContainerRef = useRef(null);
+  const canUseNativeFullscreen = typeof document !== "undefined" && !!document.fullscreenEnabled;
+
   useEffect(() => {
+    if (!canUseNativeFullscreen) return;
     const handleFullscreenChange = () => {
       setIsFullscreen(!!document.fullscreenElement);
     };
-    
     document.addEventListener("fullscreenchange", handleFullscreenChange);
     return () => document.removeEventListener("fullscreenchange", handleFullscreenChange);
-  }, []);
+  }, [canUseNativeFullscreen]);
 
   const toggleFullscreen = () => {
-    if (!document.fullscreenElement) {
-      document.documentElement.requestFullscreen().catch(() => {});
+    if (canUseNativeFullscreen) {
+      if (!document.fullscreenElement) {
+        document.documentElement.requestFullscreen().catch(() => {});
+      } else {
+        document.exitFullscreen().catch(() => {});
+      }
     } else {
-      document.exitFullscreen().catch(() => {});
+      // Fake fullscreen for mobile (iOS etc.)
+      setIsFullscreen(prev => {
+        const next = !prev;
+        document.body.style.overflow = next ? "hidden" : "";
+        return next;
+      });
     }
   };
 
@@ -142,7 +154,13 @@ export default function Game() {
   );
 
   return (
-    <div className="min-h-screen bg-black text-gray-200 relative overflow-hidden">
+    <div
+      ref={gameContainerRef}
+      className="min-h-screen bg-black text-gray-200 relative overflow-hidden"
+      style={isFullscreen && !canUseNativeFullscreen ? {
+        position: "fixed", inset: 0, zIndex: 9999, overflowY: "auto"
+      } : {}}
+    >
       {/* Background texture */}
       <div className="fixed inset-0 opacity-[0.03]"
         style={{
