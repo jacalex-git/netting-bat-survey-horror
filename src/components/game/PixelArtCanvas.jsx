@@ -104,25 +104,61 @@ function drawNetsBg(ctx, w, h, scale, rand) {
 
 function drawBatCaptureBg(ctx, w, h, scale, rand) {
   drawRect(ctx, 0, 0, w, h, PALETTE.black, scale);
-  for (let x = 20; x < 100; x++) {
-    const sag = Math.sin((x - 20) / 80 * Math.PI) * 5;
-    drawPixel(ctx, x, 40 + sag, PALETTE.gray, scale);
-  }
-  drawRect(ctx, 55, 55, 4, 3, PALETTE.skin, scale);
-  drawRect(ctx, 62, 56, 4, 3, PALETTE.skin, scale);
-  const batX = 60, batY = 42;
-  for (let d = 0; d < 15; d++) {
-    const spread = Math.floor(d * 0.3);
-    for (let s = -spread; s <= spread; s++) {
-      if (rand() < 0.3) drawPixel(ctx, batX + s, batY - d + 5, PALETTE.darkAmber, scale);
+
+  // Forest silhouette at top
+  for (let i = 0; i < w; i += 7) {
+    const treeH = 8 + Math.floor(Math.sin(i * 0.6) * 4);
+    drawRect(ctx, i + 2, 0, 3, treeH + 3, PALETTE.darkPurple, scale);
+    for (let y = 0; y < treeH; y++) {
+      const sp = Math.max(0, 5 - Math.abs(y - treeH * 0.4));
+      for (let x = i - sp; x <= i + sp + 3; x++) {
+        if (x >= 0 && x < w && rand() > 0.35) drawPixel(ctx, x, y, PALETTE.deepGreen, scale);
+      }
     }
   }
-  for (let i = 0; i < w; i += 12) {
-    for (let y = 0; y < 30; y++) {
-      if (rand() > 0.6) drawPixel(ctx, i + Math.floor(rand() * 3), y, PALETTE.deepGreen, scale);
-    }
-  }
-  drawRect(ctx, 0, h - 10, w, 10, PALETTE.deepGreen, scale);
+
+  const cx = 64;
+  const palmTop = 50;
+
+  // Wrist / arm from bottom
+  drawRect(ctx, cx - 10, palmTop + 16, 20, h - palmTop - 16, PALETTE.darkAmber, scale);
+  drawRect(ctx, cx - 8,  palmTop + 17, 16, h - palmTop - 17, PALETTE.dimAmber,  scale);
+
+  // Palm
+  drawRect(ctx, cx - 22, palmTop,     44, 18, PALETTE.darkAmber, scale);
+  drawRect(ctx, cx - 19, palmTop + 1, 38, 15, PALETTE.dimAmber,  scale);
+
+  // Thumb (left side)
+  drawRect(ctx, cx - 30, palmTop + 4, 10, 12, PALETTE.darkAmber, scale);
+  drawRect(ctx, cx - 28, palmTop + 5,  7,  9, PALETTE.dimAmber,  scale);
+
+  // Bat body — drawn BEFORE fingers so fingers appear to cup it
+  const bx = cx - 6; // 58
+  const by = palmTop - 6; // 44
+  drawRect(ctx, bx,     by,     12, 8, PALETTE.gray,    scale);
+  drawRect(ctx, bx + 2, by + 2,  8, 5, PALETTE.darkGray, scale);
+
+  // Fingers — drawn OVER bat body (cupping effect)
+  // Index
+  drawRect(ctx, cx - 16, palmTop - 11, 8, 12, PALETTE.darkAmber, scale);
+  drawRect(ctx, cx - 15, palmTop - 10, 6, 10, PALETTE.dimAmber,  scale);
+  // Middle
+  drawRect(ctx, cx - 6, palmTop - 14, 8, 15, PALETTE.darkAmber, scale);
+  drawRect(ctx, cx - 5, palmTop - 13, 6, 13, PALETTE.dimAmber,  scale);
+  // Ring
+  drawRect(ctx, cx + 4, palmTop - 13, 8, 14, PALETTE.darkAmber, scale);
+  drawRect(ctx, cx + 5, palmTop - 12, 6, 12, PALETTE.dimAmber,  scale);
+  // Pinky
+  drawRect(ctx, cx + 14, palmTop - 9, 7, 10, PALETTE.darkAmber, scale);
+  drawRect(ctx, cx + 15, palmTop - 8, 5,  8, PALETTE.dimAmber,  scale);
+
+  // Bat head — drawn AFTER fingers so it peeks above the cupped hand
+  drawRect(ctx, bx + 3, by - 5, 6, 6, PALETTE.gray, scale);
+  // Ears
+  drawPixel(ctx, bx + 3, by - 7, PALETTE.gray,    scale);
+  drawPixel(ctx, bx + 2, by - 8, PALETTE.darkGray, scale);
+  drawPixel(ctx, bx + 8, by - 7, PALETTE.gray,    scale);
+  drawPixel(ctx, bx + 9, by - 8, PALETTE.darkGray, scale);
 }
 
 function drawDarkForestBg(ctx, w, h, scale, rand) {
