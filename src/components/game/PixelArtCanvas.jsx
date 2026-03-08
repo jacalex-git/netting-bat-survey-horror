@@ -317,13 +317,56 @@ function drawNetsFg(ctx, w, h, scale, frame) {
 }
 
 function drawBatCaptureFg(ctx, w, h, scale, frame) {
-  const batX = 60, batY = 42;
-  const wingFlap = Math.sin(frame * 0.3) * 2;
-  drawPixel(ctx, batX, batY, PALETTE.darkGray, scale);
-  drawPixel(ctx, batX - 1, batY, PALETTE.darkGray, scale);
-  for (let wx = 1; wx < 6; wx++) {
-    drawPixel(ctx, batX - 1 - wx, batY - 1 + wingFlap, PALETTE.darkGray, scale);
-    drawPixel(ctx, batX + wx, batY - 1 - wingFlap, PALETTE.darkGray, scale);
+  const cx = 64;
+  const palmTop = 50;
+  const by = palmTop - 6;  // bat body top
+  const bx = cx - 6;      // 58
+
+  // Slowly flapping wings — gentle, struggling motion
+  const flapAngle = Math.sin(frame * 0.12) * 0.7 + 0.3; // 0..1 ish
+  const wingSpan = Math.floor(14 + flapAngle * 12);      // 14..26 px spread each side
+  const wingDrop = Math.floor(flapAngle * 5);             // droops as they open
+
+  // Left wing membrane
+  for (let wx = 1; wx <= wingSpan; wx++) {
+    const wy = Math.floor(Math.sin(wx / wingSpan * Math.PI) * wingDrop);
+    const alpha = 1 - wx / wingSpan;
+    const color = alpha > 0.5 ? PALETTE.gray : PALETTE.darkGray;
+    drawPixel(ctx, bx - wx, by + 2 + wy, color, scale);
+    if (wx < wingSpan - 2) drawPixel(ctx, bx - wx, by + 3 + wy, PALETTE.darkGray, scale);
+    // Wing finger bones every few pixels
+    if (wx % 5 === 0 && wx < wingSpan) {
+      for (let fy = 0; fy <= wy + 2; fy++) {
+        drawPixel(ctx, bx - wx, by + 2 + fy, PALETTE.darkGray, scale);
+      }
+    }
+  }
+
+  // Right wing membrane
+  for (let wx = 1; wx <= wingSpan; wx++) {
+    const wy = Math.floor(Math.sin(wx / wingSpan * Math.PI) * wingDrop);
+    const alpha = 1 - wx / wingSpan;
+    const color = alpha > 0.5 ? PALETTE.gray : PALETTE.darkGray;
+    drawPixel(ctx, bx + 12 + wx, by + 2 + wy, color, scale);
+    if (wx < wingSpan - 2) drawPixel(ctx, bx + 12 + wx, by + 3 + wy, PALETTE.darkGray, scale);
+    if (wx % 5 === 0 && wx < wingSpan) {
+      for (let fy = 0; fy <= wy + 2; fy++) {
+        drawPixel(ctx, bx + 12 + wx, by + 2 + fy, PALETTE.darkGray, scale);
+      }
+    }
+  }
+
+  // Eye glint — blinks occasionally
+  if (frame % 40 > 5) {
+    drawPixel(ctx, bx + 4, by - 3, PALETTE.amber, scale);
+    drawPixel(ctx, bx + 7, by - 3, PALETTE.amber, scale);
+  }
+
+  // Headlamp beam from top-left corner (subtle)
+  for (let d = 1; d < 20; d++) {
+    if (Math.random() < 0.15) {
+      drawPixel(ctx, d, d * 2, PALETTE.dimAmber, scale);
+    }
   }
 }
 
