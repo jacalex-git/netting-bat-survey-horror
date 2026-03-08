@@ -37,10 +37,7 @@ export default function Game() {
     setCurrentText(getSceneText("arrival", {}));
     setGameStarted(true);
     
-    // Start audio
-    if (audioRef.current) {
-      audioRef.current.play().catch(() => {});
-    }
+    initAudio();
   }, []);
 
   const handleChoice = useCallback((choice) => {
