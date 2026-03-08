@@ -659,6 +659,7 @@ function drawEndingDarknessFg(ctx, w, h, scale, frame) {
 const BG_RENDERERS = {
   arrival: drawArrivalBg,
   nets: drawNetsBg,
+  acoustic: drawNetsBg,
   bat_capture: drawBatCaptureBg,
   dark_forest: drawDarkForestBg,
   creature: drawCreatureBg,
