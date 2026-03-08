@@ -28,8 +28,10 @@ export default function Game() {
   const [showScoreboard, setShowScoreboard] = useState(false);
   const [gameEnding, setGameEnding] = useState(null);
   const [debugMode, setDebugMode] = useState(false);
-  const artScene = gameState ? getSceneArt(gameState.currentScene) : "arrival";
-  const { initAudio } = useMusicEngine(artScene, isMuted);
+  const { initAudio } = useMusicEngine(
+    gameState ? getSceneArt(gameState.currentScene) : "arrival",
+    isMuted
+  );
 
   const startGame = useCallback(() => {
     const initial = getInitialState();
