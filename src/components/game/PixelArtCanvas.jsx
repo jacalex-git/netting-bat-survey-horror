@@ -132,13 +132,7 @@ function drawBatCaptureBg(ctx, w, h, scale, rand) {
   drawRect(ctx, cx - 30, palmTop + 4, 10, 12, PALETTE.darkAmber, scale);
   drawRect(ctx, cx - 28, palmTop + 5,  7,  9, PALETTE.dimAmber,  scale);
 
-  // Bat body — drawn BEFORE fingers so fingers appear to cup it
-  const bx = cx - 6; // 58
-  const by = palmTop - 6; // 44
-  drawRect(ctx, bx,     by,     12, 8, PALETTE.gray,    scale);
-  drawRect(ctx, bx + 2, by + 2,  8, 5, PALETTE.darkGray, scale);
-
-  // Fingers — drawn OVER bat body (cupping effect)
+  // Fingers — drawn first so bat sits ON TOP of them
   // Index
   drawRect(ctx, cx - 16, palmTop - 11, 8, 12, PALETTE.darkAmber, scale);
   drawRect(ctx, cx - 15, palmTop - 10, 6, 10, PALETTE.dimAmber,  scale);
@@ -152,7 +146,13 @@ function drawBatCaptureBg(ctx, w, h, scale, rand) {
   drawRect(ctx, cx + 14, palmTop - 9, 7, 10, PALETTE.darkAmber, scale);
   drawRect(ctx, cx + 15, palmTop - 8, 5,  8, PALETTE.dimAmber,  scale);
 
-  // Bat head — drawn AFTER fingers so it peeks above the cupped hand
+  // Bat body — drawn AFTER fingers so it's fully visible, resting in the palm
+  const bx = cx - 6;      // 58
+  const by = palmTop - 10; // raise it so it clears the finger tops
+  drawRect(ctx, bx,     by,     12, 8, PALETTE.gray,    scale);
+  drawRect(ctx, bx + 2, by + 2,  8, 5, PALETTE.darkGray, scale);
+
+  // Bat head
   drawRect(ctx, bx + 3, by - 5, 6, 6, PALETTE.gray, scale);
   // Ears
   drawPixel(ctx, bx + 3, by - 7, PALETTE.gray,    scale);
