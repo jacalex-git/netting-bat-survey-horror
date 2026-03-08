@@ -132,6 +132,7 @@ export default function Game() {
   }
 
   if (!gameState) return null;
+  const artScene = getSceneArt(gameState.currentScene);
   const choices = getSceneChoices(
     gameState.currentScene,
     gameState.health,
