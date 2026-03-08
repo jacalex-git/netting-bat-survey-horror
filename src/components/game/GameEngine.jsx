@@ -288,7 +288,7 @@ const STORY_DATA = {
 
     "acoustic_check_deep": {
       "id": "acoustic_check_deep",
-      "art_scene": "nets",
+      "art_scene": "acoustic",
       "text_variants": [
         "You lean over the detector display. The call rate is wrong — not high for a productive site, wrong in structure. The sequences repeat. Not individual bats calling as they hunt, but something broadcasting the same phrase over and over, modulating just slightly each iteration, like it's waiting for an echo back. Like it's mapping something. You realize the calls aren't coming from above the nets. They're coming from a fixed point in the tree line. Something is standing still and transmitting.",
         "The detector's directional indicator swings and locks — northeast, toward the deeper part of the wetland. The anomalous calls are point-source. Stationary. Whatever is making them isn't hunting. It isn't flying. It is rooted to one spot, broadcasting at you specifically, in a pattern that contains far too much structure to be biological noise."
