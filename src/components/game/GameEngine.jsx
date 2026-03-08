@@ -457,7 +457,7 @@ const STORY_DATA = {
       "id": "third_net_check",
       "art_scene": "dark_forest",
       "text_variants": [
-        "Net three is empty. But it's been disturbed. The lower two shelf strings are snapped — not tangled, not sagged, but cleanly broken under load. The breaks face outward, away from the water. Something large moved through this net from the inside out. Mist nets are designed to capture things flying into them. Whatever broke this net was on the inside, pushing out. You installed this net yourself. There was nothing inside it when you did.",
+        "Net three is empty. But it's been disturbed. The lower two shelf strings are snapped — not tangled, not sagged, but cleanly broken under load. The breaks face outward, away from the water. Something large moved through this net from the inside out.",
         "Net three is down. The poles are still upright but the mesh is gone — not tangled in the vegetation, not on the ground. Gone. Thirty denier polyester doesn't just disappear. You find one shelf string still attached to the pole, trailing off into the dark toward the pond. You follow it two meters. It goes into the water. Something under the surface has the rest of the net. The water is still. It shouldn't be still with a net being pulled through it.",
         "Net three has been moved. Not tangled, not damaged — repositioned. The poles have been pulled from the substrate and replanted four meters farther into the tree line, the net re-strung between different trees with the same tension and hang angle you use. The new position faces the direction you came from. It's aimed at the parking area. At your truck. At you."
       ],
