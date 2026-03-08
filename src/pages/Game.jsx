@@ -140,14 +140,6 @@ export default function Game() {
 
   return (
     <div className="min-h-screen bg-black text-gray-200 relative overflow-hidden">
-      {/* Audio */}
-      <audio 
-        ref={audioRef}
-        loop
-        muted={isMuted}
-        src="https://cdn.pixabay.com/audio/2022/05/27/audio_1808fbf07a.mp3"
-      />
-
       {/* Background texture */}
       <div className="fixed inset-0 opacity-[0.03]"
         style={{
