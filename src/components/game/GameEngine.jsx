@@ -364,7 +364,7 @@ const STORY_DATA = {
       ],
       "choices": [
         {
-          "text": "Continue to ENDING: ECHOLOCATED",
+          "text": "Let it finish. Whatever is being done to you — let it finish.",
           "next_node": "ending_echolocated",
           "sanity_change": -20,
           "health_change": 0
@@ -388,7 +388,7 @@ const STORY_DATA = {
           "health_change": 0
         },
         {
-          "text": "Something feels off. Check the other nets first.",
+          "text": "Leave this one for now — something feels wrong. Check the other nets first.",
           "next_node": "second_capture",
           "sanity_change": -3,
           "health_change": 0
@@ -405,13 +405,13 @@ const STORY_DATA = {
       ],
       "choices": [
         {
-          "text": "Check the second net",
+          "text": "Release the bat and move on — net two is close, and something was moving in it a moment ago",
           "next_node": "second_capture",
           "sanity_change": 0,
           "health_change": 0
         },
         {
-          "text": "Take a break, drink some water",
+          "text": "Drink some water and give yourself a moment — then net two needs checking",
           "next_node": "second_capture",
           "sanity_change": 2,
           "health_change": 5,
@@ -430,14 +430,14 @@ const STORY_DATA = {
       ],
       "choices": [
         {
-          "text": "Band it and record the anomaly professionally",
+          "text": "Band it, record the anomaly as precisely as you can, and release it — then check net three",
           "next_node": "third_net_check",
           "sanity_change": -5,
           "health_change": 0,
           "adds_flag": "banded_wrong_bat"
         },
         {
-          "text": "Release it without banding. Don't record it.",
+          "text": "Open your hand and let it go without banding it. Walk to net three without looking back.",
           "next_node": "third_net_check",
           "sanity_change": -8,
           "health_change": 0
@@ -544,7 +544,7 @@ const STORY_DATA = {
       ],
       "choices": [
         {
-          "text": "Check the nets — something big has been caught",
+          "text": "Turn the radio off. Something is caught in the nets — you can hear the mesh straining from here.",
           "next_node": "wrong_shape_net",
           "sanity_change": -5,
           "health_change": 0
@@ -600,14 +600,14 @@ const STORY_DATA = {
           "removes_item": "Bat Handling Gloves"
         },
         {
-          "text": "Run. Bare hands and all.",
+          "text": "Run. Don't stop to swap gloves. Bare hands and all — into the treeline.",
           "next_node": "flee_to_treeline",
           "sanity_change": -10,
           "health_change": -5,
           "adds_flag": "infected"
         },
         {
-          "text": "Look at your hand more closely under the headlamp",
+          "text": "Hold your bare hand up under the headlamp — the tingling under the skin demands a closer look",
           "next_node": "check_hands",
           "sanity_change": -20,
           "health_change": -5,
@@ -703,7 +703,7 @@ const STORY_DATA = {
       ],
       "choices": [
         {
-          "text": "Drop the calipers and run",
+          "text": "Drop the calipers and run — into the trees, away from the nets, toward the road",
           "next_node": "flee_to_treeline",
           "sanity_change": -15,
           "health_change": 0,
@@ -796,7 +796,7 @@ const STORY_DATA = {
       ],
       "choices": [
         {
-          "text": "Put the datasheets away and run",
+          "text": "Fold the datasheets away and run — toward the access road, away from whatever wrote this",
           "next_node": "flee_to_treeline",
           "sanity_change": -20,
           "health_change": 0
@@ -821,7 +821,7 @@ const STORY_DATA = {
       ],
       "choices": [
         {
-          "text": "RUN. GET OUT.",
+          "text": "Turn the lamp off and run — into the trees, toward the road, away from whatever is above you.",
           "next_node": "flee_to_treeline",
           "sanity_change": -20,
           "health_change": -10
@@ -860,7 +860,7 @@ const STORY_DATA = {
       ],
       "choices": [
         {
-          "text": "Throw the radio away and run",
+          "text": "Throw the radio into the pond and run — toward the treeline, toward the road, away from here.",
           "next_node": "flee_to_treeline",
           "sanity_change": -15,
           "health_change": 0,
@@ -899,7 +899,7 @@ const STORY_DATA = {
       ],
       "choices": [
         {
-          "text": "Tear it off. Use the calipers. CUT IT OUT.",
+          "text": "Use the calipers to tear the membrane back — then run before it can grow again.",
           "next_node": "flee_to_treeline",
           "sanity_change": -20,
           "health_change": -30,
@@ -912,7 +912,7 @@ const STORY_DATA = {
           "health_change": 0
         },
         {
-          "text": "Run for the truck. Drive to a hospital.",
+          "text": "Whatever this is, it needs a hospital. Get to the truck. Get to the road. Go.",
           "next_node": "flee_to_treeline",
           "sanity_change": -15,
           "health_change": -10,
