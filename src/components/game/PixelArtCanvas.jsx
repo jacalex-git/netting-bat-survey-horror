@@ -316,8 +316,9 @@ function drawNetsFg(ctx, w, h, scale, frame) {
     const py = 20 + Math.sin(frame * 0.05 + i) * 15;
     drawPixel(ctx, px, py, PALETTE.dimAmber, scale);
   }
+}
 
-  // === Acoustic detector spectrogram display ===
+function drawSpectrogramPanel(ctx, w, h, scale, frame) {
   const pX = 63, pY = 32, pW = 54, pH = 28;
 
   // Panel background + border
@@ -338,11 +339,9 @@ function drawNetsFg(ctx, w, h, scale, frame) {
     }
   }
 
-  // Helper: draw a spectrogram call trace clipped to panel
   function drawCall(points, color, shadow) {
     for (let i = 0; i < points.length - 1; i++) {
       const [x0, y0] = points[i];
-      const [x1, y1] = points[i + 1];
       if (x0 < pX + 1 || x0 >= pX + pW - 1) continue;
       if (y0 >= pY + 1 && y0 < pY + pH - 1) {
         drawPixel(ctx, x0, y0, color, scale);
@@ -351,50 +350,54 @@ function drawNetsFg(ctx, w, h, scale, frame) {
     }
   }
 
-  // Lasiurus: bouncy — steep downswoop with slight uptick at end
-  // Appears every ~22px of scroll
   const scrollSpeed = 0.4;
+
+  // Lasiurus: bouncy downswoop with uptick
   for (let c = 0; c < 4; c++) {
     const ox = ((frame * scrollSpeed + c * 22) % (pW + 10));
     const startX = pX + pW - 2 - Math.floor(ox);
     const callW = 9;
     const points = [];
     for (let t = 0; t < callW; t++) {
-      const px = startX + t;
-      const norm = t / (callW - 1); // 0→1
-      // Bouncy: rapid drop then small uptick
+      const norm = t / (callW - 1);
       let freq;
-      if (norm < 0.75) {
-        freq = norm * norm * 1.1;           // accelerating drop
-      } else {
-        freq = 0.62 - (norm - 0.75) * 0.5; // slight bounce back
-      }
-      const py = pY + 3 + Math.floor(freq * (pH - 6));
-      points.push([px, py]);
+      if (norm < 0.75) { freq = norm * norm * 1.1; }
+      else { freq = 0.62 - (norm - 0.75) * 0.5; }
+      points.push([startX + t, pY + 3 + Math.floor(freq * (pH - 6))]);
     }
     drawCall(points, PALETTE.sickGreen, PALETTE.deepGreen);
   }
 
-  // Myotis: sigmoidal — classic S-curve FM sweep
+  // Myotis: sigmoidal S-curve FM sweep
   for (let c = 0; c < 3; c++) {
     const ox = ((frame * scrollSpeed + c * 28 + 11) % (pW + 10));
     const startX = pX + pW - 2 - Math.floor(ox);
     const callW = 12;
     const points = [];
     for (let t = 0; t < callW; t++) {
-      const px = startX + t;
       const norm = t / (callW - 1);
-      // Sigmoid: 1/(1+e^(-k*(norm-0.5))) mapped to freq axis
       const sig = 1 / (1 + Math.exp(-10 * (norm - 0.5)));
-      const py = pY + 3 + Math.floor(sig * (pH - 6));
-      points.push([px, py]);
+      points.push([startX + t, pY + 3 + Math.floor(sig * (pH - 6))]);
     }
     drawCall(points, PALETTE.mutedGreen, PALETTE.deepGreen);
   }
 
-  // "ANML" label top-left of panel
+  // Indicator dot
   drawPixel(ctx, pX + 2, pY + 2, PALETTE.amber, scale);
   drawPixel(ctx, pX + 4, pY + 2, PALETTE.amber, scale);
+}
+
+function drawAcousticFg(ctx, w, h, scale, frame) {
+  // Same nets mesh in background
+  for (let shelf = 0; shelf < 4; shelf++) {
+    const y = 35 + shelf * 8;
+    for (let x = 17; x < 54; x++) {
+      if (frame % 4 === 0 || Math.random() > 0.2) {
+        drawPixel(ctx, x, y + (Math.sin(x * 0.3 + frame * 0.1) > 0.5 ? 1 : 0), PALETTE.gray, scale);
+      }
+    }
+  }
+  drawSpectrogramPanel(ctx, w, h, scale, frame);
 }
 
 function drawBatCaptureFg(ctx, w, h, scale, frame) {
