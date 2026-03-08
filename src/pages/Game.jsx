@@ -15,6 +15,7 @@ import {
   getSceneType,
   applyChoice
 } from "../components/game/GameEngine";
+import useMusicEngine from "../components/game/useMusicEngine";
 
 export default function Game() {
   const [gameStarted, setGameStarted] = useState(false);
