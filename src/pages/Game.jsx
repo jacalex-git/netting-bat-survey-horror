@@ -69,11 +69,10 @@ export default function Game() {
       setCurrentText(newText);
       setTransitioning(false);
       
-      // Show scoreboard after ending
+      // Flag ending reached — player must click to proceed to scoreboard
       const sceneType = getSceneType(newState.currentScene);
       if (sceneType === 'ending' && !gameEnding) {
         setGameEnding(newState.currentScene);
-        setTimeout(() => setShowScoreboard(true), 2000);
       }
     }, 500);
   }, [gameState, transitioning, gameEnding]);
@@ -281,11 +280,24 @@ export default function Game() {
           <div className="flex-1 flex flex-col min-h-[300px] max-h-[400px] lg:max-h-[450px] 
             bg-black/30 border border-gray-800/30 rounded-lg p-4">
             <StoryPanel currentText={currentText} />
-            <ChoiceButtons
-              choices={choices}
-              onChoice={handleChoice}
-              disabled={transitioning}
-            />
+            {gameEnding && !showScoreboard ? (
+              <div className="mt-4 flex justify-center">
+                <button
+                  onClick={() => setShowScoreboard(true)}
+                  className="px-6 py-2 bg-amber-900/30 hover:bg-amber-800/40 border border-amber-700/50 
+                    hover:border-amber-600 text-amber-500 hover:text-amber-400 font-mono text-sm 
+                    rounded transition-all tracking-widest"
+                >
+                  CONTINUE →
+                </button>
+              </div>
+            ) : (
+              <ChoiceButtons
+                choices={choices}
+                onChoice={handleChoice}
+                disabled={transitioning}
+              />
+            )}
           </div>
 
           {/* Bottom note */}
