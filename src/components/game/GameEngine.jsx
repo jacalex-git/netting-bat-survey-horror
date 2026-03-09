@@ -7,7 +7,6 @@ const STORY_DATA = {
     "battery_level": 100,
     "starting_inventory": [
       "Headlamp",
-      "Spare Battery",
       "Field Datasheets",
       "Bat Handling Gloves",
       "Mist Net Poles (x4)",
@@ -120,7 +119,7 @@ const STORY_DATA = {
       "id": "setup_nets",
       "art_scene": "nets",
       "text_variants": [
-        "You begin furling out the first mist net between two tupelo trunks. The 12-meter polyester mesh unfolds like a black widow's web. Your practiced hands find the shelf strings in the dark. The net hangs perfectly — four shelves of nearly invisible death for anything with wings.",
+        "You begin unfurling the first mist net between two tupelo trunks. The 12-meter polyester mesh unfolds like a black widow's web. Your practiced hands find the shelf strings in the dark. The net hangs perfectly — four shelves of nearly invisible death for anything with wings.",
         "The mist net poles slide into the soft substrate with satisfying thuds. You tension the guy lines and begin draping the nets. Thirty-denier polyester, nearly invisible even in daylight. In this darkness, the nets cease to exist entirely. You know they're there only by touch.",
         "Net one goes up clean. Net two snags on a branch and you have to untangle it, fingers working the mesh by feel alone. You set up a third net near the pond edge, tensioning the lines carefully in the dark."
       ],
@@ -199,15 +198,13 @@ const STORY_DATA = {
           "text": "Check the spectrogram display more closely",
           "next_node": "acoustic_anomaly",
           "sanity_change": -3,
-          "health_change": 0,
-          "adds_flag": "detector_running"
+          "health_change": 0
         },
         {
           "text": "Leave it running and check the nets",
           "next_node": "bat_activity",
           "sanity_change": 0,
-          "health_change": 0,
-          "adds_flag": "detector_running"
+          "health_change": 0
         }
       ]
     },
@@ -240,7 +237,7 @@ const STORY_DATA = {
       "id": "bat_activity",
       "art_scene": "nets",
       "text_variants": [
-        "For twenty minutes: nothing. Then everything at once. Your headlamp catches the flicker of wings above the first net — one bat, two, a dozen, wheeling and diving in the gap between the trees. This is what you came for. The survey is working. The habitat is good. The bats are here.",
+        "For twenty minutes: nothing. Then everything at once. Your headlamp catches the flicker of wings above the first net — one bat, two, a dozen, wheeling and diving in the gap between the trees. The survey is working. You tell yourself this is normal. You tell yourself you're relieved. Neither thought lands the way it should.",
         "A rush of activity over the pond surface — the bats are feeding, skimming the water, their echolocation clicks painting the air in frequencies you can't hear. You count at least eight individuals. Possibly more. The acoustic monitor's call rate indicator climbs steadily.",
         "The night comes alive. Wings everywhere, the soft percussion of bodies banking through still air, the occasional thud of a capture in the nets. You move between the nets with practiced efficiency. You are calm. You are competent. Enjoy this. It does not last."
       ],
@@ -304,8 +301,7 @@ const STORY_DATA = {
           "text": "Follow the signal — it's coming from somewhere specific",
           "next_node": "follow_signal",
           "sanity_change": -8,
-          "health_change": 0,
-          "adds_flag": "following_signal"
+          "health_change": 0
         }
       ]
     },
@@ -400,8 +396,8 @@ const STORY_DATA = {
       "id": "process_bat",
       "art_scene": "bat_capture",
       "text_variants": [
-        "You extract the bat carefully, supporting its body. Forearm measurement: 42mm. Weight: 14g. Sex: female. Reproductive status: non-reproductive. You fit a band to its forearm — aluminum, 2.4mm. Everything by the book. You open your hand. It launches into the dark. Standard. But as it vanishes, you swear its wingbeat rhythm sounded like Morse code.",
-        "You extract the bat carefully, supporting its body. Forearm measurement: 42mm. Weight: 14g. Sex: female. Reproductive status: non-reproductive. You fit a band to its forearm — aluminum, 2.4mm. As you release it, the bat doesn't fly away. It hangs from your glove and stares at you. Its eyes reflect your headlamp, but the reflection is the wrong color. Then it's gone."
+        "You extract the bat carefully, supporting its body. Forearm measurement: 42mm. Weight: 16g. Sex: female. Reproductive status: non-reproductive. You fit a band to its forearm — aluminum, 2.4mm. Everything by the book. You open your hand. It launches into the dark. Standard. But as it vanishes, you swear its wingbeat rhythm sounded like Morse code.",
+        "You extract the bat carefully, supporting its body. Forearm measurement: 42mm. Weight: 16g. Sex: female. Reproductive status: non-reproductive. You fit a band to its forearm — aluminum, 2.4mm. As you release it, the bat doesn't fly away. It hangs from your glove and stares at you. Its eyes reflect your headlamp, but the reflection is the wrong color. Then it's gone."
       ],
       "choices": [
         {
@@ -433,14 +429,14 @@ const STORY_DATA = {
           "text": "Band it, record the anomaly as precisely as you can, and release it — then check net three",
           "next_node": "third_net_check",
           "sanity_change": -5,
-          "health_change": 0,
-          "adds_flag": "banded_wrong_bat"
+          "health_change": 0
         },
         {
           "text": "Open your hand and let it go without banding it. Walk to net three without looking back.",
           "next_node": "third_net_check",
           "sanity_change": -8,
-          "health_change": 0
+          "health_change": 0,
+          "adds_flag": "net_in_water"
         },
         {
           "text": "Take a tissue sample carefully, then release the bat and move on to net three",
@@ -477,7 +473,7 @@ const STORY_DATA = {
           "requires_flag": "net_in_water"
         },
         {
-          "text": "Collect your equipment and regroup at the truck",
+          "text": "Collect your equipment and regroup at the truck — give the repositioned net a wide berth.",
           "next_node": "wrong_sound",
           "sanity_change": -5,
           "health_change": 0,
@@ -495,8 +491,7 @@ const STORY_DATA = {
           "next_node": "wrong_sound",
           "sanity_change": -12,
           "health_change": 0,
-          "requires_flag": "found_future_data",
-          "adds_flag": "consulted_future_data"
+          "requires_flag": "found_future_data"
         }
       ]
     },
@@ -566,8 +561,7 @@ const STORY_DATA = {
           "next_node": "investigate_shape",
           "sanity_change": -15,
           "health_change": -10,
-          "requires_item": "Calipers",
-          "adds_flag": "measured_it"
+          "requires_item": "Calipers"
         },
         {
           "text": "Step back slowly. Don't take your eyes off it.",
@@ -588,7 +582,7 @@ const STORY_DATA = {
       "id": "glove_failure",
       "art_scene": "creature",
       "text_variants": [
-        "You back away — but your glove catches on a snapped shelf string and tears. A clean rip across the palm. Your skin is exposed. The thing in the net turns toward your bare hand. It makes a sound at a frequency that seems designed specifically for the geometry of your skull. You feel it vibrate through the bones of your bare palm.",
+        "You back away — but your glove catches on a snapped shelf string and tears. A clean rip across the palm. Your skin is exposed. The thing in the net turns toward your bare hand. It makes a sound at a frequency that seems designed specifically for the geometry of your skull. You feel it vibrate through the bones of your bare palm. A tingling spreads from the contact point — faint, electric, like a limb waking from numbness. You tell yourself it's adrenaline.",
         "You step back and the creature shifts its weight, one limb extending further than the mesh should allow. The tip of something — a claw, a finger, a structure with no name — grazes the back of your glove. The latex splits open. Your skin tingles where the air touches it. The tingling doesn't stop. It spreads. You look at your hand and see the faintest tracery of something beneath the skin — thread-thin, branching, moving toward your wrist."
       ],
       "choices": [
@@ -597,7 +591,8 @@ const STORY_DATA = {
           "next_node": "the_mist",
           "sanity_change": -5,
           "health_change": -5,
-          "removes_item": "Bat Handling Gloves"
+          "removes_item": "Bat Handling Gloves",
+          "adds_flag": "infected"
         },
         {
           "text": "Run. Don't stop to swap gloves. Bare hands and all — into the treeline.",
@@ -633,8 +628,7 @@ const STORY_DATA = {
           "text": "Stay completely still until it loses you — then the mist arrives and changes everything",
           "next_node": "the_mist",
           "sanity_change": -15,
-          "health_change": -5,
-          "adds_flag": "stayed_dark"
+          "health_change": -5
         },
         {
           "text": "Use the mist net poles as a weapon",
@@ -735,7 +729,7 @@ const STORY_DATA = {
         "The mist arrives without weather to explain it. It clings to the water's surface like a living membrane. Inside, you see the silhouettes of things that fly without wings. They spiral upward in patterns that look like equations written in a language of motion."
       ],
       "flag_variant": {
-        "requires_flags": ["recorded_calls", "detector_running"],
+        "requires_flag": "recorded_calls",
         "text": "The mist rolls in — and your acoustic detector fires. Not recording. Playing back. The anomalous calls you recorded earlier now broadcast into the fog at full volume. The mist stops moving. It listens. Then it answers. The spectrogram display whites out completely and does not come back. But the mist parts, just slightly, just enough. Whatever is inside heard its name called. It's coming toward you."
       },
       "choices": [
@@ -768,11 +762,10 @@ const STORY_DATA = {
           "requires_item": "Field Datasheets"
         },
         {
-          "text": "Stand your ground. Observe. Document.",
+          "text": "Stay. You belong here now. You can feel it.",
           "next_node": "ending_absorbed",
           "sanity_change": -25,
           "health_change": -10,
-          "adds_flag": "stood_ground",
           "condition": "Only appears if infected"
         },
         {
@@ -780,7 +773,6 @@ const STORY_DATA = {
           "next_node": "find_cave",
           "sanity_change": -25,
           "health_change": -10,
-          "adds_flag": "stood_ground",
           "condition": "Only appears if not infected"
         }
       ]
@@ -805,8 +797,7 @@ const STORY_DATA = {
           "text": "Find the cave. Understand this.",
           "next_node": "find_cave",
           "sanity_change": -15,
-          "health_change": 0,
-          "adds_flag": "read_future_data"
+          "health_change": 0
         }
       ]
     },
@@ -830,8 +821,7 @@ const STORY_DATA = {
           "text": "You need to understand this. Find the source.",
           "next_node": "find_cave",
           "sanity_change": -15,
-          "health_change": 0,
-          "adds_flag": "saw_canopy"
+          "health_change": 0
         },
         {
           "text": "Turn off the light. You've seen enough.",
@@ -871,7 +861,6 @@ const STORY_DATA = {
           "next_node": "ending_absorbed",
           "sanity_change": -25,
           "health_change": 0,
-          "adds_flag": "listened_radio",
           "condition": "Only appears if infected"
         },
         {
@@ -879,7 +868,6 @@ const STORY_DATA = {
           "next_node": "find_cave",
           "sanity_change": -25,
           "health_change": 0,
-          "adds_flag": "listened_radio",
           "condition": "Only appears if not infected"
         },
         {
@@ -1056,8 +1044,7 @@ const STORY_DATA = {
           "next_node": "ending_documented",
           "sanity_change": -20,
           "health_change": 0,
-          "requires_flag": "chose_science",
-          "adds_flag": "wrote_ending"
+          "requires_flag": "chose_science"
         }
       ]
     },
@@ -1071,6 +1058,10 @@ const STORY_DATA = {
         "You find the truck. The keys are where you left them. The engine starts. You drive. In the rearview mirror, the mist recedes. But the rearview mirror also shows you something sitting in the back seat — folded tight, patient, waiting. You don't look back again. You drive until sunrise.\n\n[ENDING: THE PASSENGER — You brought something back with you.]",
         "You reach the road at first light. Your hands are shaking so badly you can barely get the key in the ignition. As you pull onto the highway, your phone gets signal. Twelve missed calls from base camp. The voicemails are all the same — your voice, reading capture data, calm and professional, all night long. The last message was left four minutes ago. You are on the highway. You did not call.\n\n[ENDING: THE DUPLICATE — Someone finished the survey for you.]"
       ],
+      "flag_variant": {
+        "requires_flag": "took_sample",
+        "text": "You make it to the truck as the sky greys in the east. Your hands are shaking but your vest pocket is not empty — the sample vial is still there, sealed, undamaged. The tissue inside is viable. You know this without testing it. Whatever was in that bat, whatever you extracted with the banding kit in the dark while something in the net watched you work, it survived the night intact. You have physical evidence. Peer-reviewable, reproducible, undeniable evidence of something that shouldn't exist.\n\nYou drive. At the on-ramp, you stop and hold the vial up to the grey morning light. The sample is the right color. The fixative is clear. Everything correct, everything preserved. You will have to explain where you got it. You will have to bring someone back here to verify the collection site. You will have to return to Wetland Site 7.\n\nYou put the truck in drive.\n\n[ENDING: THE SPECIMEN — You brought proof. Proof has consequences.]"
+      },
       "choices": [
         {
           "text": "Start a new survey [Play Again]",
@@ -1245,6 +1236,13 @@ export function getSceneText(sceneId, flags = {}) {
         return node.text_variants[Math.random() < 0.5 ? 0 : 2];
       }
     }
+    if (sceneId === 'cave_descent') {
+      if (flags.chose_science) {
+        return node.text_variants[2];
+      } else {
+        return node.text_variants[Math.floor(Math.random() * 2)];
+      }
+    }
     const idx = Math.floor(Math.random() * node.text_variants.length);
     return node.text_variants[idx];
   }
@@ -1332,14 +1330,6 @@ export function applyChoice(state, choice) {
   // Add flags from choice
   if (choice.adds_flag) {
     newState.flags = { ...newState.flags, [choice.adds_flag]: true };
-  }
-
-  // Pre-set net_in_water flag (1/3 chance) when heading to third_net_check
-  // so the pond text variant and choices are shown correctly on arrival
-  if (choice.next_node === "third_net_check" && !newState.flags.net_in_water) {
-    if (Math.random() < 1 / 3) {
-      newState.flags = { ...newState.flags, net_in_water: true };
-    }
   }
 
   // Auto-endings based on stats
