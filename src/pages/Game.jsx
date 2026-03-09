@@ -277,6 +277,22 @@ export default function Game() {
                     Replace Battery
                   </button>
                 )}
+                {gameState.inventory.includes("Backup Battery") && (
+                  <button
+                    onClick={() => {
+                      const newState = {
+                        ...gameState,
+                        battery_level: Math.min(100, Math.max(gameState.battery_level, 40)),
+                        inventory: gameState.inventory.filter(i => i !== "Backup Battery")
+                      };
+                      setGameState(newState);
+                    }}
+                    className="px-3 py-1 text-xs font-mono bg-green-900/20 border border-green-800/40 rounded
+                      hover:bg-green-800/30 transition-colors text-green-600/80 hover:text-green-500"
+                  >
+                    Use Backup Battery
+                  </button>
+                )}
               </div>
             </div>
           </div>

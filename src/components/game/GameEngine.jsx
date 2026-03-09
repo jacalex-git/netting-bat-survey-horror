@@ -8,6 +8,7 @@ const STORY_DATA = {
     "starting_inventory": [
       "Headlamp",
       "Spare Battery",
+      "Backup Battery",
       "Field Datasheets",
       "Bat Handling Gloves",
       "Mist Net Poles (x4)",
