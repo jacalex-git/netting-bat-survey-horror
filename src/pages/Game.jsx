@@ -261,13 +261,14 @@ export default function Game() {
                 >
                   Use Headlamp (+15 sanity)
                 </button>
-                {gameState.inventory.includes("Spare Battery") && (
+                {(gameState.inventory.includes("Spare Battery") || gameState.inventory.includes("Backup Battery")) && (
                   <button
                     onClick={() => {
+                      const hasSpare = gameState.inventory.includes("Spare Battery");
                       const newState = {
                         ...gameState,
-                        battery_level: 100,
-                        inventory: gameState.inventory.filter(i => i !== "Spare Battery")
+                        battery_level: hasSpare ? 100 : Math.max(gameState.battery_level, 40),
+                        inventory: gameState.inventory.filter(i => i !== (hasSpare ? "Spare Battery" : "Backup Battery"))
                       };
                       setGameState(newState);
                     }}
@@ -275,22 +276,6 @@ export default function Game() {
                       hover:bg-green-800/30 transition-colors text-green-600/80 hover:text-green-500"
                   >
                     Replace Battery
-                  </button>
-                )}
-                {gameState.inventory.includes("Backup Battery") && (
-                  <button
-                    onClick={() => {
-                      const newState = {
-                        ...gameState,
-                        battery_level: Math.min(100, Math.max(gameState.battery_level, 40)),
-                        inventory: gameState.inventory.filter(i => i !== "Backup Battery")
-                      };
-                      setGameState(newState);
-                    }}
-                    className="px-3 py-1 text-xs font-mono bg-green-900/20 border border-green-800/40 rounded
-                      hover:bg-green-800/30 transition-colors text-green-600/80 hover:text-green-500"
-                  >
-                    Use Backup Battery
                   </button>
                 )}
               </div>
