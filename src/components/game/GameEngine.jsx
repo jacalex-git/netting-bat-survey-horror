@@ -7,6 +7,7 @@ const STORY_DATA = {
     "battery_level": 100,
     "starting_inventory": [
       "Headlamp",
+      "Spare Battery",
       "Field Datasheets",
       "Bat Handling Gloves",
       "Mist Net Poles (x4)",
