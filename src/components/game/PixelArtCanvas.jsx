@@ -911,6 +911,92 @@ function drawDrowningFg(ctx, w, h, scale, frame) {
   }
 }
 
+function drawBatteryDeadBg(ctx, w, h, scale, rand) {
+  // Near-total darkness
+  drawRect(ctx, 0, 0, w, h, PALETTE.black, scale);
+
+  // Faint sky glimpses through canopy — barely perceptible
+  for (let x = 0; x < w; x++) {
+    for (let y = 0; y < 12; y++) {
+      if (rand() > 0.93) drawPixel(ctx, x, y, PALETTE.darkPurple, scale);
+    }
+  }
+
+  // Tree trunks — dark columns barely distinguishable from the void
+  [7, 26, 54, 82, 109, 123].forEach(tx => {
+    for (let y = 0; y < h - 20; y++) {
+      if (rand() > 0.3) drawPixel(ctx, tx, y, PALETTE.darkGray, scale);
+      if (rand() > 0.3) drawPixel(ctx, tx + 1, y, PALETTE.darkGray, scale);
+    }
+  });
+
+  // First-person vest/body silhouette at bottom
+  const cx = Math.floor(w / 2);
+  drawRect(ctx, cx - 24, h - 28, 48, 28, PALETTE.darkGray, scale);
+  // Vest pocket — slightly lighter rectangle
+  drawRect(ctx, cx - 10, h - 24, 20, 14, PALETTE.gray, scale);
+  drawRect(ctx, cx - 9, h - 23, 18, 12, PALETTE.darkGray, scale);
+  // Pocket seam details
+  for (let i = 0; i < 5; i++) {
+    drawPixel(ctx, cx, h - 22 + i * 2, PALETTE.gray, scale);
+  }
+}
+
+function drawBatteryDeadFg(ctx, w, h, scale, frame) {
+  const cx = Math.floor(w / 2);
+
+  // Dying headlamp filament — erratic flicker, fading
+  const flicker = Math.sin(frame * 1.1) * Math.sin(frame * 2.7) * Math.sin(frame * 0.5);
+  if (flicker > 0.1 && frame % 9 < 5) {
+    drawPixel(ctx, cx, 16, PALETTE.darkAmber, scale);
+    if (flicker > 0.4) {
+      drawPixel(ctx, cx - 1, 16, PALETTE.darkAmber, scale);
+      drawPixel(ctx, cx + 1, 16, PALETTE.darkAmber, scale);
+      drawPixel(ctx, cx, 15, PALETTE.darkAmber, scale);
+    }
+  }
+
+  // Bat silhouettes circling overhead — barely visible
+  for (let i = 0; i < 6; i++) {
+    const angle = frame * (0.008 + i * 0.002) + i * (Math.PI * 2 / 6);
+    const bx = cx + Math.cos(angle) * (20 + i * 4);
+    const by = 10 + Math.sin(angle) * 6;
+    const wingFlap = Math.sin(frame * 0.11 + i * 1.2);
+    const halfSpan = Math.floor(4 + wingFlap * 2);
+    for (let wx = -halfSpan; wx <= halfSpan; wx++) {
+      const px = Math.floor(bx + wx);
+      const py = Math.floor(by + Math.abs(wx) * 0.3 * (1 - wingFlap * 0.3));
+      if (px >= 0 && px < w && py >= 0 && py < 26) {
+        drawPixel(ctx, px, py, PALETTE.darkPurple, scale);
+      }
+    }
+  }
+
+  // Echolocation click rings — radiating arcs from nearby bat
+  const clickCycle = frame % 52;
+  if (clickCycle < 14) {
+    const r = Math.floor(clickCycle * 1.6);
+    for (let a = -Math.PI * 0.55; a < Math.PI * 0.55; a += 0.28) {
+      const px = Math.floor(cx + 22 + Math.cos(a) * r);
+      const py = Math.floor(26 + Math.sin(a) * r * 0.45);
+      if (px >= 0 && px < w && py >= 0 && py < h - 20) {
+        drawPixel(ctx, px, py, PALETTE.darkGray, scale);
+      }
+    }
+  }
+
+  // Hands trembling, reaching into pocket
+  const tremble = Math.floor(Math.sin(frame * 1.4) * 1.2);
+  const handY = h - 32;
+  // Right hand plunging into pocket
+  drawRect(ctx, cx - 5 + tremble, handY, 9, 11, PALETTE.skin, scale);
+  drawRect(ctx, cx - 6 + tremble, handY - 4, 4, 5, PALETTE.skin, scale);
+  drawRect(ctx, cx - 2 + tremble, handY - 5, 4, 5, PALETTE.skin, scale);
+  drawRect(ctx, cx + 2 + tremble, handY - 4, 3, 4, PALETTE.skin, scale);
+  // Left hand bracing on vest
+  drawRect(ctx, cx + 13, h - 25, 7, 8, PALETTE.skin, scale);
+}
+
 // ===================== RENDERER MAPS =====================
 
 const BG_RENDERERS = {
@@ -929,6 +1015,7 @@ const BG_RENDERERS = {
   ending_absorbed: drawEndingAbsorbedBg,
   ending_cave: drawEndingCaveBg,
   ending_darkness: drawEndingDarknessBg,
+  battery_dead: drawBatteryDeadBg,
 };
 
 const FG_RENDERERS = {
@@ -947,6 +1034,7 @@ const FG_RENDERERS = {
   ending_absorbed: drawEndingAbsorbedFg,
   ending_cave: drawEndingCaveFg,
   ending_darkness: drawEndingDarknessFg,
+  battery_dead: drawBatteryDeadFg,
 };
 
 // ===================== COMPONENT =====================

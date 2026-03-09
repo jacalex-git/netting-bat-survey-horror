@@ -8,7 +8,7 @@ const STORY_DATA = {
     "starting_inventory": [
       "Headlamp",
       "Spare Battery",
-      "Backup Battery",
+      "Partial Spare Battery",
       "Field Datasheets",
       "Bat Handling Gloves",
       "Mist Net Poles (x4)",
@@ -1216,6 +1216,43 @@ const STORY_DATA = {
           "action": "restart_game"
         }
       ]
+    },
+
+    "battery_dead": {
+      "id": "battery_dead",
+      "art_scene": "battery_dead",
+      "text_variants": [
+        "The headlamp flickers — amber to brown to nothing. The darkness doesn't arrive. It was already here, held back by a failing bulb and three ounces of lithium. Now it rushes in from every direction at once, filling your skull through your eyes. You can't see your hands. You can't see the ground. But you can hear them — wingbeats, dozens of them, circling tighter, and beneath the wingbeats a clicking that maps the shape of your body in the dark with surgical precision. They know exactly where you are. They have always known. The light was the only thing that made them wait.",
+        "The beam dims, stutters, and dies. Total darkness. Not the darkness of a room with the lights off — the darkness of deep water, of cave systems, of closed eyes that will never open again. The wetland sounds rush in to fill the space the light occupied: wingbeats overhead, the soft percussion of bodies banking through air you can no longer see, and beneath it all a frequency that hums in your jaw and your fillings and the fluid of your inner ear. Something lands on the net pole three feet to your left. You hear its claws tighten on the aluminum. It clicks at you once. The click tells it everything.",
+        "Click. Click. Nothing. Your headlamp is dead. The darkness is absolute and immediate and alive. Around you, the wetland reorganizes itself for a world without light — the bats don't need it, never needed it, and now neither does whatever else is circling in the canopy above the nets. You hear the mesh of the nearest mist net strain under a sudden weight. Then another net. Then a sound from behind you that is not a bat and not a frog and not anything in your fifteen years of field experience. Your hands find your vest pockets by feel. You have seconds."
+      ],
+      "choices": [
+        {
+          "text": "Swap in the spare battery — fumble it out of your vest and slam it home",
+          "next_node": "__resume_previous__",
+          "sanity_change": -10,
+          "health_change": 0,
+          "requires_item": "Spare Battery",
+          "removes_item": "Spare Battery",
+          "battery_restore": 100
+        },
+        {
+          "text": "Swap in the partial spare — it's half-dead but it's something",
+          "next_node": "__resume_previous__",
+          "sanity_change": -10,
+          "health_change": 0,
+          "requires_item": "Partial Spare Battery",
+          "removes_item": "Partial Spare Battery",
+          "battery_restore": 40
+        },
+        {
+          "text": "You have nothing. The dark closes in.",
+          "next_node": "ending_darkness",
+          "sanity_change": -10,
+          "health_change": 0,
+          "condition": "Only appears if no spare batteries"
+        }
+      ]
     }
 
   }
@@ -1289,6 +1326,9 @@ export function getSceneChoices(sceneId, health, sanity, inventory, flags = {}) 
       if (c.includes("chose_science") && !c.includes("not chose_science") && !flags.chose_science) return false;
       if (c.includes("not net_in_water") && flags.net_in_water) return false;
       if (c.includes("net_in_water") && !c.includes("not net_in_water") && !flags.net_in_water) return false;
+      if (c.includes("no spare batteries")) {
+        if (inventory.includes("Spare Battery") || inventory.includes("Partial Spare Battery")) return false;
+      }
     }
 
     return true;
@@ -1313,7 +1353,8 @@ export function getInitialState() {
     inventory: [...STORY_DATA.initial_state.starting_inventory],
     currentScene: STORY_DATA.initial_state.starting_scene,
     flags: {},
-    turnCount: 0
+    turnCount: 0,
+    pending_scene: null
   };
 }
 
@@ -1333,15 +1374,32 @@ export function applyChoice(state, choice) {
     newState.inventory = state.inventory.filter(i => i !== choice.removes_item);
   }
 
+  // Battery restore on choice (applied after drain)
+  if (choice.battery_restore) {
+    newState.battery_level = choice.battery_restore;
+  }
+
   // Add flags from choice
   if (choice.adds_flag) {
     newState.flags = { ...newState.flags, [choice.adds_flag]: true };
   }
 
+  // Battery just died this turn — intercept and route to battery_dead scene
+  if (newState.battery_level <= 0 && state.battery_level > 0) {
+    newState.pending_scene = choice.next_node;
+    newState.currentScene = "battery_dead";
+    return newState;
+  }
+
+  // Resume after battery swap
+  if (choice.next_node === "__resume_previous__") {
+    newState.currentScene = state.pending_scene || state.currentScene;
+    newState.pending_scene = null;
+    return newState;
+  }
+
   // Auto-endings based on stats
-  if (newState.battery_level <= 0) {
-    newState.currentScene = "ending_darkness";
-  } else if (newState.health <= 0) {
+  if (newState.health <= 0) {
     newState.currentScene = "ending_absorbed";
   } else if (newState.sanity <= 0) {
     newState.currentScene = "ending_absorbed";

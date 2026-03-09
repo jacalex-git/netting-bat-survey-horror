@@ -261,14 +261,14 @@ export default function Game() {
                 >
                   Use Headlamp (+15 sanity)
                 </button>
-                {(gameState.inventory.includes("Spare Battery") || gameState.inventory.includes("Backup Battery")) && (
+                {(gameState.inventory.includes("Spare Battery") || gameState.inventory.includes("Partial Spare Battery")) && gameState.currentScene !== "battery_dead" && (
                   <button
                     onClick={() => {
                       const hasSpare = gameState.inventory.includes("Spare Battery");
                       const newState = {
                         ...gameState,
                         battery_level: hasSpare ? 100 : Math.max(gameState.battery_level, 40),
-                        inventory: gameState.inventory.filter(i => i !== (hasSpare ? "Spare Battery" : "Backup Battery"))
+                        inventory: gameState.inventory.filter(i => i !== (hasSpare ? "Spare Battery" : "Partial Spare Battery"))
                       };
                       setGameState(newState);
                     }}
