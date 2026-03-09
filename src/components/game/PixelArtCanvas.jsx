@@ -930,16 +930,6 @@ function drawBatteryDeadBg(ctx, w, h, scale, rand) {
     }
   });
 
-  // First-person vest/body silhouette at bottom
-  const cx = Math.floor(w / 2);
-  drawRect(ctx, cx - 24, h - 28, 48, 28, PALETTE.darkGray, scale);
-  // Vest pocket — slightly lighter rectangle
-  drawRect(ctx, cx - 10, h - 24, 20, 14, PALETTE.gray, scale);
-  drawRect(ctx, cx - 9, h - 23, 18, 12, PALETTE.darkGray, scale);
-  // Pocket seam details
-  for (let i = 0; i < 5; i++) {
-    drawPixel(ctx, cx, h - 22 + i * 2, PALETTE.gray, scale);
-  }
 }
 
 function drawBatteryDeadFg(ctx, w, h, scale, frame) {

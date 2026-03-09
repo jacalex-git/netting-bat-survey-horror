@@ -3,7 +3,8 @@ import { useEffect, useRef, useState, useCallback } from "react";
 // ── Scene → mood mapping ──────────────────────────────────────────────────────
 const HORROR_SCENES = new Set([
   "creature", "mist", "cave",
-  "ending_cave", "ending_absorbed", "ending_darkness"
+  "ending_cave", "ending_absorbed", "ending_darkness",
+  "battery_dead"
 ]);
 
 function getMood(scene) {
