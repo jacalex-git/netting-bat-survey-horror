@@ -20,7 +20,7 @@ const STORY_DATA = {
   },
   "mechanics": {
     "battery_drain": "10% per turn",
-    "darkness_penalty": "When battery reaches 0%, lose 10 sanity per turn",
+    "battery_death": "When battery reaches 0%, the headlamp dies and the game ends — ending_darkness",
     "headlamp_use": "Can manually use headlamp for +15 sanity at cost of 10% battery"
   },
   "story_nodes": {
@@ -176,7 +176,7 @@ const STORY_DATA = {
       "id": "second_net_radio",
       "art_scene": "nets",
       "text_variants": [
-        "Base camp confirms: no prior surveys, no permitted access, no personnel at Site 7 in over a decade. They ask if you want to abort. You say no. You don't know why you say no. The word comes out before the thought forms, like someone else used your voice."
+        "Base camp confirms: no prior surveys, no permitted access, no personnel at Wetland Site 7 in over a decade. They ask if you want to abort. You say no. You don't know why you say no. The word comes out before the thought forms, like someone else used your voice."
       ],
       "choices": [
         {
@@ -421,8 +421,8 @@ const STORY_DATA = {
       "id": "second_capture",
       "art_scene": "bat_capture",
       "text_variants": [
-        "Net two has a capture — a little brown bat, Myotis lucifugus, tangled in the second shelf. You work it free with practiced fingers. But when you go to measure the forearm, the calipers won't close around it correctly. The arm is the right length. The arm is the wrong shape. Not broken — structured differently, with a joint that bends a direction forearms don't bend. You check the bat's band. It has one already. Aluminum, size 4. Your agency's code. The band number is in sequence with the band you just put on the previous capture. You haven't banded this one yet.",
-        "The capture in net two is a Myotis septentrionalis — a northern long-eared bat. Unremarkable. But the band already on its forearm stops you cold. You run the number. It comes back: banded at this site, Survey 7, twenty-three years ago. You hold the bat for a long moment. The bat holds very still, as though it has been waiting for you to do the math.",
+        "Net two has a capture — a little brown bat, Myotis lucifugus, tangled in the second shelf. You work it free with practiced fingers. But when you go to measure the forearm, the calipers won't close around it correctly. The arm is the right length. The arm is the wrong shape. Not broken — structured differently, with a joint that bends a direction forearms don't bend. You check the bat's band. It has one already. Aluminum, 2.4mm. Your agency's code. The band number is in sequence with the band you just put on the previous capture. You haven't banded this one yet.",
+        "The capture in net two is a Myotis septentrionalis — a northern long-eared bat. Unremarkable. But the band already on its forearm stops you cold. You run the number. It comes back: banded at Wetland Site 7, twenty-three years ago. You hold the bat for a long moment. The bat holds very still, as though it has been waiting for you to do the math.",
         "The second capture is a species you don't immediately recognize — the fur color is wrong for everything in your regional guide, the tragus shape doesn't match. You photograph it. You run the measurements. Nothing matches. You've surveyed for fifteen years. You know every species in this range. This bat does not exist. It is in your hands. It echolocates at you once — a single pulse — and for one fraction of a second you see yourself from above, small and warm and glowing in the dark, surrounded by nets."
       ],
       "choices": [
@@ -528,6 +528,13 @@ const STORY_DATA = {
           "sanity_change": -8,
           "health_change": 0,
           "requires_item": "Two-Way Radio"
+        },
+        {
+          "text": "That's enough. Abort the survey — get to the truck now.",
+          "next_node": "ending_escape",
+          "sanity_change": -5,
+          "health_change": 0,
+          "condition": "Only appears if sanity >= 20"
         }
       ]
     },
@@ -552,9 +559,9 @@ const STORY_DATA = {
       "id": "wrong_shape_net",
       "art_scene": "creature",
       "text_variants": [
-        "Net two has something in it. Something large. Too large for any bat species native to this continent. It hangs in the upper shelf, distending the mesh downward. Your headlamp illuminates a wingspan that shouldn't exist — three meters at least. The fur is wrong. It moves like oil.",
-        "You approach net one and stop. The entire net is full. Not tangled with multiple captures — full of one thing. It fills all four shelves. Its body is the wrong geometry. Wings that fold in directions that hurt to look at. It turns what might be a face toward your light.",
-        "The third net ripples with movement. Something enormous is tangled in all four shelves at once. Your headlamp reveals limbs — too many limbs — arranged in configurations your training in mammalian anatomy cannot reconcile."
+        "Net two has something in it. Something large. Too large for any bat species native to this continent. It hangs in the upper shelf, distending the mesh downward. Your headlamp illuminates a wingspan that shouldn't exist — three meters at least. The fur is wrong. It moves like oil. Behind you, the pond surface has gone white. Mist is building.",
+        "You approach net one and stop. The entire net is full. Not tangled with multiple captures — full of one thing. It fills all four shelves. Its body is the wrong geometry. Wings that fold in directions that hurt to look at. It turns what might be a face toward your light. The air is thickening. Condensation is forming on every surface — your skin, the net poles, the mesh itself.",
+        "The third net ripples with movement. Something enormous is tangled in all four shelves at once. Your headlamp reveals limbs — too many limbs — arranged in configurations your training in mammalian anatomy cannot reconcile. Fog is rising from the pond. You can feel it on the back of your neck."
       ],
       "choices": [
         {
@@ -562,19 +569,22 @@ const STORY_DATA = {
           "next_node": "investigate_shape",
           "sanity_change": -15,
           "health_change": -10,
-          "requires_item": "Calipers"
+          "requires_item": "Calipers",
+          "adds_flag": "infected"
         },
         {
           "text": "Step back slowly. Don't take your eyes off it.",
           "next_node": "glove_failure",
           "sanity_change": -10,
-          "health_change": 0
+          "health_change": 0,
+          "adds_flag": "infected"
         },
         {
           "text": "Turn off your headlamp. Maybe it hunts by light.",
           "next_node": "darkness_choice",
           "sanity_change": -20,
-          "health_change": 0
+          "health_change": 0,
+          "adds_flag": "infected"
         }
       ]
     },
@@ -668,9 +678,9 @@ const STORY_DATA = {
       "id": "after_fight",
       "art_scene": "dark_forest",
       "text_variants": [
-        "You put distance between yourself and the net. Ten meters. Twenty. You stop and look back. The net is empty — the creature is gone. In your hands, the aluminum pole is bent into a shape that has no structural explanation. You hit it once. The pole has five bends in it. You look at your hands, which are intact, which held the pole, which absorbed none of the force that created five bends in aircraft-grade aluminum.",
-        "You stop running and press your back against a tupelo trunk. Behind you, the net hangs slack and empty. The creature is gone. You look at the bent pole in your hands. The metal is warm — body-temperature warm, like it's been held in a fist for a long time. The bent section has a texture now that the rest of the pole doesn't — fine and regular, like scales. Like skin. You drop the pole. You do not pick it up again.",
-        "Distance. Breath. You look at where you've been. The mist net is undamaged. The creature is gone. But both facts are somehow more frightening than the alternative. Gone where? Through the net without tearing it? You know exactly what thirty-denier polyester can and cannot pass."
+        "You put distance between yourself and the net. Ten meters. Twenty. You stop and look back. The net is empty — the creature is gone. In your hands, the aluminum pole is bent into a shape that has no structural explanation. You hit it once. The pole has five bends in it. You look at your hands, which are intact, which held the pole, which absorbed none of the force that created five bends in aircraft-grade aluminum. Behind you, the pond has begun to exhale. A low mist is forming over the water, moving toward the tree line faster than mist should move.",
+        "You stop running and press your back against a tupelo trunk. Behind you, the net hangs slack and empty. The creature is gone. You look at the bent pole in your hands. The metal is warm — body-temperature warm, like it's been held in a fist for a long time. The bent section has a texture now that the rest of the pole doesn't — fine and regular, like scales. Like skin. You drop the pole. You do not pick it up again. The air around the pond has thickened. Mist is rolling off the water in sheets, and it has edges.",
+        "Distance. Breath. You look at where you've been. The mist net is undamaged. The creature is gone. But both facts are somehow more frightening than the alternative. Gone where? Through the net without tearing it? You know exactly what thirty-denier polyester can and cannot pass. And the pond — the pond is breathing fog. A wall of mist is building at the water's edge, dense and directional, moving toward your nets."
       ],
       "choices": [
         {
@@ -1146,7 +1156,7 @@ const STORY_DATA = {
       "id": "ending_darkness",
       "type": "ending",
       "art_scene": "ending_darkness",
-      "trigger": "Battery reaches 0% and sanity reaches 0",
+      "trigger": "Battery reaches 0%",
       "text_variants": [
         "Your headlamp died hours ago. Or was it minutes? Time doesn't work the same in total darkness. You can't see your hand in front of your face. But you can hear them — thousands of wings in the canopy above. They speak in frequencies that bypass your ears entirely, resonating directly in your skull. They're teaching you their language. Noun: prey. Verb: hunt. Subject: you.\n\nYou don't remember sitting down, but you're on the ground now. The wetland water soaks through your clothes. It's warm. That's wrong. You reach out in the dark and touch something. It touches back. Too many fingers. They belonged to the last researcher who ran out of battery.\n\nOne of them leans close. Its breath smells like century-old guano and rotted fruit. It whispers: 'Welcome to the real survey.'\n\n[ENDING: CONSUMED BY DARKNESS — The light was all that kept you human.]"
       ],
@@ -1317,12 +1327,6 @@ export function applyChoice(state, choice) {
   // Battery drain per turn
   newState.battery_level = Math.max(0, state.battery_level - 10);
 
-  // Darkness penalty
-  if (newState.battery_level === 0) {
-    newState.sanity = Math.max(0, newState.sanity - 10);
-    newState.flags = { ...state.flags, in_darkness: true };
-  }
-
   // Remove items
   if (choice.removes_item) {
     newState.inventory = state.inventory.filter(i => i !== choice.removes_item);
@@ -1334,10 +1338,10 @@ export function applyChoice(state, choice) {
   }
 
   // Auto-endings based on stats
-  if (newState.health <= 0) {
-    newState.currentScene = "ending_absorbed";
-  } else if (newState.sanity <= 0 && newState.flags.in_darkness) {
+  if (newState.battery_level <= 0) {
     newState.currentScene = "ending_darkness";
+  } else if (newState.health <= 0) {
+    newState.currentScene = "ending_absorbed";
   } else if (newState.sanity <= 0) {
     newState.currentScene = "ending_absorbed";
   } else if (choice.next_node === "__restart__") {
