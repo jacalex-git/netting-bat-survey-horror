@@ -985,16 +985,6 @@ function drawBatteryDeadFg(ctx, w, h, scale, frame) {
     }
   }
 
-  // Hands trembling, reaching into pocket
-  const tremble = Math.floor(Math.sin(frame * 1.4) * 1.2);
-  const handY = h - 32;
-  // Right hand plunging into pocket
-  drawRect(ctx, cx - 5 + tremble, handY, 9, 11, PALETTE.skin, scale);
-  drawRect(ctx, cx - 6 + tremble, handY - 4, 4, 5, PALETTE.skin, scale);
-  drawRect(ctx, cx - 2 + tremble, handY - 5, 4, 5, PALETTE.skin, scale);
-  drawRect(ctx, cx + 2 + tremble, handY - 4, 3, 4, PALETTE.skin, scale);
-  // Left hand bracing on vest
-  drawRect(ctx, cx + 13, h - 25, 7, 8, PALETTE.skin, scale);
 }
 
 // ===================== RENDERER MAPS =====================
