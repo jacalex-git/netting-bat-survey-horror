@@ -123,7 +123,7 @@ const STORY_DATA = {
       "text_variants": [
         "You begin unfurling the first mist net between two tupelo trunks. The 12-meter polyester mesh unfolds like a black widow's web. Your practiced hands find the shelf strings in the dark. The net hangs perfectly — four shelves of nearly invisible death for anything with wings.",
         "The mist net poles slide into the soft substrate with satisfying thuds. You tension the guy lines and begin draping the nets. Thirty-denier polyester, nearly invisible even in daylight. In this darkness, the nets cease to exist entirely. You know they're there only by touch.",
-        "Net one goes up clean. Net two snags on a branch and you have to untangle it, fingers working the mesh by feel alone. You set up a third net near the pond edge, tensioning the lines carefully in the dark."
+        "The net snags on a branch and you have to untangle it, fingers working the mesh by feel alone - tensioning the lines carefully in the dark."
       ],
       "choices": [
         {
@@ -145,7 +145,7 @@ const STORY_DATA = {
       "id": "second_net",
       "art_scene": "nets",
       "text_variants": [
-        "Your pole sinks into the substrate and hits resistance — metal on metal. You dig around the base with your boot and unearth an aluminum mist net pole, identical to yours, already sunk into position. The paint is faded. Old. You check the site permit records on your datasheet. No survey has been conducted at Wetland Site 7 in eleven years. The pole is not eleven years old.",
+        "Your stake sinks into the substrate and hits resistance — metal on metal. You dig around the base with your boot and find a solid steel stake, identical to yours, already sunk into position. Something about it feels... old. You check the site permit records on your datasheet. No survey has been conducted at Wetland Site 7 in eleven years. The stake is not eleven years old.",
         "Net two's anchor points have already been prepared — the poles and stakes are already hammered into position, exactly where you would have placed them. Exactly. Not approximately. Someone with your training, your methods, was here recently. Your headlamp finds a vinyl flagging strip tied to the tupelo above it. Your handwriting is on it. Today's date.",
         "Tangled in the base of a buttonbush, your lamp catches something white. A datasheet. You pull it free. It's a bat survey form — your form, your agency's header, your species codes. The capture data is filled out in your handwriting. Thirty-two individuals. Species you'd expect. Measurements in your typical shorthand. The survey date is tonight. You have not filled out this form. You have not made these captures. Not yet."
       ],
