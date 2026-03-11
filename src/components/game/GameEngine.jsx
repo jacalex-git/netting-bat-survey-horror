@@ -423,7 +423,7 @@ const STORY_DATA = {
       "art_scene": "bat_capture",
       "text_variants": [
         "Net two has a capture — a little brown bat, Myotis lucifugus, tangled in the second shelf. You work it free with practiced fingers. But when you go to measure the forearm, the calipers won't close around it correctly. The arm is the right length. The arm is the wrong shape. Not broken — structured differently, with a joint that bends a direction forearms don't bend. You check the bat's band. It has one already. Aluminum, 2.4mm. Your agency's code. The band number is in sequence with the band you just put on the previous capture. You haven't banded this one yet.",
-        "The capture in net two is a Myotis septentrionalis — a northern long-eared bat. Unremarkable. But the band already on its forearm stops you cold. You run the number. It comes back: banded at Wetland Site 7, twenty-three years ago. You hold the bat for a long moment. The bat holds very still, as though it has been waiting for you to do the math.",
+        "The capture in net two is a Myotis septentrionalis — a northern long-eared bat. Unremarkable. But the band already on its forearm stops you cold. You run the number. It comes back: banded at Wetland Site 7, fourty-three years ago. You hold the bat for a long moment. The bat holds very still, as though it has been waiting for you to do the math.",
         "The second capture is a species you don't immediately recognize — the fur color is wrong for everything in your regional guide, the tragus shape doesn't match. You photograph it. You run the measurements. Nothing matches. You've surveyed for fifteen years. You know every species in this range. This bat does not exist. It is in your hands. It echolocates at you once — a single pulse — and for one fraction of a second you see yourself from above, small and warm and glowing in the dark, surrounded by nets."
       ],
       "choices": [
@@ -440,14 +440,6 @@ const STORY_DATA = {
           "health_change": 0,
           "adds_flag": "net_in_water"
         },
-        {
-          "text": "Take a hair sample carefully, then release the bat and move on to net three",
-          "next_node": "third_net_check",
-          "sanity_change": -10,
-          "health_change": -5,
-          "adds_flag": "took_sample",
-          "requires_item": "Banding Kit"
-        }
       ]
     },
 
@@ -570,8 +562,7 @@ const STORY_DATA = {
           "next_node": "investigate_shape",
           "sanity_change": -15,
           "health_change": -10,
-          "requires_item": "Calipers",
-          "adds_flag": "infected"
+          "requires_item": "Calipers"
         },
         {
           "text": "Step back slowly. Don't take your eyes off it.",
