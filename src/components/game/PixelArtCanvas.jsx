@@ -1104,15 +1104,6 @@ function drawEndingMergedFg(ctx, w, h, scale, frame) {
     drawPixel(ctx, cx + legSpread - 1, figureY + 8 + ly, PALETTE.darkPurple, scale);
   }
   
-  // Many pulsing eyes across the body
-  const eyeCount = 12 + Math.floor(frame / 25) % 6;
-  for (let i = 0; i < eyeCount; i++) {
-    const ex = cx - 12 + (i * 4) % 24;
-    const ey = figureY - 18 + (i * 5) % 30;
-    if ((frame + i * 11) % 22 > 4) {
-      drawPixel(ctx, ex, ey, i % 3 === 0 ? PALETTE.amber : (i % 3 === 1 ? PALETTE.sickGreen : PALETTE.red), scale);
-    }
-  }
 }
 
 function drawEndingParalyzedFg(ctx, w, h, scale, frame) {
