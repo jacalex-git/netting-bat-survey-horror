@@ -123,7 +123,7 @@ const STORY_DATA = {
       "text_variants": [
         "You begin unfurling the first mist net between two tupelo trunks. The 12-meter polyester mesh unfolds like a black widow's web. Your practiced hands find the shelf strings in the dark. The net hangs perfectly — four shelves of nearly invisible death for anything with wings.",
         "The mist net poles slide into the soft substrate with satisfying thuds. You tension the guy lines and begin draping the nets. Thirty-denier polyester, nearly invisible even in daylight. In this darkness, the nets cease to exist entirely. You know they're there only by touch.",
-        "The net snags on a branch and you have to untangle it, fingers working the mesh by feel alone - tensioning the lines carefully in the dark."
+        "You being setting up the first net. The net snags on a branch and you have to untangle it, fingers working the mesh by feel alone - tensioning the lines carefully in the dark."
       ],
       "choices": [
         {
@@ -145,7 +145,7 @@ const STORY_DATA = {
       "id": "second_net",
       "art_scene": "nets",
       "text_variants": [
-        "Your stake sinks into the substrate and hits resistance — metal on metal. You dig around the base with your boot and find a solid steel stake, identical to yours, already sunk into position. Something about it feels... old. You check the site permit records on your datasheet. No survey has been conducted at Wetland Site 7 in eleven years. The stake is not eleven years old.",
+        "Your stake sinks into the substrate and hits resistance — metal on metal. You dig around the base with your boot and find a solid steel stake, identical to yours, already sunk into position. Something about it feels... old. You check the site permit records on your datasheet. No survey has been conducted at Wetland Site 7 in recent record.",
         "Net two's anchor points have already been prepared — the poles and stakes are already hammered into position, exactly where you would have placed them. Exactly. Not approximately. Someone with your training, your methods, was here recently. Your headlamp finds a vinyl flagging strip tied to the tupelo above it. Your handwriting is on it. Today's date.",
         "Tangled in the base of a buttonbush, your lamp catches something white. A datasheet. You pull it free. It's a bat survey form — your form, your agency's header, your species codes. The capture data is filled out in your handwriting. Thirty-two individuals. Species you'd expect. Measurements in your typical shorthand. The survey date is tonight. You have not filled out this form. You have not made these captures. Not yet."
       ],
@@ -215,8 +215,8 @@ const STORY_DATA = {
       "id": "acoustic_anomaly",
       "art_scene": "anomalous_acoustic",
       "text_variants": [
-        "You study the spectrogram. The call signatures don't match anything in your reference library — not the downward sweeps of Eptesicus, not the bouncy curves of Lasiurus, not the sigmoidal FM sweeps of Myotis. The patterns are wrong. Not unidentified-species wrong. Wrong in the way that a word repeated too many times stops meaning anything — familiar components assembled into something that has never existed. And they repeat. The same sequence, over and over. Like something is saying the same sentence, waiting for a response.",
-        "The spectrograms scroll across the display in a cascade. You scroll back through the recording history. The anomalous calls began exactly when your truck turned off the highway onto the access road. Whatever is making them knew you were coming before you arrived."
+        "You study the spectrogram. The call signatures don't match anything in your reference library — not the downward j-shaped sweeps of Eptesicus fuscus, not the bouncy curves of Lasiurus, not the sigmoidal sweeps of Myotis. The patterns are wrong. Not unidentified-species wrong. Wrong in the way that a word repeated too many times stops meaning anything — familiar components assembled into something that has never existed. And they repeat. The same sequence, over and over. Like something is saying the same sentence, waiting for a response.",
+        "The spectrograms scroll across the display in a cascade. You scroll back through the recording history. The anomalous calls seem to begin exactly when your truck turned off the highway onto the access road. Whatever is making them knew you were coming before you arrived."
       ],
       "choices": [
         {
@@ -403,7 +403,7 @@ const STORY_DATA = {
       ],
       "choices": [
         {
-          "text": "Release the bat and move on — net two is close, and something was moving in it a moment ago",
+          "text": "Move on — net two is close, and something was moving in it a moment ago",
           "next_node": "second_capture",
           "sanity_change": 0,
           "health_change": 0
