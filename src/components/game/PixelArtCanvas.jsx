@@ -980,20 +980,32 @@ function drawBatteryDeadFg(ctx, w, h, scale, frame) {
 // ===================== RENDERER MAPS =====================
 
 function drawEndingMergedBg(ctx, w, h, scale, rand) {
-  // Dark net scene — creature tangled in mesh
+  // Pure darkness
   drawRect(ctx, 0, 0, w, h, PALETTE.black, scale);
   
-  // Mist net on left side
+  // Centered mist net — 4 shelves, vertical poles on sides
+  const netLeft = 32;
+  const netRight = 96;
+  const netTop = 15;
+  
+  // Vertical net poles
+  drawRect(ctx, netLeft, netTop, 2, h - 35, PALETTE.darkGray, scale);
+  drawRect(ctx, netRight, netTop, 2, h - 35, PALETTE.darkGray, scale);
+  
+  // Horizontal shelf strings (4 shelves)
   for (let shelf = 0; shelf < 4; shelf++) {
-    const y = 20 + shelf * 12;
-    for (let x = 8; x < 48; x++) {
-      if (rand() > 0.3) drawPixel(ctx, x, y, PALETTE.darkGray, scale);
+    const y = netTop + 10 + shelf * 16;
+    for (let x = netLeft + 2; x < netRight; x++) {
+      if (rand() > 0.25) drawPixel(ctx, x, y, PALETTE.gray, scale);
     }
   }
   
-  // Vertical net poles
-  drawRect(ctx, 7, 10, 2, h - 20, PALETTE.darkGray, scale);
-  drawRect(ctx, 48, 10, 2, h - 20, PALETTE.darkGray, scale);
+  // Vertical mesh lines
+  for (let vx = netLeft + 8; vx < netRight; vx += 6) {
+    for (let vy = netTop + 10; vy < netTop + 70; vy++) {
+      if (rand() > 0.4) drawPixel(ctx, vx, vy, PALETTE.darkGray, scale);
+    }
+  }
 }
 
 function drawEndingParalyzedBg(ctx, w, h, scale, rand) {
@@ -1040,49 +1052,65 @@ const BG_RENDERERS = {
 };
 
 function drawEndingMergedFg(ctx, w, h, scale, frame) {
-  const cx = 28;
-  const creatureY = 35;
+  const cx = 64; // centered
+  const figureY = 45;
+  const pulse = Math.sin(frame * 0.08) * 2;
   
-  // Creature mass in net — pulsing, amorphous
-  const pulse = Math.sin(frame * 0.08) * 3;
-  for (let y = creatureY - 12; y < creatureY + 18; y++) {
-    for (let x = cx - 15; x < cx + 15; x++) {
-      const dist = Math.sqrt(Math.pow(x - cx, 2) + Math.pow(y - creatureY, 2));
-      if (dist < 12 + pulse && Math.random() > 0.2) {
+  // Human silhouette caught in net — pulsing purple outline
+  // Head
+  const headSize = 6 + Math.floor(pulse);
+  for (let y = figureY - 22; y < figureY - 22 + headSize; y++) {
+    for (let x = cx - headSize / 2; x < cx + headSize / 2; x++) {
+      if (Math.random() > 0.3) {
         drawPixel(ctx, x, y, Math.random() > 0.5 ? PALETTE.purple : PALETTE.darkPurple, scale);
       }
     }
   }
   
-  // Arm extending from right side INTO the creature — merging point
-  const armY = creatureY - 2;
-  const armLength = 35;
-  for (let i = 0; i < armLength; i++) {
-    const armX = cx + 12 + i;
-    const mergeRatio = i / armLength; // 0 = solid arm, 1 = fully merged
-    
-    if (mergeRatio < 0.3) {
-      // Solid glove section (still yellow)
-      drawRect(ctx, armX, armY - 2, 1, 5, "#7a6a00", scale);
-      drawPixel(ctx, armX, armY - 1, "#b8a000", scale);
-      drawPixel(ctx, armX, armY, "#d4ba00", scale);
-    } else if (mergeRatio < 0.7) {
-      // Transition zone — pixels become intermittent, color shifts
-      if (Math.random() > mergeRatio) {
-        const c = Math.random() > 0.5 ? PALETTE.darkAmber : PALETTE.purple;
-        drawPixel(ctx, armX, armY + Math.floor((Math.random() - 0.5) * 3), c, scale);
+  // Torso — wider, elongated
+  const torsoWidth = 10 + Math.floor(pulse * 1.5);
+  for (let y = figureY - 15; y < figureY + 8; y++) {
+    for (let x = cx - torsoWidth / 2; x < cx + torsoWidth / 2; x++) {
+      if (Math.random() > 0.25) {
+        drawPixel(ctx, x, y, Math.random() > 0.5 ? PALETTE.purple : PALETTE.darkPurple, scale);
       }
     }
-    // Beyond 0.7 = fully absorbed, no pixels
   }
   
-  // Eyes opening across the creature mass
-  const eyeCount = 5 + Math.floor(frame / 20) % 8;
+  // Arms — spread out, tangled in net
+  // Left arm
+  for (let ax = 0; ax < 18; ax++) {
+    const ay = figureY - 8 + Math.floor(Math.sin(ax * 0.3) * 3);
+    const armX = cx - torsoWidth / 2 - ax;
+    drawPixel(ctx, armX, ay, PALETTE.purple, scale);
+    drawPixel(ctx, armX, ay + 1, PALETTE.darkPurple, scale);
+  }
+  // Right arm
+  for (let ax = 0; ax < 18; ax++) {
+    const ay = figureY - 8 + Math.floor(Math.sin(ax * 0.3 + 1) * 3);
+    const armX = cx + torsoWidth / 2 + ax;
+    drawPixel(ctx, armX, ay, PALETTE.purple, scale);
+    drawPixel(ctx, armX, ay + 1, PALETTE.darkPurple, scale);
+  }
+  
+  // Legs — partially visible at bottom
+  const legSpread = 6;
+  for (let ly = 0; ly < 14; ly++) {
+    // Left leg
+    drawPixel(ctx, cx - legSpread, figureY + 8 + ly, PALETTE.purple, scale);
+    drawPixel(ctx, cx - legSpread + 1, figureY + 8 + ly, PALETTE.darkPurple, scale);
+    // Right leg
+    drawPixel(ctx, cx + legSpread, figureY + 8 + ly, PALETTE.purple, scale);
+    drawPixel(ctx, cx + legSpread - 1, figureY + 8 + ly, PALETTE.darkPurple, scale);
+  }
+  
+  // Many pulsing eyes across the body
+  const eyeCount = 12 + Math.floor(frame / 25) % 6;
   for (let i = 0; i < eyeCount; i++) {
-    const ex = cx - 10 + (i * 5) % 20;
-    const ey = creatureY - 8 + (i * 7) % 16;
-    if ((frame + i * 11) % 20 > 3) {
-      drawPixel(ctx, ex, ey, i % 2 === 0 ? PALETTE.amber : PALETTE.sickGreen, scale);
+    const ex = cx - 12 + (i * 4) % 24;
+    const ey = figureY - 18 + (i * 5) % 30;
+    if ((frame + i * 11) % 22 > 4) {
+      drawPixel(ctx, ex, ey, i % 3 === 0 ? PALETTE.amber : (i % 3 === 1 ? PALETTE.sickGreen : PALETTE.red), scale);
     }
   }
 }
