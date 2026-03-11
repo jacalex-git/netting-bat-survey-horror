@@ -73,9 +73,18 @@ export default function TitleScreen({ onStart }) {
         initial={{ opacity: 0 }}
         animate={{ opacity: 0.3 }}
         transition={{ delay: 3, duration: 2 }}
-        className="absolute bottom-6 text-gray-700 text-[10px] font-mono"
+        className="absolute bottom-12 text-gray-700 text-[10px] font-mono"
       >
         "Every net catches something. Some things should not be caught."
+      </motion.p>
+
+      <motion.p
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 0.4 }}
+        transition={{ delay: 2, duration: 2 }}
+        className="absolute bottom-6 text-center text-xs text-amber-600/60"
+      >
+        a game by Jacob Alexander
       </motion.p>
     </div>
   );
