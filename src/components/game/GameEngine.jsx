@@ -312,7 +312,7 @@ const STORY_DATA = {
       "id": "follow_signal",
       "art_scene": "dark_forest",
       "text_variants": [
-        "You carry the detector like a compass, its directional indicator pulling you northeast through standing water and buttonbush. The call rate climbs with every meter. At thirty meters from the nets you stop. The calls are so dense on the display they've merged into a single white bar across the spectrogram. But you can't hear anything. The frequency is too high. It's inside your head, not outside it — a pressure behind your eyes that arrived so gradually you didn't notice it beginning.",
+        "You carry the detector like a compass, its indicator pulling you northeast through standing water and buttonbush. The call rate climbs with every meter. At thirty meters from the nets you stop. The calls are so dense on the display they've merged into a single white bar across the spectrogram. But you can't hear anything. The frequency is too high. It's inside your head, not outside it — a pressure behind your eyes that arrived so gradually you didn't notice it beginning.",
         "The undergrowth thins into a small clearing you don't remember seeing on the site map. The detector indicator locks. You're standing at the source. There's nothing here. No bat, no roost, no structure. Just an empty clearing with the faintest smell of ozone and wet mineral, and a sub-audible pulse that you feel in the cartilage of your ears more than you hear it. The detector screen glitches. For half a second it displays a spectrogram of a human voice saying your name."
       ],
       "choices": [
