@@ -428,20 +428,20 @@ const STORY_DATA = {
       ],
       "choices": [
         {
-          "text": "Band it, record the anomaly as precisely as you can, and release it — then check net three",
+          "text": "Record the anomaly as precisely as you can, and release it — then check net three",
           "next_node": "third_net_check",
           "sanity_change": -5,
           "health_change": 0
         },
         {
-          "text": "Open your hand and let it go without banding it. Walk to net three without looking back.",
+          "text": "Take no measurements. Open your hand and let it go. Walk to net three without looking back.",
           "next_node": "third_net_check",
           "sanity_change": -8,
           "health_change": 0,
           "adds_flag": "net_in_water"
         },
         {
-          "text": "Take a tissue sample carefully, then release the bat and move on to net three",
+          "text": "Take a hair sample carefully, then release the bat and move on to net three",
           "next_node": "third_net_check",
           "sanity_change": -10,
           "health_change": -5,
