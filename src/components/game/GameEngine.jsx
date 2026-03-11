@@ -600,7 +600,7 @@ const STORY_DATA = {
       "choices": [
         {
           "text": "Snap on your spare glove and keep trying to untangle the creature",
-          "next_node": "ending_consumed",
+          "next_node": "ending_merged",
           "sanity_change": -5,
           "health_change": -5,
           "removes_item": "Bat Handling Gloves",
@@ -638,7 +638,7 @@ const STORY_DATA = {
         },
         {
           "text": "Stand still. Do nothing. Wait it out for as long as you can.",
-          "next_node": "ending_darkness",
+          "next_node": "ending_paralyzed",
           "sanity_change": -15,
           "health_change": -5
         },
@@ -1208,6 +1208,38 @@ const STORY_DATA = {
       "art_scene": "dark_forest",
       "text_variants": [
         "By the time you understand what's happening, your inner ear has been restructured. Not damaged — improved. The ringing resolved hours ago into something else entirely: perfect spatial awareness, rendered in sound. You can hear the shape of the darkness. The depth of the water. The warm hollow of small mammals sheltering under the leaf litter twenty meters away. You can hear your own heartbeat echo off the trees and read the forest in its return.\n\nYou dropped the detector somewhere back there. You don't need it. You dropped the headlamp too — the light was noise, cluttering the picture. You navigate perfectly without it. You don't need the truck either, or the road, or any of the things you came with.\n\nYou roost at dawn in the canopy, folded tight and small and patient, your new ears cupped toward the wetland below. You don't remember the word for what you used to be. You don't need to. You can hear everything, forever, and the world is made entirely of sound.\n\n[ENDING: ECHOLOCATED — You followed the frequency. It followed you back. Inside.]"
+      ],
+      "choices": [
+        {
+          "text": "Wake up [Play Again]",
+          "next_node": "__restart__",
+          "action": "restart_game"
+        }
+      ]
+    },
+
+    "ending_merged": {
+      "id": "ending_merged",
+      "type": "ending",
+      "art_scene": "ending_merged",
+      "text_variants": [
+        "Your gloved hands reach into the net. Professional instinct. You've done this a thousand times — support the body, avoid the wings, work the mesh free gently. The creature doesn't struggle. It watches you with eyes that contain depths. Your fingers find the first tangle point. The mesh has wrapped around what should be a wing joint but isn't — the anatomy is wrong, recursive, folding into itself in ways that hurt to parse.\n\nYou feel it before you see it. The boundary between your glove and the creature's fur stops being a boundary. The latex doesn't tear. It merges. Becomes porous. You watch your hand sink into the creature's body like it's sinking into warm mud, except there's no resistance, no sensation of entry, just the horrible understanding that where you end and it begins is no longer a meaningful distinction.\n\nYou try to pull back. Your arm is in up to the elbow now. The creature makes a sound — not distress, satisfaction. Recognition. You were always going to do this. Every bat you've ever handled was practice for this moment. Your other hand reaches out on its own — no, you reach out, you've always wanted to understand, to know, to merge data and specimen until there's no difference.\n\nThe last thought that is purely yours: the mesh isn't tangled. It never was. The net caught exactly what it was designed to catch.\n\n[ENDING: INTEGRATED — The survey found its final data point. You.]"
+      ],
+      "choices": [
+        {
+          "text": "Wake up [Play Again]",
+          "next_node": "__restart__",
+          "action": "restart_game"
+        }
+      ]
+    },
+
+    "ending_paralyzed": {
+      "id": "ending_paralyzed",
+      "type": "ending",
+      "art_scene": "ending_paralyzed",
+      "text_variants": [
+        "You turn the headlamp back on. The creature is still in the net, ten meters away, motionless. It hasn't moved. You haven't moved. The mist hasn't moved. Everything has stopped except your heartbeat, which sounds deafening in the new silence.\n\nYou wait. Professional protocol: if you can't identify the species, observe. Document. Give it time. The creature's eyes catch your headlamp beam and hold it, pupils dilating to impossible widths. You can see yourself reflected in them — multiple copies, slightly offset, like you're being viewed through compound insect eyes that happen to be shaped like mammalian ones.\n\nTime becomes strange. You know you've been standing here — how long? Minutes? Hours? Your legs don't ache. You're not cold despite standing motionless in the wetland air. The creature blinks. All its eyes blink in sequence, left to right, a cascading wave of closures that takes three full seconds to complete. You count them. Forty-seven eyes. That's impossible. It only has two. You counted wrong. You count again. Seventy-three.\n\nYour hands are at your sides. When did you lower them? Your headlamp is pointed at the ground now. When did you look away? The creature is closer. You didn't see it move but it's closer. Three meters now. Close enough to hear it breathing — a wet, whistling sound through apertures that aren't a nose. It clicks once. You understand: it wasn't hunting you. It was waiting for you to understand that you'd already been caught. The waiting was the trap.\n\nYou've been standing here since you arrived. The rest — the nets, the captures, the survey — that was all permission you granted yourself to approach. Everything you did tonight was walking into this clearing and standing still while something decided whether you were interesting enough to keep.\n\nIt decides. You don't move. You can't remember how.\n\n[ENDING: THE VIGIL — You waited. It waited longer. You're both still waiting.]"
       ],
       "choices": [
         {

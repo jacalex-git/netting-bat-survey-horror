@@ -979,6 +979,45 @@ function drawBatteryDeadFg(ctx, w, h, scale, frame) {
 
 // ===================== RENDERER MAPS =====================
 
+function drawEndingMergedBg(ctx, w, h, scale, rand) {
+  // Dark net scene — creature tangled in mesh
+  drawRect(ctx, 0, 0, w, h, PALETTE.black, scale);
+  
+  // Mist net on left side
+  for (let shelf = 0; shelf < 4; shelf++) {
+    const y = 20 + shelf * 12;
+    for (let x = 8; x < 48; x++) {
+      if (rand() > 0.3) drawPixel(ctx, x, y, PALETTE.darkGray, scale);
+    }
+  }
+  
+  // Vertical net poles
+  drawRect(ctx, 7, 10, 2, h - 20, PALETTE.darkGray, scale);
+  drawRect(ctx, 48, 10, 2, h - 20, PALETTE.darkGray, scale);
+}
+
+function drawEndingParalyzedBg(ctx, w, h, scale, rand) {
+  // Still forest, no movement
+  drawRect(ctx, 0, 0, w, h, PALETTE.black, scale);
+  
+  // Static tree silhouettes
+  [18, 42, 68, 95, 115].forEach(tx => {
+    for (let y = 0; y < h - 15; y++) {
+      if (rand() > 0.25) {
+        drawPixel(ctx, tx, y, PALETTE.darkPurple, scale);
+        drawPixel(ctx, tx + 1, y, PALETTE.darkPurple, scale);
+      }
+    }
+  });
+  
+  // Ground
+  for (let y = h - 15; y < h; y++) {
+    for (let x = 0; x < w; x++) {
+      drawPixel(ctx, x, y, rand() > 0.5 ? PALETTE.deepGreen : PALETTE.darkPurple, scale);
+    }
+  }
+}
+
 const BG_RENDERERS = {
   arrival: drawArrivalBg,
   nets: drawNetsBg,
@@ -996,7 +1035,99 @@ const BG_RENDERERS = {
   ending_cave: drawEndingCaveBg,
   ending_darkness: drawEndingDarknessBg,
   battery_dead: drawBatteryDeadBg,
+  ending_merged: drawEndingMergedBg,
+  ending_paralyzed: drawEndingParalyzedBg,
 };
+
+function drawEndingMergedFg(ctx, w, h, scale, frame) {
+  const cx = 28;
+  const creatureY = 35;
+  
+  // Creature mass in net — pulsing, amorphous
+  const pulse = Math.sin(frame * 0.08) * 3;
+  for (let y = creatureY - 12; y < creatureY + 18; y++) {
+    for (let x = cx - 15; x < cx + 15; x++) {
+      const dist = Math.sqrt(Math.pow(x - cx, 2) + Math.pow(y - creatureY, 2));
+      if (dist < 12 + pulse && Math.random() > 0.2) {
+        drawPixel(ctx, x, y, Math.random() > 0.5 ? PALETTE.purple : PALETTE.darkPurple, scale);
+      }
+    }
+  }
+  
+  // Arm extending from right side INTO the creature — merging point
+  const armY = creatureY - 2;
+  const armLength = 35;
+  for (let i = 0; i < armLength; i++) {
+    const armX = cx + 12 + i;
+    const mergeRatio = i / armLength; // 0 = solid arm, 1 = fully merged
+    
+    if (mergeRatio < 0.3) {
+      // Solid glove section (still yellow)
+      drawRect(ctx, armX, armY - 2, 1, 5, "#7a6a00", scale);
+      drawPixel(ctx, armX, armY - 1, "#b8a000", scale);
+      drawPixel(ctx, armX, armY, "#d4ba00", scale);
+    } else if (mergeRatio < 0.7) {
+      // Transition zone — pixels become intermittent, color shifts
+      if (Math.random() > mergeRatio) {
+        const c = Math.random() > 0.5 ? PALETTE.darkAmber : PALETTE.purple;
+        drawPixel(ctx, armX, armY + Math.floor((Math.random() - 0.5) * 3), c, scale);
+      }
+    }
+    // Beyond 0.7 = fully absorbed, no pixels
+  }
+  
+  // Eyes opening across the creature mass
+  const eyeCount = 5 + Math.floor(frame / 20) % 8;
+  for (let i = 0; i < eyeCount; i++) {
+    const ex = cx - 10 + (i * 5) % 20;
+    const ey = creatureY - 8 + (i * 7) % 16;
+    if ((frame + i * 11) % 20 > 3) {
+      drawPixel(ctx, ex, ey, i % 2 === 0 ? PALETTE.amber : PALETTE.sickGreen, scale);
+    }
+  }
+}
+
+function drawEndingParalyzedFg(ctx, w, h, scale, frame) {
+  const cx = 64;
+  
+  // Creature silhouette in middle distance — perfectly still except eyes
+  const creatureX = cx;
+  const creatureY = 38;
+  
+  // Body outline
+  for (let y = creatureY - 6; y < creatureY + 8; y++) {
+    for (let x = creatureX - 8; x < creatureX + 8; x++) {
+      const edge = (x === creatureX - 8 || x === creatureX + 7 || y === creatureY - 6 || y === creatureY + 7);
+      if (edge) drawPixel(ctx, x, y, PALETTE.darkPurple, scale);
+    }
+  }
+  
+  // Eyes that blink in cascade — unsettling pattern
+  const blinkCycle = Math.floor(frame / 8) % 12;
+  for (let i = 0; i < 6; i++) {
+    const ex = creatureX - 6 + i * 2;
+    const ey = creatureY - 3 + (i % 2) * 2;
+    if (blinkCycle !== i) { // Each eye blinks at a different moment
+      drawPixel(ctx, ex, ey, i < 2 ? PALETTE.amber : PALETTE.sickGreen, scale);
+    }
+  }
+  
+  // Player viewpoint — bottom center, unmoving
+  const playerY = h - 10;
+  drawPixel(ctx, cx, playerY, PALETTE.darkGray, scale);
+  drawPixel(ctx, cx - 1, playerY, PALETTE.darkGray, scale);
+  drawPixel(ctx, cx + 1, playerY, PALETTE.darkGray, scale);
+  
+  // Headlamp beam — weak, static, pointing at creature
+  for (let d = 5; d < 22; d++) {
+    if (Math.random() < 0.4) {
+      const spread = Math.floor(d * 0.2);
+      for (let s = -spread; s <= spread; s++) {
+        drawPixel(ctx, cx + s, playerY - d, PALETTE.darkAmber, scale);
+      }
+    }
+  }
+}
 
 const FG_RENDERERS = {
   arrival: drawArrivalFg,
@@ -1015,6 +1146,8 @@ const FG_RENDERERS = {
   ending_cave: drawEndingCaveFg,
   ending_darkness: drawEndingDarknessFg,
   battery_dead: drawBatteryDeadFg,
+  ending_merged: drawEndingMergedFg,
+  ending_paralyzed: drawEndingParalyzedFg,
 };
 
 // ===================== COMPONENT =====================

@@ -4,7 +4,7 @@ import { useEffect, useRef, useState, useCallback } from "react";
 const HORROR_SCENES = new Set([
   "creature", "mist", "cave",
   "ending_cave", "ending_absorbed", "ending_darkness",
-  "battery_dead"
+  "battery_dead", "ending_merged", "ending_paralyzed"
 ]);
 
 function getMood(scene) {
