@@ -594,20 +594,20 @@ const STORY_DATA = {
       "id": "glove_failure",
       "art_scene": "creature",
       "text_variants": [
-        "You back away — but your glove catches on a snapped shelf string and tears. A clean rip across the palm. Your skin is exposed. The thing in the net turns toward your bare hand. It makes a sound at a frequency that seems designed specifically for the geometry of your skull. You feel it vibrate through the bones of your bare palm. A tingling spreads from the contact point — faint, electric, like a limb waking from numbness. You tell yourself it's adrenaline.",
+        "You back away — but your glove catches on an outstetched claw and tears. A clean rip across the palm. Your skin is exposed. The thing in the net turns toward your bare hand. It makes a sound at a frequency that seems designed specifically for the geometry of your skull. You feel it vibrate through the bones of your bare palm. A tingling spreads from the contact point — faint, electric, like a limb waking from numbness. You tell yourself it's adrenaline.",
         "You step back and the creature shifts its weight, one limb extending further than the mesh should allow. The tip of something — a claw, a finger, a structure with no name — grazes the back of your glove. The latex splits open. Your skin tingles where the air touches it. The tingling doesn't stop. It spreads. You look at your hand and see the faintest tracery of something beneath the skin — thread-thin, branching, moving toward your wrist."
       ],
       "choices": [
         {
-          "text": "Snap on your spare glove and back away from the net — the mist is already rolling off the pond",
-          "next_node": "the_mist",
+          "text": "Snap on your spare glove and keep trying to untangle the creature",
+          "next_node": "ending_consumed",
           "sanity_change": -5,
           "health_change": -5,
           "removes_item": "Bat Handling Gloves",
           "adds_flag": "infected"
         },
         {
-          "text": "Run. Don't stop to swap gloves. Bare hands and all — into the treeline.",
+          "text": "Run, bare hands and all — into the treeline.",
           "next_node": "flee_to_treeline",
           "sanity_change": -10,
           "health_change": -5,
@@ -631,14 +631,14 @@ const STORY_DATA = {
       ],
       "choices": [
         {
-          "text": "Turn the headlamp back on and run — but the mist is already rolling in off the water",
+          "text": "Turn the headlamp back on and run. Run into the mist.",
           "next_node": "the_mist",
           "sanity_change": -10,
           "health_change": -15
         },
         {
-          "text": "Stay completely still until it loses you — then the mist arrives and changes everything",
-          "next_node": "the_mist",
+          "text": "Stay completely still until it loses you — crouch down in the mist rolling in off the water",
+          "next_node": "ending_consumed",
           "sanity_change": -15,
           "health_change": -5
         },
