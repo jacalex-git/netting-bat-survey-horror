@@ -716,14 +716,14 @@ const STORY_DATA = {
           "removes_item": "Calipers"
         },
         {
-          "text": "Keep measuring — record everything you can before the mist closes in",
-          "next_node": "the_mist",
+          "text": "Keep measuring — record everything you can",
+          "next_node": "ending_consumed",
           "sanity_change": -25,
           "health_change": -10,
           "adds_flag": "chose_science"
         },
         {
-          "text": "Pocket a tissue sample and back away from the net — the mist is already moving in from the pond",
+          "text": "Back slowly away from the net — a strange mist is moving in from the pond",
           "next_node": "the_mist",
           "sanity_change": -20,
           "health_change": -25,
