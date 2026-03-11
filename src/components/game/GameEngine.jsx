@@ -398,8 +398,8 @@ const STORY_DATA = {
       "id": "process_bat",
       "art_scene": "bat_capture",
       "text_variants": [
-        "You extract the bat carefully, supporting its body. Forearm measurement: 42mm. Weight: 16g. Sex: female. Reproductive status: non-reproductive. You fit a band to its forearm — aluminum, 2.4mm. Everything by the book. You open your hand. It launches into the dark. Standard. But as it vanishes, you swear its wingbeat rhythm sounded like Morse code.",
-        "You extract the bat carefully, supporting its body. Forearm measurement: 42mm. Weight: 16g. Sex: female. Reproductive status: non-reproductive. You fit a band to its forearm — aluminum, 2.4mm. As you release it, the bat doesn't fly away. It hangs from your glove and stares at you. Its eyes reflect your headlamp, but the reflection is the wrong color. Then it's gone."
+        "You extract the bat carefully, supporting its body. Forearm measurement. Weight. Sex. Age. Reproductive status. Everything by the book. You open your hand. It launches into the dark. Standard. But as it vanishes, you swear its wingbeat rhythm sounded like Morse code.",
+        "You extract the bat carefully, supporting its body. Forearm measurement. Weight. Sex. Age. Reproductive status. As you release it, the bat doesn't fly away. It hangs from your glove and stares at you. Its eyes reflect your headlamp, but the reflection is the wrong color. Then it's gone."
       ],
       "choices": [
         {
