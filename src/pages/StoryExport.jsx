@@ -356,7 +356,7 @@ const STORY_DATA = {
           "adds_flag": "measured_it"
         },
         {
-          "text": "Try to collect a tissue sample",
+          "text": "Bow to the creature",
           "next_node": "the_mist",
           "sanity_change": -20,
           "health_change": -25,
