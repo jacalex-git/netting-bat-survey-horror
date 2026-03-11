@@ -80,9 +80,9 @@ export default function TitleScreen({ onStart }) {
 
       <motion.p
         initial={{ opacity: 0 }}
-        animate={{ opacity: 0.4 }}
+        animate={{ opacity: 0.7 }}
         transition={{ delay: 2, duration: 2 }}
-        className="absolute bottom-6 text-center text-xs text-amber-600/60"
+        className="absolute bottom-6 text-center text-sm text-amber-500/80 font-mono tracking-wide"
       >
         a game by Jacob Alexander
       </motion.p>
