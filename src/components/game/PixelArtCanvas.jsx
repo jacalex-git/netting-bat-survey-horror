@@ -1012,8 +1012,18 @@ function drawEndingParalyzedBg(ctx, w, h, scale, rand) {
   // Still forest, no movement
   drawRect(ctx, 0, 0, w, h, PALETTE.black, scale);
   
-  // Static tree silhouettes
-  [18, 42, 68, 95, 115].forEach(tx => {
+  // Ring of trees around clearing - left side
+  [8, 18, 28].forEach(tx => {
+    for (let y = 0; y < h - 15; y++) {
+      if (rand() > 0.25) {
+        drawPixel(ctx, tx, y, PALETTE.darkPurple, scale);
+        drawPixel(ctx, tx + 1, y, PALETTE.darkPurple, scale);
+      }
+    }
+  });
+  
+  // Ring of trees around clearing - right side
+  [100, 110, 120].forEach(tx => {
     for (let y = 0; y < h - 15; y++) {
       if (rand() > 0.25) {
         drawPixel(ctx, tx, y, PALETTE.darkPurple, scale);
@@ -1108,42 +1118,26 @@ function drawEndingMergedFg(ctx, w, h, scale, frame) {
 
 function drawEndingParalyzedFg(ctx, w, h, scale, frame) {
   const cx = 64;
+  const figY = h - 48;
   
-  // Creature silhouette in middle distance — perfectly still except eyes
-  const creatureX = cx;
-  const creatureY = 38;
+  // Figure flickers in and out based on frame
+  const flickerPattern = Math.sin(frame * 0.15) * Math.sin(frame * 0.37);
+  const isVisible = flickerPattern > -0.3;
   
-  // Body outline
-  for (let y = creatureY - 6; y < creatureY + 8; y++) {
-    for (let x = creatureX - 8; x < creatureX + 8; x++) {
-      const edge = (x === creatureX - 8 || x === creatureX + 7 || y === creatureY - 6 || y === creatureY + 7);
-      if (edge) drawPixel(ctx, x, y, PALETTE.darkPurple, scale);
-    }
-  }
-  
-  // Eyes that blink in cascade — unsettling pattern
-  const blinkCycle = Math.floor(frame / 8) % 12;
-  for (let i = 0; i < 6; i++) {
-    const ex = creatureX - 6 + i * 2;
-    const ey = creatureY - 3 + (i % 2) * 2;
-    if (blinkCycle !== i) { // Each eye blinks at a different moment
-      drawPixel(ctx, ex, ey, i < 2 ? PALETTE.amber : PALETTE.sickGreen, scale);
-    }
-  }
-  
-  // Player viewpoint — bottom center, unmoving
-  const playerY = h - 10;
-  drawPixel(ctx, cx, playerY, PALETTE.darkGray, scale);
-  drawPixel(ctx, cx - 1, playerY, PALETTE.darkGray, scale);
-  drawPixel(ctx, cx + 1, playerY, PALETTE.darkGray, scale);
-  
-  // Headlamp beam — weak, static, pointing at creature
-  for (let d = 5; d < 22; d++) {
-    if (Math.random() < 0.4) {
-      const spread = Math.floor(d * 0.2);
-      for (let s = -spread; s <= spread; s++) {
-        drawPixel(ctx, cx + s, playerY - d, PALETTE.darkAmber, scale);
-      }
+  if (isVisible) {
+    // Head
+    drawRect(ctx, cx - 2, figY - 7, 4, 2, PALETTE.darkGray, scale);
+    
+    // Body
+    drawRect(ctx, cx - 3, figY - 5, 6, 6, PALETTE.darkGray, scale);
+    
+    // Legs
+    drawRect(ctx, cx - 2, figY + 1, 2, 4, PALETTE.darkGray, scale);
+    drawRect(ctx, cx + 1, figY + 1, 2, 4, PALETTE.darkGray, scale);
+    
+    // Headlamp glow when visible
+    if (flickerPattern > 0.2) {
+      drawPixel(ctx, cx + 1, figY - 6, PALETTE.amber, scale);
     }
   }
 }
