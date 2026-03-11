@@ -637,8 +637,8 @@ const STORY_DATA = {
           "health_change": -15
         },
         {
-          "text": "Stay completely still until it loses you — crouch down in the mist rolling in off the water",
-          "next_node": "ending_consumed",
+          "text": "Stand still. Do nothing. Wait it out for as long as you can.",
+          "next_node": "ending_darkness",
           "sanity_change": -15,
           "health_change": -5
         },
@@ -716,7 +716,7 @@ const STORY_DATA = {
           "removes_item": "Calipers"
         },
         {
-          "text": "Keep measuring — record everything you can",
+          "text": "Use a spare mist-net pole to strike the creature. It's not from this world.",
           "next_node": "ending_consumed",
           "sanity_change": -25,
           "health_change": -10,
@@ -1191,7 +1191,7 @@ const STORY_DATA = {
       "type": "ending",
       "art_scene": "creature",
       "text_variants": [
-        "You swing again. The pole connects and this time the creature doesn't recoil — it wraps around the impact, absorbing the aluminum into itself like it's made of clay. The pole is gone. Your hands are empty. The creature unfolds from the net, its wingspan blotting out the trees behind it. It moves faster than anything that size should move. You don't have time to scream. Its mouth opens wider than physics allows and you see yourself reflected in concentric rings of teeth, each one carved with a band number you recognize. The last thing you understand is that you were always going to end up here. The survey was never yours.\n\n[ENDING: CONSUMED — You fought back. It was hungry.]"
+        "You swing. The pole connects and this time the creature doesn't recoil — it wraps around the impact, absorbing the aluminum into itself like it's made of clay. The pole is gone. Your hands are empty. The creature unfolds from the net, its wingspan blotting out the trees behind it. It moves faster than anything that size should move. You don't have time to scream. Its mouth opens wider than physics allows and you see yourself reflected in concentric rings of teeth, each one carved with a band number you recognize. The last thing you understand is that you were always going to end up here. The survey was never yours.\n\n[ENDING: CONSUMED — You fought back. It was hungry.]"
       ],
       "choices": [
         {
