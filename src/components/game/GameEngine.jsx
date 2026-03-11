@@ -625,7 +625,7 @@ const STORY_DATA = {
 
     "darkness_choice": {
       "id": "darkness_choice",
-      "art_scene": "dark_forest",
+      "art_scene": "creature",
       "text_variants": [
         "You kill the headlamp. Total darkness. For three heartbeats: nothing. Then you understand your mistake. It doesn't hunt by light. It echolocates. And in the dark, without your light, you just became invisible to yourself — but not to it. You hear it extract itself from the net with a sound like tearing silk. It clicks at you once. The click tells it everything about you — your shape, your density, the speed of your blood. You have maybe five seconds."
       ],
