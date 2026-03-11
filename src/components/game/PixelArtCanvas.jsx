@@ -989,8 +989,8 @@ function drawEndingMergedBg(ctx, w, h, scale, rand) {
   const netTop = 15;
   
   // Vertical net poles
-  drawRect(ctx, netLeft, netTop, 2, h - 35, PALETTE.darkGray, scale);
-  drawRect(ctx, netRight, netTop, 2, h - 35, PALETTE.darkGray, scale);
+  drawRect(ctx, netLeft, netTop, 2, h - netTop, PALETTE.darkGray, scale);
+  drawRect(ctx, netRight, netTop, 2, h - netTop, PALETTE.darkGray, scale);
   
   // Horizontal shelf strings (4 shelves)
   for (let shelf = 0; shelf < 4; shelf++) {
