@@ -1,0 +1,23 @@
+{
+  "name": "Scoreboard",
+  "type": "object",
+  "properties": {
+    "initials": {
+      "type": "string",
+      "description": "Player initials (3 characters)"
+    },
+    "ending": {
+      "type": "string",
+      "description": "Ending type achieved"
+    },
+    "turns": {
+      "type": "number",
+      "description": "Number of turns taken"
+    }
+  },
+  "required": [
+    "initials",
+    "ending",
+    "turns"
+  ]
+}

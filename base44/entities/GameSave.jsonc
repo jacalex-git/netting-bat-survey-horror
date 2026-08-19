@@ -1,0 +1,38 @@
+{
+  "name": "GameSave",
+  "type": "object",
+  "properties": {
+    "player_name": {
+      "type": "string",
+      "description": "Player character name"
+    },
+    "health": {
+      "type": "number",
+      "default": 100
+    },
+    "sanity": {
+      "type": "number",
+      "default": 100
+    },
+    "inventory": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "current_scene": {
+      "type": "string"
+    },
+    "flags": {
+      "type": "object",
+      "additionalProperties": true
+    },
+    "turn_count": {
+      "type": "number",
+      "default": 0
+    }
+  },
+  "required": [
+    "current_scene"
+  ]
+}
